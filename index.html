@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milena Reis — Arquitetura</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <p class="preloader-name">Milena Reis</p>
+    <div class="preloader-bar"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">M<span>R</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#projects">Projetos</a></li>
+      <li><a href="#services">Serviços</a></li>
+      <li><a href="#gallery">Galeria</a></li>
+      <li><a href="#contact">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Arquitetura & Design de Interiores</p>
+      <h1 class="hero-title">
+        Espaços que<br>
+        <em>respiram</em><br>
+        elegância
+      </h1>
+      <p class="hero-subtitle">
+        Criando ambientes que traduzem a alma de quem os habita, com rigor técnico e sensibilidade estética.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary"><span>Ver Projetos</span></a>
+        <a href="#contact" class="btn-secondary">Iniciar Projeto</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80"
+          alt="Arquitetura Milena Reis"
+        />
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>Arquitetura Residencial</span><span class="dot">·</span>
+      <span>Design de Interiores</span><span class="dot">·</span>
+      <span>Projeto Corporativo</span><span class="dot">·</span>
+      <span>Reforma & Restauro</span><span class="dot">·</span>
+      <span>Paisagismo</span><span class="dot">·</span>
+      <span>Consultoria de Materiais</span><span class="dot">·</span>
+      <span>Arquitetura Residencial</span><span class="dot">·</span>
+      <span>Design de Interiores</span><span class="dot">·</span>
+      <span>Projeto Corporativo</span><span class="dot">·</span>
+      <span>Reforma & Restauro</span><span class="dot">·</span>
+      <span>Paisagismo</span><span class="dot">·</span>
+      <span>Consultoria de Materiais</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="about-image-container reveal-left">
+      <img
+        class="about-img-main"
+        src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80"
+        alt="Milena Reis Arquiteta"
+      />
+      <img
+        class="about-img-accent"
+        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80"
+        alt="Detalhe de projeto"
+      />
+      <div class="about-badge">
+        <span>12+</span>
+        <small>Anos de<br>Experiência</small>
+      </div>
+    </div>
+
+    <div class="about-content reveal-right">
+      <p class="section-tag">Sobre a Arquiteta</p>
+      <h2 class="section-title merge-text">
+        <span class="word">Forma,</span>
+        <span class="word">função</span>
+        <span class="word">e</span>
+        <span class="word"><em>emoção</em></span>
+      </h2>
+
+      <p class="about-text">
+        Milena Reis é arquiteta e designer de interiores com mais de 12 anos de experiência na criação de espaços que transcendem o funcional e alcançam o essencial.
+      </p>
+      <p class="about-text">
+        Formada pela UFBA, com especialização em Design de Interiores em Lisboa, seu trabalho é marcado pela harmonia entre materiais naturais, luz e a narrativa de cada cliente.
+      </p>
+      <p class="about-text">
+        Cada projeto é uma conversa entre quem vive e o espaço que transforma essa vivência em arquitetura.
+      </p>
+
+      <div class="about-stats">
+        <div class="stat reveal">
+          <p class="stat-number">87</p>
+          <p class="stat-label">Projetos Realizados</p>
+        </div>
+        <div class="stat reveal">
+          <p class="stat-number">04</p>
+          <p class="stat-label">Prêmios IAB</p>
+        </div>
+        <div class="stat reveal">
+          <p class="stat-number">12</p>
+          <p class="stat-label">Anos de Carreira</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3D CANVAS ===== -->
+  <section id="canvas-section">
+    <canvas id="three-canvas"></canvas>
+    <div class="canvas-overlay-text">
+      <h2 class="canvas-title blur-in">
+        Geometria<br><em>como linguagem</em>
+      </h2>
+      <p class="canvas-sub blur-in">Cada volume conta uma história</p>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS CARD DECK ===== -->
+  <section id="projects">
+    <div class="projects-header reveal">
+      <div>
+        <p class="section-tag">Portfólio Selecionado</p>
+        <h2 class="section-title">Criações em <em>destaque</em></h2>
+      </div>
+      <a href="#" class="view-all">Todos os projetos</a>
+    </div>
+
+    <div class="card-deck-container">
+      <div class="cards-wrapper">
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80" alt="Casa Litoral" />
+          <div class="card-info">
+            <p class="card-category">Residencial · Salvador, BA</p>
+            <h3 class="card-title">Casa Litoral<br>Transparente</h3>
+            <p class="card-year">2024</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80" alt="Apartamento Mínimo" />
+          <div class="card-info">
+            <p class="card-category">Interiores · São Paulo, SP</p>
+            <h3 class="card-title">Apartamento<br>Sereno</h3>
+            <p class="card-year">2023</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80" alt="Villa Núcleo" />
+          <div class="card-info">
+            <p class="card-category">Residencial · Bahia</p>
+            <h3 class="card-title">Villa<br>Núcleo</h3>
+            <p class="card-year">2023</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80" alt="Escritório Vértice" />
+          <div class="card-info">
+            <p class="card-category">Comercial · Brasília, DF</p>
+            <h3 class="card-title">Escritório<br>Vértice</h3>
+            <p class="card-year">2022</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80" alt="Residência Aura" />
+          <div class="card-info">
+            <p class="card-category">Residencial · Recife, PE</p>
+            <h3 class="card-title">Residência<br>Aura</h3>
+            <p class="card-year">2022</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services">
+    <p class="section-tag reveal">O que fazemos</p>
+    <h2 class="section-title reveal">Serviços de<br><em>arquitetura</em></h2>
+
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <p class="service-number">01</p>
+        <h3 class="service-title">Projeto Arquitetônico</h3>
+        <p class="service-desc">Do conceito à execução, desenvolvemos projetos residenciais e comerciais com precisão técnica e identidade própria.</p>
+      </div>
+      <div class="service-item reveal">
+        <p class="service-number">02</p>
+        <h3 class="service-title">Design de Interiores</h3>
+        <p class="service-desc">Ambientação completa de espaços com curadoria de materiais, mobiliário e elementos decorativos que traduzem a sua essência.</p>
+      </div>
+      <div class="service-item reveal">
+        <p class="service-number">03</p>
+        <h3 class="service-title">Reforma e Restauro</h3>
+        <p class="service-desc">Requalificação de imóveis preservando a história e introduzindo modernidade com responsabilidade patrimonial.</p>
+      </div>
+      <div class="service-item reveal">
+        <p class="service-number">04</p>
+        <h3 class="service-title">Gestão de Obra</h3>
+        <p class="service-desc">Acompanhamento integral do processo construtivo garantindo fidelidade ao projeto, prazo e orçamento.</p>
+      </div>
+      <div class="service-item reveal">
+        <p class="service-number">05</p>
+        <h3 class="service-title">Paisagismo</h3>
+        <p class="service-desc">Integração entre arquitetura e natureza através de projetos de jardim e áreas externas que ampliam o habitar.</p>
+      </div>
+      <div class="service-item reveal">
+        <p class="service-number">06</p>
+        <h3 class="service-title">Consultoria</h3>
+        <p class="service-desc">Orientação especializada para reformas, compra de imóveis e projetos de decoração pontuais com expertise técnica.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLUR GALLERY ===== -->
+  <section id="gallery">
+    <div class="gallery-title-wrap">
+      <p class="section-tag reveal">Galeria</p>
+      <h2 class="section-title reveal">Detalhes que <em>importam</em></h2>
+    </div>
+    <div class="gallery-strip" id="galleryStrip">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80" alt="Detalhe 1" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Matéria e Luz</p></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Detalhe 2" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Volumes Serenos</p></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80" alt="Detalhe 3" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Silêncio Construído</p></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80" alt="Detalhe 4" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Textura Viva</p></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80" alt="Detalhe 5" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Equilíbrio Orgânico</p></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Detalhe 6" />
+        <div class="gallery-blur-overlay"><p class="gallery-caption">Névoa de Design</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-left reveal-left">
+        <p class="section-tag">Vamos Conversar</p>
+        <h2 class="section-title">Inicie seu <em>projeto</em></h2>
+        <p class="contact-text">
+          Cada grande projeto começa com uma conversa. Conte-nos sobre o seu espaço, seus sonhos e vamos construir juntos.
+        </p>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉</div>
+          <div class="contact-info-text">
+            <strong>Email</strong>
+            milena@milenareis.arq.br
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✆</div>
+          <div class="contact-info-text">
+            <strong>Telefone</strong>
+            +55 71 99999-0000
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">◈</div>
+          <div class="contact-info-text">
+            <strong>Atelier</strong>
+            Salvador, Bahia — Brasil
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form reveal-right">
+        <div class="form-group">
+          <input type="text" id="name" placeholder=" " />
+          <label for="name">Seu nome</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder=" " />
+          <label for="email">Email</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="subject" placeholder=" " />
+          <label for="subject">Tipo de projeto</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" placeholder=" "></textarea>
+          <label for="message">Sua mensagem</label>
+        </div>
+        <a href="mailto:milena@milenareis.arq.br" class="btn-primary">
+          <span>Enviar Mensagem</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">Milena Reis</p>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">Behance</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Pinterest</a>
+    </div>
+    <p class="footer-copy">© 2025 Milena Reis Arquitetura. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- THREE.JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
