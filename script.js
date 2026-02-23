@@ -1,477 +1,530 @@
 /* ============================================
    MILENA REIS — Script Principal
-   Efeitos: Cursor, Preloader, Parallax, 
-   Scroll Reveal, Merge Text, Three.js 3D,
-   Gallery Drag, Counters
-   ============================================ */
+   
+   ÍNDICE DAS FUNÇÕES:
+   1. removerTelaCarregamento()  → some o preloader
+   2. iniciarCursor()            → cursor personalizado
+   3. menuAoRolar()              → navbar fica sólida ao rolar
+   4. animarAoEntrarNaTela()     → scroll reveal geral
+   5. animarTextoPalavras()      → efeito merge de palavras
+   6. paralaxeAoRolar()          → imagens com parallax
+   7. contarNumeros()            → animação dos números (87, 12...)
+   8. galeriaArrastavel()        → drag scroll na galeria
+   9. iniciar3D()                → modelo Three.js
+   10. scrollSuaveDosLinks()     → âncoras com scroll animado
+   11. desfoqueEntreSecoes()     → blur nas seções ao rolar
+   12. cliqueDasCartas()         → clique centraliza carta
+   13. animarServicosEmCascata() → serviços aparecem um a um
+============================================ */
 
 (function () {
   'use strict';
 
-  // =========== PRELOADER ===========
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const preloader = document.getElementById('preloader');
-      preloader.classList.add('hidden');
-      setTimeout(() => preloader.remove(), 900);
-    }, 2200);
-  });
-
-  // =========== CURSOR PERSONALIZADO ===========
-  const cursor = document.getElementById('cursor');
-  const cursorRing = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-  });
-
-  function animateCursorRing() {
-    ringX += (mouseX - ringX) * 0.12;
-    ringY += (mouseY - ringY) * 0.12;
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-    requestAnimationFrame(animateCursorRing);
-  }
-  animateCursorRing();
-
-  document.querySelectorAll('a, button, .project-card, .gallery-item').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('active');
-      cursorRing.classList.add('active');
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('active');
-      cursorRing.classList.remove('active');
-    });
-  });
-
-  // =========== NAVBAR SCROLL ===========
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // =========== SCROLL REVEAL ===========
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .blur-in').forEach(el => {
-    revealObserver.observe(el);
-  });
-
-  // =========== MERGE TEXT EFFECT ===========
-  function initMergeText() {
-    document.querySelectorAll('.merge-text').forEach(el => {
-      // Split text into word spans if not already done
-      if (!el.querySelector('.word')) {
-        const text = el.textContent;
-        el.innerHTML = '';
-        text.split(' ').forEach(word => {
-          const span = document.createElement('span');
-          span.classList.add('word');
-          span.innerHTML = word + ' ';
-          el.appendChild(span);
-        });
-      }
+  /* ==========================================
+     1. TELA DE CARREGAMENTO
+     Some após 2.2s do load da página
+  ========================================== */
+  function removerTelaCarregamento() {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const telaCarregamento = document.getElementById('tela-carregamento');
+        telaCarregamento.classList.add('oculto');
+        setTimeout(() => telaCarregamento.remove(), 900);
+      }, 2200);
     });
   }
-  initMergeText();
 
-  const mergeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      entry.target.classList.toggle('visible', entry.isIntersecting);
+  /* ==========================================
+     2. CURSOR PERSONALIZADO
+     .cursor-ponto → segue o mouse direto
+     .cursor-anel  → segue com delay suave (lerp)
+  ========================================== */
+  function iniciarCursor() {
+    const cursoPonto = document.getElementById('cursor-ponto');
+    const cursorAnel = document.getElementById('cursor-anel');
+
+    let posMouseX = 0, posMouseY = 0;  // posição atual do mouse
+    let posAnelX  = 0, posAnelY  = 0; // posição atual do anel (lag)
+
+    // Atualiza a posição do ponto imediatamente
+    document.addEventListener('mousemove', (e) => {
+      posMouseX = e.clientX;
+      posMouseY = e.clientY;
+      cursoPonto.style.left = posMouseX + 'px';
+      cursoPonto.style.top  = posMouseY + 'px';
     });
-  }, { threshold: 0.3 });
 
-  document.querySelectorAll('.merge-text').forEach(el => mergeObserver.observe(el));
+    // Anel segue o mouse com interpolação (efeito lag suave)
+    function animarAnel() {
+      posAnelX += (posMouseX - posAnelX) * 0.12;
+      posAnelY += (posMouseY - posAnelY) * 0.12;
+      cursorAnel.style.left = posAnelX + 'px';
+      cursorAnel.style.top  = posAnelY + 'px';
+      requestAnimationFrame(animarAnel);
+    }
+    animarAnel();
 
-  // =========== PARALLAX ON SCROLL ===========
-  function handleParallax() {
-    const scrollY = window.scrollY;
+    // Cursor cresce ao passar sobre elementos clicáveis
+    document.querySelectorAll('a, button, .carta-projeto, .galeria-foto').forEach(elemento => {
+      elemento.addEventListener('mouseenter', () => {
+        cursoPonto.classList.add('ativo');
+        cursorAnel.classList.add('ativo');
+      });
+      elemento.addEventListener('mouseleave', () => {
+        cursoPonto.classList.remove('ativo');
+        cursorAnel.classList.remove('ativo');
+      });
+    });
+  }
 
-    // Hero image parallax
-    const heroImg = document.querySelector('.hero-image-wrap img');
-    if (heroImg) {
-      heroImg.style.transform = `scale(1) translateY(${scrollY * 0.25}px)`;
+  /* ==========================================
+     3. MENU AO ROLAR
+     Adiciona fundo ao menu quando rola > 60px
+  ========================================== */
+  function menuAoRolar() {
+    const menuTopo = document.getElementById('menu-topo');
+    window.addEventListener('scroll', () => {
+      menuTopo.classList.toggle('rolou', window.scrollY > 60);
+    });
+  }
+
+  /* ==========================================
+     4. ANIMAÇÕES AO ENTRAR NA TELA
+     Observa os elementos com classes de animação
+     e adiciona .visivel quando aparecem na tela
+  ========================================== */
+  function animarAoEntrarNaTela() {
+    const observadorEntrada = new IntersectionObserver((entradas) => {
+      entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('visivel');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    // Seleciona todos os elementos com animação de scroll
+    document.querySelectorAll(
+      '.animar-subindo, .animar-da-esquerda, .animar-da-direita, .entrada-blur'
+    ).forEach(elemento => observadorEntrada.observe(elemento));
+  }
+
+  /* ==========================================
+     5. EFEITO MERGE — PALAVRAS UMA A UMA
+     Palavras com .palavra sobem em cascata
+  ========================================== */
+  function animarTextoPalavras() {
+    // Já tem .palavra no HTML, só precisa observar
+    const observadorMerge = new IntersectionObserver((entradas) => {
+      entradas.forEach(entrada => {
+        entrada.target.classList.toggle('visivel', entrada.isIntersecting);
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.texto-merge').forEach(texto => {
+      observadorMerge.observe(texto);
+    });
+  }
+
+  /* ==========================================
+     6. EFEITO PARALAXE AO ROLAR
+     A foto do hero e a foto "sobre" se movem
+     em velocidades diferentes ao rolar
+  ========================================== */
+  function paralaxeAoRolar() {
+    function calcularParalaxe() {
+      const rolagem = window.scrollY;
+
+      // Foto do hero se move mais devagar que o scroll
+      const fotoHero = document.querySelector('.hero-foto-wrap img');
+      if (fotoHero) {
+        fotoHero.style.transform = `scale(1) translateY(${rolagem * 0.25}px)`;
+      }
+
+      // Foto da seção sobre tem movimento sutil
+      const fotoSobre = document.querySelector('.sobre-foto-principal');
+      if (fotoSobre) {
+        const secaoSobre = document.getElementById('secao-sobre');
+        const posicaoRelativa = secaoSobre.getBoundingClientRect().top;
+        const deslocamento = -posicaoRelativa * 0.08;
+        fotoSobre.style.transform = `translateY(${deslocamento}px)`;
+      }
     }
 
-    // About images subtle movement
-    const aboutMain = document.querySelector('.about-img-main');
-    if (aboutMain) {
-      const section = document.getElementById('about');
-      const rect = section.getBoundingClientRect();
-      const offset = -rect.top * 0.08;
-      aboutMain.style.transform = `translateY(${offset}px)`;
+    window.addEventListener('scroll', calcularParalaxe, { passive: true });
+  }
+
+  /* ==========================================
+     7. ANIMAÇÃO DOS NÚMEROS (CONTADORES)
+     Os números sobem de 0 até o valor final
+     quando a seção de estatísticas aparece
+  ========================================== */
+  function contarNumeros() {
+    function animarUmNumero(elemento, valorFinal, duracao = 1800) {
+      let inicioTempo = 0;
+      const passo = (timestamp) => {
+        if (!inicioTempo) inicioTempo = timestamp;
+        const progresso = Math.min((timestamp - inicioTempo) / duracao, 1);
+        const valorSuavizado = 1 - Math.pow(1 - progresso, 3); // easing cúbico
+        elemento.textContent = Math.floor(valorSuavizado * valorFinal);
+        if (progresso < 1) requestAnimationFrame(passo);
+        else elemento.textContent = valorFinal;
+      };
+      requestAnimationFrame(passo);
     }
+
+    const observadorEstatisticas = new IntersectionObserver((entradas) => {
+      entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+          const numeros = entrada.target.querySelectorAll('.estatistica-numero');
+          numeros.forEach(num => {
+            const valorAlvo = parseInt(num.textContent);
+            animarUmNumero(num, valorAlvo);
+          });
+          observadorEstatisticas.unobserve(entrada.target); // dispara só uma vez
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const blocoEstatisticas = document.querySelector('.sobre-estatisticas');
+    if (blocoEstatisticas) observadorEstatisticas.observe(blocoEstatisticas);
   }
 
-  window.addEventListener('scroll', handleParallax, { passive: true });
+  /* ==========================================
+     8. GALERIA ARRASTÁVEL
+     Arraste com mouse ou toque para rolar
+  ========================================== */
+  function galeriaArrastavel() {
+    const galeriaTrilha = document.getElementById('galeria-trilha');
+    if (!galeriaTrilha) return;
 
-  // =========== COUNTER ANIMATION ===========
-  function animateCounter(el, target, duration = 1800) {
-    let start = 0;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(ease * target);
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target;
-    };
-    requestAnimationFrame(step);
-  }
+    let estaArrastando    = false;
+    let posInicioArrasto  = 0;
+    let scrollInicioArrasto = 0;
 
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const numbers = entry.target.querySelectorAll('.stat-number');
-        numbers.forEach(num => {
-          const target = parseInt(num.textContent);
-          animateCounter(num, target);
-        });
-        counterObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  const statsSection = document.querySelector('.about-stats');
-  if (statsSection) counterObserver.observe(statsSection);
-
-  // =========== GALLERY HORIZONTAL DRAG SCROLL ===========
-  const galleryStrip = document.getElementById('galleryStrip');
-  if (galleryStrip) {
-    let isDown = false;
-    let startX, scrollLeft;
-
-    galleryStrip.addEventListener('mousedown', e => {
-      isDown = true;
-      galleryStrip.style.cursor = 'grabbing';
-      startX = e.pageX - galleryStrip.offsetLeft;
-      scrollLeft = galleryStrip.scrollLeft;
+    // Mouse
+    galeriaTrilha.addEventListener('mousedown', (e) => {
+      estaArrastando = true;
+      galeriaTrilha.style.cursor = 'grabbing';
+      posInicioArrasto    = e.pageX - galeriaTrilha.offsetLeft;
+      scrollInicioArrasto = galeriaTrilha.scrollLeft;
     });
 
-    galleryStrip.addEventListener('mouseleave', () => {
-      isDown = false;
-      galleryStrip.style.cursor = 'grab';
+    galeriaTrilha.addEventListener('mouseleave', () => {
+      estaArrastando = false;
+      galeriaTrilha.style.cursor = 'grab';
     });
 
-    galleryStrip.addEventListener('mouseup', () => {
-      isDown = false;
-      galleryStrip.style.cursor = 'grab';
+    galeriaTrilha.addEventListener('mouseup', () => {
+      estaArrastando = false;
+      galeriaTrilha.style.cursor = 'grab';
     });
 
-    galleryStrip.addEventListener('mousemove', e => {
-      if (!isDown) return;
+    galeriaTrilha.addEventListener('mousemove', (e) => {
+      if (!estaArrastando) return;
       e.preventDefault();
-      const x = e.pageX - galleryStrip.offsetLeft;
-      const walk = (x - startX) * 1.8;
-      galleryStrip.scrollLeft = scrollLeft - walk;
+      const posAtual       = e.pageX - galeriaTrilha.offsetLeft;
+      const distanciaArrastada = (posAtual - posInicioArrasto) * 1.8;
+      galeriaTrilha.scrollLeft = scrollInicioArrasto - distanciaArrastada;
     });
 
-    // Touch support
-    let touchStartX = 0;
-    let touchScrollLeft = 0;
+    // Toque (mobile)
+    let toqueInicioX    = 0;
+    let scrollInicioToque = 0;
 
-    galleryStrip.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].pageX;
-      touchScrollLeft = galleryStrip.scrollLeft;
+    galeriaTrilha.addEventListener('touchstart', (e) => {
+      toqueInicioX      = e.touches[0].pageX;
+      scrollInicioToque = galeriaTrilha.scrollLeft;
     }, { passive: true });
 
-    galleryStrip.addEventListener('touchmove', e => {
-      const diff = touchStartX - e.touches[0].pageX;
-      galleryStrip.scrollLeft = touchScrollLeft + diff;
+    galeriaTrilha.addEventListener('touchmove', (e) => {
+      const diferenca = toqueInicioX - e.touches[0].pageX;
+      galeriaTrilha.scrollLeft = scrollInicioToque + diferenca;
     }, { passive: true });
 
-    galleryStrip.style.cursor = 'grab';
-    galleryStrip.style.overflowX = 'scroll';
-    galleryStrip.style.scrollbarWidth = 'none';
+    galeriaTrilha.style.cursor     = 'grab';
+    galeriaTrilha.style.overflowX  = 'scroll';
+    galeriaTrilha.style.scrollbarWidth = 'none';
   }
 
-  // =========== THREE.JS 3D MODEL ===========
-  (function initThreeJS() {
-    const canvas = document.getElementById('three-canvas');
-    if (!canvas || typeof THREE === 'undefined') return;
+  /* ==========================================
+     9. MODELO 3D — THREE.JS
+     Objetos arquitetônicos flutuantes com
+     reação ao movimento do mouse
+  ========================================== */
+  function iniciar3D() {
+    const canvas3D = document.getElementById('canvas-3d');
+    if (!canvas3D || typeof THREE === 'undefined') return;
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true
-    });
+    // Setup básico
+    const renderizador = new THREE.WebGLRenderer({ canvas: canvas3D, antialias: true, alpha: true });
+    const cena         = new THREE.Scene();
+    const camera       = new THREE.PerspectiveCamera(55, 1, 0.1, 1000);
 
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1a0f0a); // dark brown-black
-
-    const camera = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    cena.background = new THREE.Color(0x1a0f0a);
     camera.position.set(0, 0, 12);
 
-    function resizeRenderer() {
-      const w = canvas.parentElement.offsetWidth;
-      const h = canvas.parentElement.offsetHeight;
-      renderer.setSize(w, h, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.aspect = w / h;
+    function ajustarTamanho() {
+      const largura  = canvas3D.parentElement.offsetWidth;
+      const altura   = canvas3D.parentElement.offsetHeight;
+      renderizador.setSize(largura, altura, false);
+      renderizador.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.aspect = largura / altura;
       camera.updateProjectionMatrix();
     }
-    resizeRenderer();
-    window.addEventListener('resize', resizeRenderer);
+    ajustarTamanho();
+    window.addEventListener('resize', ajustarTamanho);
 
-    // Materials
-    const nudeMat = new THREE.MeshPhysicalMaterial({
-      color: 0xd4bfaf,
-      roughness: 0.4,
-      metalness: 0.0,
-      clearcoat: 0.6,
-      clearcoatRoughness: 0.3,
-      transparent: false,
+    // --- Materiais ---
+    const materialNude = new THREE.MeshPhysicalMaterial({
+      color: 0xd4bfaf, roughness: 0.4, metalness: 0.0, clearcoat: 0.6, clearcoatRoughness: 0.3,
+    });
+    const materialArame = new THREE.MeshBasicMaterial({
+      color: 0x9a7d6d, wireframe: true, transparent: true, opacity: 0.18,
+    });
+    const materialBrilho = new THREE.MeshPhysicalMaterial({
+      color: 0xb89e8c, roughness: 0.2, metalness: 0.5, transparent: true, opacity: 0.7,
     });
 
-    const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x9a7d6d,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.18,
+    // --- Torre central (caixa vertical) ---
+    const geometriaTorre = new THREE.BoxGeometry(1.5, 5, 1.5);
+    const torreSolida    = new THREE.Mesh(geometriaTorre, materialNude);
+    const torreArame     = new THREE.Mesh(geometriaTorre, materialArame);
+    torreArame.scale.set(1.02, 1.02, 1.02);
+    cena.add(torreSolida, torreArame);
+
+    // --- Lajes flutuantes (caixas horizontais) ---
+    const geometriaLaje = new THREE.BoxGeometry(4, 0.15, 3);
+    const alturasDasLajes = [-2.5, 0, 2.5];
+    const lajesArray = alturasDasLajes.map((alturaY, i) => {
+      const laje = new THREE.Mesh(geometriaLaje, materialNude.clone());
+      laje.position.set(0, alturaY, 0);
+      laje.rotation.y = (i * Math.PI) / 6;
+      cena.add(laje);
+      return laje;
     });
 
-    const glowMat = new THREE.MeshPhysicalMaterial({
-      color: 0xb89e8c,
-      roughness: 0.2,
-      metalness: 0.5,
-      transparent: true,
-      opacity: 0.7,
+    // --- Esferas em órbita ---
+    const geometriaEsfera = new THREE.SphereGeometry(0.4, 32, 32);
+    const angulosDeOrbita = [0, Math.PI * 0.66, Math.PI * 1.33];
+    const dadosOrbita = angulosDeOrbita.map((angulo, i) => {
+      const esfera = new THREE.Mesh(geometriaEsfera, materialBrilho.clone());
+      esfera.material.color.setHex(i === 0 ? 0xd4bfaf : i === 1 ? 0xb89e8c : 0x9a7d6d);
+      const raio = 4 + i * 1.5;
+      esfera.position.set(Math.cos(angulo) * raio, (i - 1) * 1.5, Math.sin(angulo) * raio);
+      cena.add(esfera);
+      return { malha: esfera, raio, velocidade: 0.004 + i * 0.002, angulo, alturaBase: (i - 1) * 1.5 };
     });
 
-    // ---- GEOMETRIES: architectural-inspired ----
-
-    // Central floating tower form
-    const towerGeo = new THREE.BoxGeometry(1.5, 5, 1.5);
-    const tower = new THREE.Mesh(towerGeo, nudeMat);
-    tower.position.set(0, 0, 0);
-    scene.add(tower);
-
-    const towerWire = new THREE.Mesh(towerGeo, wireMat);
-    towerWire.scale.set(1.02, 1.02, 1.02);
-    scene.add(towerWire);
-
-    // Floating horizontal slabs
-    const slabGeo = new THREE.BoxGeometry(4, 0.15, 3);
-    const slabPositions = [-2.5, 0, 2.5];
-    const slabs = slabPositions.map((y, i) => {
-      const slab = new THREE.Mesh(slabGeo, nudeMat.clone());
-      slab.material.opacity = 0.85 + i * 0.05;
-      slab.position.set(0, y, 0);
-      slab.rotation.y = (i * Math.PI) / 6;
-      scene.add(slab);
-      return slab;
-    });
-
-    // Orbiting spheres
-    const sphereGeo = new THREE.SphereGeometry(0.4, 32, 32);
-    const orbits = [];
-    const orbitAngles = [0, Math.PI * 0.66, Math.PI * 1.33];
-    orbitAngles.forEach((angle, i) => {
-      const sphere = new THREE.Mesh(sphereGeo, glowMat.clone());
-      sphere.material.color.setHex(i === 0 ? 0xd4bfaf : i === 1 ? 0xb89e8c : 0x9a7d6d);
-      const radius = 4 + i * 1.5;
-      sphere.position.set(
-        Math.cos(angle) * radius,
-        (i - 1) * 1.5,
-        Math.sin(angle) * radius
-      );
-      scene.add(sphere);
-      orbits.push({ mesh: sphere, radius, speed: 0.004 + i * 0.002, angle, yPos: (i - 1) * 1.5 });
-    });
-
-    // Floating torus
-    const torusGeo = new THREE.TorusGeometry(3.5, 0.08, 12, 80);
-    const torus = new THREE.Mesh(torusGeo, new THREE.MeshPhysicalMaterial({
-      color: 0xb89e8c,
-      roughness: 0.3,
-      metalness: 0.3,
-      transparent: true,
-      opacity: 0.5,
+    // --- Torus flutuante ---
+    const geometriaTorus = new THREE.TorusGeometry(3.5, 0.08, 12, 80);
+    const torus = new THREE.Mesh(geometriaTorus, new THREE.MeshPhysicalMaterial({
+      color: 0xb89e8c, roughness: 0.3, metalness: 0.3, transparent: true, opacity: 0.5,
     }));
     torus.rotation.x = Math.PI / 2.4;
-    scene.add(torus);
+    cena.add(torus);
 
-    // Ambient + directional lights
-    const ambient = new THREE.AmbientLight(0xfdf8f4, 0.8);
-    scene.add(ambient);
+    // --- Iluminação ---
+    cena.add(new THREE.AmbientLight(0xfdf8f4, 0.8));
+    const luzDirecional = new THREE.DirectionalLight(0xfdf8f4, 1.8);
+    luzDirecional.position.set(6, 10, 8);
+    cena.add(luzDirecional);
+    const luzQuente   = new THREE.PointLight(0xd4bfaf, 2.5, 25);
+    const luzDetalhe  = new THREE.PointLight(0x9a7d6d, 1.8, 20);
+    luzQuente.position.set(-5, 3, 5);
+    luzDetalhe.position.set(5, -3, -5);
+    cena.add(luzQuente, luzDetalhe);
 
-    const dirLight = new THREE.DirectionalLight(0xfdf8f4, 1.8);
-    dirLight.position.set(6, 10, 8);
-    scene.add(dirLight);
-
-    const warmLight = new THREE.PointLight(0xd4bfaf, 2.5, 25);
-    warmLight.position.set(-5, 3, 5);
-    scene.add(warmLight);
-
-    const accentLight = new THREE.PointLight(0x9a7d6d, 1.8, 20);
-    accentLight.position.set(5, -3, -5);
-    scene.add(accentLight);
-
-    // Particle field
-    const particleCount = 500;
-    const positions = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 40;
+    // --- Campo de partículas (poeira no ar) ---
+    const quantidadeParticulas = 500;
+    const posParticulas = new Float32Array(quantidadeParticulas * 3);
+    for (let i = 0; i < quantidadeParticulas * 3; i++) {
+      posParticulas[i] = (Math.random() - 0.5) * 40;
     }
-    const particleGeo = new THREE.BufferGeometry();
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x9a7d6d,
-      size: 0.06,
-      transparent: true,
-      opacity: 0.55,
-    });
-    const particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
+    const geoParticulas = new THREE.BufferGeometry();
+    geoParticulas.setAttribute('position', new THREE.BufferAttribute(posParticulas, 3));
+    const particulas = new THREE.Points(geoParticulas, new THREE.PointsMaterial({
+      color: 0x9a7d6d, size: 0.06, transparent: true, opacity: 0.55,
+    }));
+    cena.add(particulas);
 
-    // Mouse interaction
-    let targetRotX = 0, targetRotY = 0;
-    let currentRotX = 0, currentRotY = 0;
+    // --- Reação ao mouse ---
+    let alvoRotacaoX = 0, alvoRotacaoY = 0;
+    let rotacaoAtualX = 0, rotacaoAtualY = 0;
 
-    document.addEventListener('mousemove', e => {
-      targetRotX = (e.clientY / window.innerHeight - 0.5) * 0.4;
-      targetRotY = (e.clientX / window.innerWidth - 0.5) * 0.6;
+    document.addEventListener('mousemove', (e) => {
+      alvoRotacaoX = (e.clientY / window.innerHeight - 0.5) * 0.4;
+      alvoRotacaoY = (e.clientX / window.innerWidth  - 0.5) * 0.6;
     });
 
-    let time = 0;
+    // --- Loop de animação ---
+    let tempoDecorrido = 0;
 
-    function animate() {
-      requestAnimationFrame(animate);
-      time += 0.008;
+    function animar3D() {
+      requestAnimationFrame(animar3D);
+      tempoDecorrido += 0.008;
 
-      // Smooth mouse follow for scene group rotation
-      currentRotX += (targetRotX - currentRotX) * 0.04;
-      currentRotY += (targetRotY - currentRotY) * 0.04;
+      // Interpolação suave do movimento do mouse
+      rotacaoAtualX += (alvoRotacaoX - rotacaoAtualX) * 0.04;
+      rotacaoAtualY += (alvoRotacaoY - rotacaoAtualY) * 0.04;
 
-      tower.rotation.y = time * 0.4;
-      towerWire.rotation.y = time * 0.4;
+      // Torre gira
+      torreSolida.rotation.y = tempoDecorrido * 0.4;
+      torreArame.rotation.y  = tempoDecorrido * 0.4;
 
-      slabs.forEach((slab, i) => {
-        slab.rotation.y = time * 0.15 * (i % 2 === 0 ? 1 : -1);
-        slab.position.y = slabPositions[i] + Math.sin(time + i) * 0.12;
+      // Lajes giram e flutuam
+      lajesArray.forEach((laje, i) => {
+        laje.rotation.y   = tempoDecorrido * 0.15 * (i % 2 === 0 ? 1 : -1);
+        laje.position.y   = alturasDasLajes[i] + Math.sin(tempoDecorrido + i) * 0.12;
       });
 
-      orbits.forEach(o => {
-        o.angle += o.speed;
-        o.mesh.position.x = Math.cos(o.angle) * o.radius;
-        o.mesh.position.z = Math.sin(o.angle) * o.radius;
-        o.mesh.position.y = o.yPos + Math.sin(time * 1.5 + o.angle) * 0.5;
+      // Esferas orbitam
+      dadosOrbita.forEach(orbita => {
+        orbita.angulo      += orbita.velocidade;
+        orbita.malha.position.x = Math.cos(orbita.angulo) * orbita.raio;
+        orbita.malha.position.z = Math.sin(orbita.angulo) * orbita.raio;
+        orbita.malha.position.y = orbita.alturaBase + Math.sin(tempoDecorrido * 1.5 + orbita.angulo) * 0.5;
       });
 
-      torus.rotation.z = time * 0.12;
-      torus.rotation.x = Math.PI / 2.4 + Math.sin(time * 0.4) * 0.1;
+      // Torus gira
+      torus.rotation.z = tempoDecorrido * 0.12;
+      torus.rotation.x = Math.PI / 2.4 + Math.sin(tempoDecorrido * 0.4) * 0.1;
 
-      particles.rotation.y = time * 0.03;
+      // Partículas giram devagar
+      particulas.rotation.y = tempoDecorrido * 0.03;
 
-      // Apply mouse parallax to camera
-      camera.position.x = Math.sin(currentRotY) * 2;
-      camera.position.y = Math.sin(currentRotX) * 1.5;
+      // Câmera segue o mouse suavemente
+      camera.position.x = Math.sin(rotacaoAtualY) * 2;
+      camera.position.y = Math.sin(rotacaoAtualX) * 1.5;
       camera.lookAt(0, 0, 0);
 
-      warmLight.position.x = Math.sin(time * 0.7) * 6;
-      warmLight.position.z = Math.cos(time * 0.7) * 6;
+      // Luz quente circula a cena
+      luzQuente.position.x = Math.sin(tempoDecorrido * 0.7) * 6;
+      luzQuente.position.z = Math.cos(tempoDecorrido * 0.7) * 6;
 
-      renderer.render(scene, camera);
+      renderizador.render(cena, camera);
     }
 
-    animate();
-  })();
-
-  // =========== SMOOTH SCROLL FOR NAV LINKS ===========
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  // =========== SECTION BLUR TRANSITION ON SCROLL ===========
-  // Apply blur effect to sections as they enter/exit viewport
-  function handleSectionBlur() {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const distanceFromCenter = Math.abs(rect.top + rect.height / 2 - vh / 2);
-      const maxDist = vh * 0.8;
-      const blurAmount = Math.max(0, (distanceFromCenter / maxDist - 0.6) * 8);
-      const opacity = Math.max(0.5, 1 - blurAmount * 0.04);
-      section.style.filter = `blur(${Math.min(blurAmount, 4)}px)`;
-      section.style.opacity = opacity;
-    });
-
-    // Canvas section no blur
-    const canvasSec = document.getElementById('canvas-section');
-    if (canvasSec) {
-      canvasSec.style.filter = 'none';
-      canvasSec.style.opacity = '1';
-    }
+    animar3D();
   }
 
-  window.addEventListener('scroll', handleSectionBlur, { passive: true });
-
-  // =========== CARD CLICK — BRING TO FRONT ===========
-  const cards = document.querySelectorAll('.project-card');
-  cards.forEach((card, i) => {
-    card.addEventListener('click', () => {
-      // Animate selected card to center
-      const offsets = [
-        'translateX(calc(-50% - 320px)) translateY(-65%) rotate(-12deg)',
-        'translateX(calc(-50% - 160px)) translateY(-65%) rotate(-6deg)',
-        'translateX(-50%) translateY(-67%)',
-        'translateX(calc(-50% + 160px)) translateY(-65%) rotate(6deg)',
-        'translateX(calc(-50% + 320px)) translateY(-65%) rotate(12deg)',
-      ];
-
-      cards.forEach((c, j) => {
-        c.style.transition = 'transform 0.7s cubic-bezier(0.76,0,0.24,1), z-index 0s, opacity 0.5s ease, box-shadow 0.5s ease';
-        if (j === i) {
-          c.style.transform = 'translateX(-50%) translateY(-70%) rotate(0deg) scale(1.05)';
-          c.style.zIndex = '20';
-          c.style.opacity = '1';
-          c.style.boxShadow = '0 40px 100px rgba(42,31,26,0.45)';
-        } else {
-          const dist = j - i;
-          const rotAngle = dist * 6;
-          const xOffset = dist * 160;
-          c.style.transform = `translateX(calc(-50% + ${xOffset}px)) translateY(-50%) rotate(${rotAngle}deg)`;
-          c.style.zIndex = `${5 - Math.abs(dist)}`;
-          c.style.opacity = j < i || j > i ? `${0.6 + Math.min(Math.abs(dist) * 0.1, 0.3)}` : '0.7';
+  /* ==========================================
+     10. SCROLL SUAVE DOS LINKS DO MENU
+     Clique nas âncoras rola suavemente
+  ========================================== */
+  function scrollSuaveDosLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const destino = document.querySelector(this.getAttribute('href'));
+        if (destino) {
+          e.preventDefault();
+          destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
-  });
+  }
 
-  // =========== STAGGER REVEAL FOR SERVICE ITEMS ===========
-  const serviceItems = document.querySelectorAll('.service-item');
-  const serviceObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        const delay = Array.from(serviceItems).indexOf(entry.target) * 100;
-        entry.target.style.transitionDelay = `${delay}ms`;
-        entry.target.classList.add('visible');
+  /* ==========================================
+     11. DESFOQUE ENTRE SEÇÕES AO ROLAR
+     Seções distantes do centro ficam levemente
+     desfocadas para criar profundidade de campo
+  ========================================== */
+  function desfoqueEntreSecoes() {
+    function aplicarDesfoque() {
+      const todasSecoes = document.querySelectorAll('section');
+      todasSecoes.forEach(secao => {
+        const posicao         = secao.getBoundingClientRect();
+        const alturaViewport  = window.innerHeight;
+        const centroDaSecao   = posicao.top + posicao.height / 2;
+        const distanciaDoMeio = Math.abs(centroDaSecao - alturaViewport / 2);
+        const distanciaMax    = alturaViewport * 0.8;
+        const intensidadeBlur = Math.max(0, (distanciaDoMeio / distanciaMax - 0.6) * 8);
+        const opacidade       = Math.max(0.5, 1 - intensidadeBlur * 0.04);
+
+        secao.style.filter  = `blur(${Math.min(intensidadeBlur, 4)}px)`;
+        secao.style.opacity = opacidade;
+      });
+
+      // A seção 3D nunca fica desfocada (senão o canvas trava)
+      const secao3D = document.getElementById('secao-modelo-3d');
+      if (secao3D) {
+        secao3D.style.filter  = 'none';
+        secao3D.style.opacity = '1';
       }
+    }
+
+    window.addEventListener('scroll', aplicarDesfoque, { passive: true });
+  }
+
+  /* ==========================================
+     12. CLIQUE NAS CARTAS DE PROJETO
+     A carta clicada vai para o centro e as 
+     outras se reorganizam ao redor
+  ========================================== */
+  function cliqueDasCartas() {
+    const todasAsCartas = document.querySelectorAll('.carta-projeto');
+
+    todasAsCartas.forEach((cartaClicada, indiceDaClicada) => {
+      cartaClicada.addEventListener('click', () => {
+        todasAsCartas.forEach((carta, indiceDaCarta) => {
+          carta.style.transition = 'transform 0.7s cubic-bezier(0.76,0,0.24,1), opacity 0.5s ease, box-shadow 0.5s ease';
+
+          if (indiceDaCarta === indiceDaClicada) {
+            // Carta clicada: vai para o centro e fica maior
+            carta.style.transform  = 'translateX(-50%) translateY(-70%) rotate(0deg) scale(1.05)';
+            carta.style.zIndex     = '20';
+            carta.style.opacity    = '1';
+            carta.style.boxShadow  = '0 40px 100px rgba(42,31,26,0.45)';
+          } else {
+            // Outras cartas: se afastam proporcionalmente
+            const distancia   = indiceDaCarta - indiceDaClicada;
+            const rotacao     = distancia * 6;
+            const deslocamento = distancia * 160;
+            carta.style.transform = `translateX(calc(-50% + ${deslocamento}px)) translateY(-50%) rotate(${rotacao}deg)`;
+            carta.style.zIndex    = `${5 - Math.abs(distancia)}`;
+            carta.style.opacity   = `${0.6 + Math.min(Math.abs(distancia) * 0.1, 0.3)}`;
+          }
+        });
+      });
     });
-  }, { threshold: 0.15 });
+  }
 
-  serviceItems.forEach(item => serviceObserver.observe(item));
+  /* ==========================================
+     13. SERVIÇOS APARECEM EM CASCATA
+     Cada serviço aparece com delay crescente
+  ========================================== */
+  function animarServicosEmCascata() {
+    const itensServico = document.querySelectorAll('.servico-item');
+    const listaServicos = Array.from(itensServico);
 
-  console.log('%cMilena Reis Arquitetura', 'font-family:serif;font-size:20px;color:#9a7d6d;');
-  console.log('%cPortfólio Digital', 'font-family:sans-serif;font-size:12px;color:#d4bfaf;');
+    const observadorServicos = new IntersectionObserver((entradas) => {
+      entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+          const posicaoNaLista = listaServicos.indexOf(entrada.target);
+          const atrasoMs       = posicaoNaLista * 100; // cada item 100ms depois
+          entrada.target.style.transitionDelay = `${atrasoMs}ms`;
+          entrada.target.classList.add('visivel');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    itensServico.forEach(item => observadorServicos.observe(item));
+  }
+
+  /* ==========================================
+     INICIALIZAR TUDO
+  ========================================== */
+  removerTelaCarregamento();
+  iniciarCursor();
+  menuAoRolar();
+  animarAoEntrarNaTela();
+  animarTextoPalavras();
+  paralaxeAoRolar();
+  contarNumeros();
+  galeriaArrastavel();
+  iniciar3D();
+  scrollSuaveDosLinks();
+  desfoqueEntreSecoes();
+  cliqueDasCartas();
+  animarServicosEmCascata();
 
 })();
