@@ -17,7 +17,7 @@
     }, 2200);
   });
 
-  // =========== CURSOR PERSONALIZADO ===========
+  //  CURSOR PERSONALIZADO 
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
   let mouseX = 0, mouseY = 0;
