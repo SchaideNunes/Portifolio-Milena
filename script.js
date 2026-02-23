@@ -247,159 +247,408 @@
   }
 
   /* ==========================================
-     9. MODELO 3D — THREE.JS
-     Objetos arquitetônicos flutuantes com
-     reação ao movimento do mouse
+     9. MODELO 3D — MAQUETE ARQUITETÔNICA
+     Cena de uma maquete modernista com:
+     - Edifício principal com pilotis e lajes
+     - Volumes secundários (corpos do programa)
+     - Planta baixa projetada no chão (grid)
+     - Painéis de vidro translúcidos
+     - Linhas de cota flutuantes (blueprint)
+     - Partículas de pó de maquete
+     - Câmera orbital suave + reação ao mouse
   ========================================== */
   function iniciar3D() {
     const canvas3D = document.getElementById('canvas-3d');
     if (!canvas3D || typeof THREE === 'undefined') return;
 
-    // Setup básico
-    const renderizador = new THREE.WebGLRenderer({ canvas: canvas3D, antialias: true, alpha: true });
-    const cena         = new THREE.Scene();
-    const camera       = new THREE.PerspectiveCamera(55, 1, 0.1, 1000);
+    // ---- Setup ----
+    const renderizador = new THREE.WebGLRenderer({ canvas: canvas3D, antialias: true, alpha: false });
+    const cena   = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 500);
 
-    cena.background = new THREE.Color(0x1a0f0a);
-    camera.position.set(0, 0, 12);
+    cena.background = new THREE.Color(0x110b08);
+    cena.fog = new THREE.FogExp2(0x110b08, 0.035);
+
+    camera.position.set(14, 9, 14);
+    camera.lookAt(0, 1, 0);
 
     function ajustarTamanho() {
-      const largura  = canvas3D.parentElement.offsetWidth;
-      const altura   = canvas3D.parentElement.offsetHeight;
-      renderizador.setSize(largura, altura, false);
+      const w = canvas3D.parentElement.offsetWidth;
+      const h = canvas3D.parentElement.offsetHeight;
+      renderizador.setSize(w, h, false);
       renderizador.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.aspect = largura / altura;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
     }
     ajustarTamanho();
     window.addEventListener('resize', ajustarTamanho);
 
-    // --- Materiais ---
-    const materialNude = new THREE.MeshPhysicalMaterial({
-      color: 0xd4bfaf, roughness: 0.4, metalness: 0.0, clearcoat: 0.6, clearcoatRoughness: 0.3,
-    });
-    const materialArame = new THREE.MeshBasicMaterial({
-      color: 0x9a7d6d, wireframe: true, transparent: true, opacity: 0.18,
-    });
-    const materialBrilho = new THREE.MeshPhysicalMaterial({
-      color: 0xb89e8c, roughness: 0.2, metalness: 0.5, transparent: true, opacity: 0.7,
+    // ---- Grupo principal — tudo gira junto ----
+    const grupoPrincipal = new THREE.Group();
+    cena.add(grupoPrincipal);
+
+    // ============================================
+    // MATERIAIS
+    // ============================================
+    // Concreto nude — paredes e lajes sólidas
+    const matConcreto = new THREE.MeshPhysicalMaterial({
+      color: 0xd9cbbf,
+      roughness: 0.75,
+      metalness: 0.0,
+      clearcoat: 0.1,
     });
 
-    // --- Torre central (caixa vertical) ---
-    const geometriaTorre = new THREE.BoxGeometry(1.5, 5, 1.5);
-    const torreSolida    = new THREE.Mesh(geometriaTorre, materialNude);
-    const torreArame     = new THREE.Mesh(geometriaTorre, materialArame);
-    torreArame.scale.set(1.02, 1.02, 1.02);
-    cena.add(torreSolida, torreArame);
-
-    // --- Lajes flutuantes (caixas horizontais) ---
-    const geometriaLaje = new THREE.BoxGeometry(4, 0.15, 3);
-    const alturasDasLajes = [-2.5, 0, 2.5];
-    const lajesArray = alturasDasLajes.map((alturaY, i) => {
-      const laje = new THREE.Mesh(geometriaLaje, materialNude.clone());
-      laje.position.set(0, alturaY, 0);
-      laje.rotation.y = (i * Math.PI) / 6;
-      cena.add(laje);
-      return laje;
+    // Concreto escuro — base e pilotis
+    const matConcretoEscuro = new THREE.MeshPhysicalMaterial({
+      color: 0xb0967e,
+      roughness: 0.85,
+      metalness: 0.0,
     });
 
-    // --- Esferas em órbita ---
-    const geometriaEsfera = new THREE.SphereGeometry(0.4, 32, 32);
-    const angulosDeOrbita = [0, Math.PI * 0.66, Math.PI * 1.33];
-    const dadosOrbita = angulosDeOrbita.map((angulo, i) => {
-      const esfera = new THREE.Mesh(geometriaEsfera, materialBrilho.clone());
-      esfera.material.color.setHex(i === 0 ? 0xd4bfaf : i === 1 ? 0xb89e8c : 0x9a7d6d);
-      const raio = 4 + i * 1.5;
-      esfera.position.set(Math.cos(angulo) * raio, (i - 1) * 1.5, Math.sin(angulo) * raio);
-      cena.add(esfera);
-      return { malha: esfera, raio, velocidade: 0.004 + i * 0.002, angulo, alturaBase: (i - 1) * 1.5 };
+    // Vidro translúcido — fachadas envidraçadas
+    const matVidro = new THREE.MeshPhysicalMaterial({
+      color: 0xc9e0d8,
+      roughness: 0.05,
+      metalness: 0.1,
+      transparent: true,
+      opacity: 0.18,
+      side: THREE.DoubleSide,
     });
 
-    // --- Torus flutuante ---
-    const geometriaTorus = new THREE.TorusGeometry(3.5, 0.08, 12, 80);
-    const torus = new THREE.Mesh(geometriaTorus, new THREE.MeshPhysicalMaterial({
-      color: 0xb89e8c, roughness: 0.3, metalness: 0.3, transparent: true, opacity: 0.5,
+    // Piscina / espelho d'água
+    const matAgua = new THREE.MeshPhysicalMaterial({
+      color: 0x8aadb5,
+      roughness: 0.0,
+      metalness: 0.3,
+      transparent: true,
+      opacity: 0.55,
+    });
+
+    // Linha de blueprint (planta baixa / cotas)
+    const matBlueprint = new THREE.LineBasicMaterial({
+      color: 0x9a7d6d,
+      transparent: true,
+      opacity: 0.5,
+    });
+
+    // Linha de grid do terreno
+    const matGrid = new THREE.LineBasicMaterial({
+      color: 0x5a3d2b,
+      transparent: true,
+      opacity: 0.35,
+    });
+
+    // ============================================
+    // TERRENO / BASE DA MAQUETE
+    // ============================================
+    const geoBase = new THREE.BoxGeometry(18, 0.18, 14);
+    const baseTerreno = new THREE.Mesh(geoBase, new THREE.MeshPhysicalMaterial({
+      color: 0x1e1410, roughness: 1.0, metalness: 0.0,
     }));
-    torus.rotation.x = Math.PI / 2.4;
-    cena.add(torus);
+    baseTerreno.position.y = -0.09;
+    grupoPrincipal.add(baseTerreno);
 
-    // --- Iluminação ---
-    cena.add(new THREE.AmbientLight(0xfdf8f4, 0.8));
-    const luzDirecional = new THREE.DirectionalLight(0xfdf8f4, 1.8);
-    luzDirecional.position.set(6, 10, 8);
-    cena.add(luzDirecional);
-    const luzQuente   = new THREE.PointLight(0xd4bfaf, 2.5, 25);
-    const luzDetalhe  = new THREE.PointLight(0x9a7d6d, 1.8, 20);
-    luzQuente.position.set(-5, 3, 5);
-    luzDetalhe.position.set(5, -3, -5);
-    cena.add(luzQuente, luzDetalhe);
+    // Grid da planta baixa desenhado sobre o terreno
+    function criarGridTerreno() {
+      const passoGrid = 1.5;
+      const largGrid = 18, profGrid = 14;
+      const pontos = [];
 
-    // --- Campo de partículas (poeira no ar) ---
-    const quantidadeParticulas = 500;
-    const posParticulas = new Float32Array(quantidadeParticulas * 3);
-    for (let i = 0; i < quantidadeParticulas * 3; i++) {
-      posParticulas[i] = (Math.random() - 0.5) * 40;
+      for (let x = -largGrid / 2; x <= largGrid / 2; x += passoGrid) {
+        pontos.push(new THREE.Vector3(x, 0.01, -profGrid / 2));
+        pontos.push(new THREE.Vector3(x, 0.01,  profGrid / 2));
+      }
+      for (let z = -profGrid / 2; z <= profGrid / 2; z += passoGrid) {
+        pontos.push(new THREE.Vector3(-largGrid / 2, 0.01, z));
+        pontos.push(new THREE.Vector3( largGrid / 2, 0.01, z));
+      }
+
+      const geo = new THREE.BufferGeometry().setFromPoints(pontos);
+      const grid = new THREE.LineSegments(geo, matGrid);
+      grupoPrincipal.add(grid);
+    }
+    criarGridTerreno();
+
+    // ============================================
+    // EDIFÍCIO PRINCIPAL — Corpo modernista
+    // Inspirado no brutalismo tropical:
+    // laje de cobertura, pilotis, fachada cega + vidro
+    // ============================================
+
+    // Laje de cobertura (telhado plano largo)
+    const geoLajeCobertura = new THREE.BoxGeometry(8.4, 0.2, 5.4);
+    const lajeCobertura = new THREE.Mesh(geoLajeCobertura, matConcreto);
+    lajeCobertura.position.set(0, 5.1, 0);
+    grupoPrincipal.add(lajeCobertura);
+
+    // Laje intermediária (segundo pavimento)
+    const geoLajeIntermedia = new THREE.BoxGeometry(8.4, 0.18, 5.4);
+    const lajeIntermedia = new THREE.Mesh(geoLajeIntermedia, matConcreto);
+    lajeIntermedia.position.set(0, 2.55, 0);
+    grupoPrincipal.add(lajeIntermedia);
+
+    // Laje do piso (sobre os pilotis)
+    const geoLajePiso = new THREE.BoxGeometry(8.4, 0.18, 5.4);
+    const lajePiso = new THREE.Mesh(geoLajePiso, matConcreto);
+    lajePiso.position.set(0, 1.1, 0);
+    grupoPrincipal.add(lajePiso);
+
+    // Parede traseira maciça (concreto aparente)
+    const geoParedeTraseira = new THREE.BoxGeometry(0.25, 4.0, 5.4);
+    const paredeTraseira = new THREE.Mesh(geoParedeTraseira, matConcretoEscuro);
+    paredeTraseira.position.set(-4.1, 3.1, 0);
+    grupoPrincipal.add(paredeTraseira);
+
+    // Parede lateral sólida
+    const geoParedeLateral = new THREE.BoxGeometry(8.4, 4.0, 0.25);
+    const paredeLateral = new THREE.Mesh(geoParedeLateral, matConcretoEscuro);
+    paredeLateral.position.set(0, 3.1, -2.7);
+    grupoPrincipal.add(paredeLateral);
+
+    // Fachada de vidro (frente)
+    const geoVidroFrente = new THREE.BoxGeometry(8.4, 4.0, 0.08);
+    const vidroFrente = new THREE.Mesh(geoVidroFrente, matVidro);
+    vidroFrente.position.set(0, 3.1, 2.7);
+    grupoPrincipal.add(vidroFrente);
+
+    // Fachada de vidro lateral direita
+    const geoVidroLateral = new THREE.BoxGeometry(0.08, 4.0, 5.4);
+    const vidroLateral = new THREE.Mesh(geoVidroLateral, matVidro);
+    vidroLateral.position.set(4.1, 3.1, 0);
+    grupoPrincipal.add(vidroLateral);
+
+    // Pilotis — 6 colunas circulares
+    const geoPiloti = new THREE.CylinderGeometry(0.12, 0.12, 1.1, 12);
+    const posicoesPilotis = [
+      [-3.2, -2.0], [-3.2, 0], [-3.2, 2.0],
+      [ 3.2, -2.0], [ 3.2, 0], [ 3.2, 2.0],
+    ];
+    posicoesPilotis.forEach(([px, pz]) => {
+      const piloti = new THREE.Mesh(geoPiloti, matConcretoEscuro);
+      piloti.position.set(px, 0.55, pz);
+      grupoPrincipal.add(piloti);
+    });
+
+    // Brises verticais na fachada de vidro
+    const geoBrise = new THREE.BoxGeometry(0.08, 3.8, 0.4);
+    for (let i = -3.5; i <= 3.5; i += 1.0) {
+      const brise = new THREE.Mesh(geoBrise, matConcreto);
+      brise.position.set(i, 3.1, 2.7);
+      grupoPrincipal.add(brise);
+    }
+
+    // ============================================
+    // VOLUMES SECUNDÁRIOS (programa arquitetônico)
+    // ============================================
+
+    // Bloco lateral baixo — área de serviço / garagem
+    const geoBlocoServico = new THREE.BoxGeometry(3.5, 1.2, 4.0);
+    const blocoServico = new THREE.Mesh(geoBlocoServico, matConcretoEscuro);
+    blocoServico.position.set(-6.2, 0.6, -1.0);
+    grupoPrincipal.add(blocoServico);
+
+    // Telhado do bloco secundário
+    const geoTelhadoSecundario = new THREE.BoxGeometry(3.7, 0.15, 4.2);
+    const telhadoSecundario = new THREE.Mesh(geoTelhadoSecundario, matConcreto);
+    telhadoSecundario.position.set(-6.2, 1.27, -1.0);
+    grupoPrincipal.add(telhadoSecundario);
+
+    // Bloco de escada / circulação vertical
+    const geoCaixaEscada = new THREE.BoxGeometry(1.4, 5.3, 1.4);
+    const caixaEscada = new THREE.Mesh(geoCaixaEscada, matConcretoEscuro);
+    caixaEscada.position.set(5.5, 2.65, -1.5);
+    grupoPrincipal.add(caixaEscada);
+
+    // Pérgola / marquise de entrada
+    const geoMarquise = new THREE.BoxGeometry(4.0, 0.12, 1.8);
+    const marquise = new THREE.Mesh(geoMarquise, matConcreto);
+    marquise.position.set(0, 1.5, 4.2);
+    grupoPrincipal.add(marquise);
+
+    // Colunas da marquise
+    [[- 1.6, 4.9], [1.6, 4.9]].forEach(([px, pz]) => {
+      const col = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.08, 0.08, 1.5, 10),
+        matConcretoEscuro
+      );
+      col.position.set(px, 0.75, pz);
+      grupoPrincipal.add(col);
+    });
+
+    // ============================================
+    // ESPELHO D'ÁGUA / PISCINA
+    // ============================================
+    const geoEspejoAgua = new THREE.BoxGeometry(4.5, 0.08, 2.0);
+    const espejoAgua = new THREE.Mesh(geoEspejoAgua, matAgua);
+    espejoAgua.position.set(3.5, 0.04, 4.5);
+    grupoPrincipal.add(espejoAgua);
+
+    // Borda da piscina
+    const geoBordaEspelho = new THREE.BoxGeometry(4.7, 0.1, 2.2);
+    const bordaEspelho = new THREE.Mesh(geoBordaEspelho, matConcretoEscuro);
+    bordaEspelho.position.set(3.5, 0.0, 4.5);
+    grupoPrincipal.add(bordaEspelho);
+
+    // ============================================
+    // LINHAS DE COTA / BLUEPRINT FLUTUANTES
+    // Linhas finas que indicam dimensões, como
+    // em uma prancha arquitetônica
+    // ============================================
+    function criarLinhaCota(pontoA, pontoB) {
+      const geo = new THREE.BufferGeometry().setFromPoints([pontoA, pontoB]);
+      return new THREE.Line(geo, matBlueprint);
+    }
+
+    // Linha de cota horizontal (largura do edifício)
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-4.2, 5.5, 3.5),
+      new THREE.Vector3( 4.2, 5.5, 3.5)
+    ));
+    // Hachuras verticais das extremidades
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-4.2, 5.3, 3.5),
+      new THREE.Vector3(-4.2, 5.7, 3.5)
+    ));
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3( 4.2, 5.3, 3.5),
+      new THREE.Vector3( 4.2, 5.7, 3.5)
+    ));
+
+    // Linha de cota vertical (altura total)
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-5.5, 0, 3.0),
+      new THREE.Vector3(-5.5, 5.2, 3.0)
+    ));
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-5.7, 0, 3.0),
+      new THREE.Vector3(-5.3, 0, 3.0)
+    ));
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-5.7, 5.2, 3.0),
+      new THREE.Vector3(-5.3, 5.2, 3.0)
+    ));
+
+    // Linha de nível do piso (marcação de pavimento)
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-5.0, 1.1, -3.5),
+      new THREE.Vector3( 5.5, 1.1, -3.5)
+    ));
+    grupoPrincipal.add(criarLinhaCota(
+      new THREE.Vector3(-5.0, 2.55, -3.5),
+      new THREE.Vector3( 5.5, 2.55, -3.5)
+    ));
+
+    // ============================================
+    // VEGETAÇÃO ESTILIZADA — Esferas de árvore
+    // ============================================
+    const geoArvore = new THREE.SphereGeometry(0.55, 8, 8);
+    const matArvore = new THREE.MeshPhysicalMaterial({
+      color: 0x4a6741, roughness: 1.0, metalness: 0.0,
+      transparent: true, opacity: 0.7,
+      wireframe: false,
+    });
+    const geoCaule = new THREE.CylinderGeometry(0.06, 0.06, 0.7, 6);
+    const matCaule = new THREE.MeshBasicMaterial({ color: 0x3d2a1e });
+
+    const posicoesArvores = [
+      [-7.5, 3.5], [-7.5, 1.0], [6.5, 4.5], [6.5, 2.0],
+      [1.5, 6.0], [-1.5, 6.0], [4.0, 6.5],
+    ];
+    posicoesArvores.forEach(([px, pz]) => {
+      const copa = new THREE.Mesh(geoArvore, matArvore.clone());
+      copa.position.set(px, 1.2, pz);
+      copa.scale.set(1, 1.15, 1);
+      grupoPrincipal.add(copa);
+
+      const caule = new THREE.Mesh(geoCaule, matCaule);
+      caule.position.set(px, 0.35, pz);
+      grupoPrincipal.add(caule);
+    });
+
+    // ============================================
+    // PARTÍCULAS — pó de maquete no ar
+    // ============================================
+    const qtdParticulas = 400;
+    const posParticulas = new Float32Array(qtdParticulas * 3);
+    for (let i = 0; i < qtdParticulas * 3; i++) {
+      posParticulas[i] = (Math.random() - 0.5) * 30;
     }
     const geoParticulas = new THREE.BufferGeometry();
     geoParticulas.setAttribute('position', new THREE.BufferAttribute(posParticulas, 3));
     const particulas = new THREE.Points(geoParticulas, new THREE.PointsMaterial({
-      color: 0x9a7d6d, size: 0.06, transparent: true, opacity: 0.55,
+      color: 0x9a7d6d, size: 0.05, transparent: true, opacity: 0.4,
     }));
     cena.add(particulas);
 
-    // --- Reação ao mouse ---
-    let alvoRotacaoX = 0, alvoRotacaoY = 0;
-    let rotacaoAtualX = 0, rotacaoAtualY = 0;
+    // ============================================
+    // ILUMINAÇÃO — simula luz natural de atelier
+    // ============================================
+    // Luz ambiente suave
+    cena.add(new THREE.AmbientLight(0xfdf4ec, 0.5));
+
+    // Luz solar principal (diagonal superior)
+    const luzSolar = new THREE.DirectionalLight(0xfff5e6, 2.2);
+    luzSolar.position.set(10, 18, 8);
+    luzSolar.castShadow = false;
+    cena.add(luzSolar);
+
+    // Luz de preenchimento (lateral fria)
+    const luzFria = new THREE.DirectionalLight(0xdde8f0, 0.6);
+    luzFria.position.set(-8, 5, -6);
+    cena.add(luzFria);
+
+    // Luz de chão suave (bounce light)
+    const luzChao = new THREE.PointLight(0xc4a882, 0.8, 20);
+    luzChao.position.set(0, -1, 0);
+    cena.add(luzChao);
+
+    // ============================================
+    // ÓRBITA DA CÂMERA + REAÇÃO AO MOUSE
+    // ============================================
+    let anguloOrbitaY   = Math.PI / 4;   // rotação horizontal ao redor do modelo
+    let alturaCameraY   = 9;             // altura da câmera
+    let raioCameraY     = 20;            // distância do centro
+
+    let mouseInfluenciaX = 0, mouseInfluenciaY = 0;  // influência suave do mouse
+    let mouseAlvoX = 0, mouseAlvoY = 0;
 
     document.addEventListener('mousemove', (e) => {
-      alvoRotacaoX = (e.clientY / window.innerHeight - 0.5) * 0.4;
-      alvoRotacaoY = (e.clientX / window.innerWidth  - 0.5) * 0.6;
+      mouseAlvoX = (e.clientX / window.innerWidth  - 0.5) * 0.3;
+      mouseAlvoY = (e.clientY / window.innerHeight - 0.5) * 0.2;
     });
 
-    // --- Loop de animação ---
+    // ---- Loop de animação ----
     let tempoDecorrido = 0;
 
     function animar3D() {
       requestAnimationFrame(animar3D);
-      tempoDecorrido += 0.008;
+      tempoDecorrido += 0.004;
 
-      // Interpolação suave do movimento do mouse
-      rotacaoAtualX += (alvoRotacaoX - rotacaoAtualX) * 0.04;
-      rotacaoAtualY += (alvoRotacaoY - rotacaoAtualY) * 0.04;
+      // Órbita automática lenta ao redor do edifício
+      anguloOrbitaY += 0.0025;
 
-      // Torre gira
-      torreSolida.rotation.y = tempoDecorrido * 0.4;
-      torreArame.rotation.y  = tempoDecorrido * 0.4;
+      // Interpolação suave do mouse
+      mouseInfluenciaX += (mouseAlvoX - mouseInfluenciaX) * 0.05;
+      mouseInfluenciaY += (mouseAlvoY - mouseInfluenciaY) * 0.05;
 
-      // Lajes giram e flutuam
-      lajesArray.forEach((laje, i) => {
-        laje.rotation.y   = tempoDecorrido * 0.15 * (i % 2 === 0 ? 1 : -1);
-        laje.position.y   = alturasDasLajes[i] + Math.sin(tempoDecorrido + i) * 0.12;
-      });
+      // Posição da câmera orbita ao redor do centro
+      camera.position.x = Math.cos(anguloOrbitaY + mouseInfluenciaX) * raioCameraY;
+      camera.position.z = Math.sin(anguloOrbitaY + mouseInfluenciaX) * raioCameraY;
+      camera.position.y = alturaCameraY + mouseInfluenciaY * -5;
+      camera.lookAt(0, 2, 0);
 
-      // Esferas orbitam
-      dadosOrbita.forEach(orbita => {
-        orbita.angulo      += orbita.velocidade;
-        orbita.malha.position.x = Math.cos(orbita.angulo) * orbita.raio;
-        orbita.malha.position.z = Math.sin(orbita.angulo) * orbita.raio;
-        orbita.malha.position.y = orbita.alturaBase + Math.sin(tempoDecorrido * 1.5 + orbita.angulo) * 0.5;
-      });
+      // Leve flutuação da maquete toda (como se estivesse em exposição)
+      grupoPrincipal.position.y = Math.sin(tempoDecorrido * 0.5) * 0.08;
 
-      // Torus gira
-      torus.rotation.z = tempoDecorrido * 0.12;
-      torus.rotation.x = Math.PI / 2.4 + Math.sin(tempoDecorrido * 0.4) * 0.1;
+      // Vidros pulsam levemente em opacidade
+      vidroFrente.material.opacity  = 0.15 + Math.sin(tempoDecorrido * 0.8) * 0.04;
+      vidroLateral.material.opacity = 0.15 + Math.cos(tempoDecorrido * 0.8) * 0.04;
+
+      // Espelho d'água ondula
+      espejoAgua.material.opacity = 0.45 + Math.sin(tempoDecorrido * 1.2) * 0.12;
 
       // Partículas giram devagar
-      particulas.rotation.y = tempoDecorrido * 0.03;
-
-      // Câmera segue o mouse suavemente
-      camera.position.x = Math.sin(rotacaoAtualY) * 2;
-      camera.position.y = Math.sin(rotacaoAtualX) * 1.5;
-      camera.lookAt(0, 0, 0);
-
-      // Luz quente circula a cena
-      luzQuente.position.x = Math.sin(tempoDecorrido * 0.7) * 6;
-      luzQuente.position.z = Math.cos(tempoDecorrido * 0.7) * 6;
+      particulas.rotation.y = tempoDecorrido * 0.015;
 
       renderizador.render(cena, camera);
     }
