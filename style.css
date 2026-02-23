@@ -10,10 +10,10 @@
   --nude-200: #f5ede3;
   --nude-300: #e8d9cc;
   --nude-400: #d4bfaf;
-  --nude-500: #b89e8c;
-  --nude-600: #9a7d6d;
-  --brown: #7a5c4e;
-  --dark: #2a1f1a;
+  --nude-500: #9a7d6a;   /* era #b89e8c — mais escuro para melhor contraste */
+  --nude-600: #6b4f3a;   /* era #9a7d6d — bem mais escuro */
+  --brown: #5a3d2b;      /* era #7a5c4e — mais escuro */
+  --dark: #1a0f0a;       /* era #2a1f1a — mais profundo */
   --white: #ffffff;
   --cream: #faf6f1;
 
@@ -43,7 +43,7 @@ body {
   overflow-x: hidden;
 }
 
-/*  CURSOR CUSTOMIZADO  */
+/* =========== CURSOR CUSTOMIZADO =========== */
 .cursor {
   width: 10px;
   height: 10px;
@@ -163,7 +163,7 @@ nav.scrolled {
 
 .nav-logo span {
   font-style: italic;
-  color: var(--nude-600);
+  color: var(--brown);
 }
 
 .nav-links {
@@ -218,7 +218,7 @@ nav.scrolled {
   font-size: 0.7rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--nude-600);
+  color: var(--brown);
   margin-bottom: 28px;
   opacity: 0;
   animation: fadeUp 0.8s ease 2.2s forwards;
@@ -237,14 +237,14 @@ nav.scrolled {
 
 .hero-title em {
   font-style: italic;
-  color: var(--nude-600);
+  color: var(--brown);
 }
 
 .hero-subtitle {
   margin-top: 32px;
-  font-size: 0.85rem;
-  line-height: 1.8;
-  color: var(--nude-600);
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: #4a3326;
   max-width: 340px;
   opacity: 0;
   animation: fadeUp 0.8s ease 2.6s forwards;
@@ -368,7 +368,7 @@ nav.scrolled {
   font-size: 0.62rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--nude-500);
+  color: #6b4f3a;
   writing-mode: vertical-rl;
 }
 
@@ -483,7 +483,7 @@ nav.scrolled {
   font-size: 0.68rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--nude-600);
+  color: var(--brown);
   margin-bottom: 20px;
 }
 
@@ -497,12 +497,12 @@ nav.scrolled {
   margin-bottom: 32px;
 }
 
-.section-title em { font-style: italic; color: var(--nude-600); }
+.section-title em { font-style: italic; color: var(--brown); }
 
 .about-text {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.9;
-  color: var(--nude-600);
+  color: #3d2a1e;
   margin-bottom: 16px;
 }
 
@@ -527,7 +527,7 @@ nav.scrolled {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--nude-500);
+  color: #5a3d2b;
   margin-top: 6px;
 }
 
@@ -576,7 +576,7 @@ nav.scrolled {
   font-size: 0.72rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--nude-500);
+  color: #c8b4a4;
   margin-top: 20px;
 }
 
@@ -607,6 +607,7 @@ nav.scrolled {
   gap: 10px;
   transition: gap 0.3s ease;
   flex-shrink: 0;
+  font-weight: 500;
 }
 
 .view-all:hover { gap: 18px; }
@@ -678,7 +679,7 @@ nav.scrolled {
   font-size: 0.62rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--nude-400);
+  color: #c8b4a4;
   margin-bottom: 8px;
 }
 
@@ -692,7 +693,7 @@ nav.scrolled {
 
 .card-year {
   font-size: 0.72rem;
-  color: var(--nude-500);
+  color: #c8b4a4;
   margin-top: 8px;
 }
 
@@ -717,8 +718,8 @@ nav.scrolled {
   overflow: hidden;
 }
 
-#services .section-tag { color: var(--nude-500); }
-#services .section-title { color: var(--nude-200); }
+#services .section-tag { color: var(--nude-400); }
+#services .section-title { color: #f5ede3; }
 
 .services-grid {
   display: grid;
@@ -752,8 +753,8 @@ nav.scrolled {
   font-family: var(--font-display);
   font-size: 3.5rem;
   font-weight: 300;
-  color: var(--nude-700, #7a5c4e);
-  opacity: 0.3;
+  color: var(--nude-400);
+  opacity: 0.5;
   line-height: 1;
   margin-bottom: 24px;
 }
@@ -761,16 +762,16 @@ nav.scrolled {
 .service-title {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--nude-300);
+  font-weight: 400;
+  color: #e8d9cc;
   margin-bottom: 16px;
   line-height: 1.3;
 }
 
 .service-desc {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   line-height: 1.9;
-  color: var(--nude-500);
+  color: #b89e8c;
 }
 
 /* =========== BLUR GALLERY =========== */
@@ -863,9 +864,9 @@ nav.scrolled {
 .contact-left .section-title { margin-bottom: 20px; }
 
 .contact-text {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   line-height: 1.9;
-  color: var(--nude-600);
+  color: #3d2a1e;
   margin-bottom: 48px;
   max-width: 420px;
 }
@@ -891,8 +892,8 @@ nav.scrolled {
 }
 
 .contact-info-text {
-  font-size: 0.85rem;
-  color: var(--nude-600);
+  font-size: 0.88rem;
+  color: #3d2a1e;
   line-height: 1.5;
 }
 
@@ -933,7 +934,7 @@ nav.scrolled {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--nude-500);
+  color: #7a5c4a;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -950,7 +951,7 @@ nav.scrolled {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--nude-500);
+  color: #6b4f3a;
   transition: all 0.3s ease;
   pointer-events: none;
 }
@@ -990,16 +991,16 @@ footer {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--nude-500);
+  color: #b89e8c;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.footer-links a:hover { color: var(--nude-300); }
+.footer-links a:hover { color: #e8d9cc; }
 
 .footer-copy {
   font-size: 0.72rem;
-  color: var(--nude-600);
+  color: #9a7d6a;
 }
 
 /* =========== SCROLL REVEAL =========== */
