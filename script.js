@@ -2,7 +2,7 @@
    MILENA REIS — Script Principal
    
    ÍNDICE DAS FUNÇÕES:
-   1. removerTelaCarregamento()  → some o preloader
+   1. animarPreloader()          → GSAP: planta baixa se desenha + logo aparece
    2. iniciarCursor()            → cursor personalizado
    3. menuAoRolar()              → navbar fica sólida ao rolar
    4. animarAoEntrarNaTela()     → scroll reveal geral
@@ -10,7 +10,7 @@
    6. paralaxeAoRolar()          → imagens com parallax
    7. contarNumeros()            → animação dos números (87, 12...)
    8. galeriaArrastavel()        → drag scroll na galeria
-   9. iniciar3D()                → modelo Three.js
+   9. iniciar3D()                → modelo Three.js (maquete)
    10. scrollSuaveDosLinks()     → âncoras com scroll animado
    11. desfoqueEntreSecoes()     → blur nas seções ao rolar
    12. cliqueDasCartas()         → clique centraliza carta
@@ -20,18 +20,151 @@
 (function () {
   'use strict';
 
-  /* ==========================================
-     1. TELA DE CARREGAMENTO
-     Some após 2.2s do load da página
-  ========================================== */
-  function removerTelaCarregamento() {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const telaCarregamento = document.getElementById('tela-carregamento');
-        telaCarregamento.classList.add('oculto');
-        setTimeout(() => telaCarregamento.remove(), 900);
-      }, 2200);
+  // 1. PRELOADER — PLANTA BAIXA ANIMADA COM GSAP
+  // A planta se desenha como se uma mão a estivesse traçando,
+  // depois a logo aparece e a tela some suavemente.
+  function animarPreloader() {
+    const tela = document.getElementById('tela-carregamento');
+    if (!tela || typeof gsap === 'undefined') {
+      // Fallback sem GSAP
+      setTimeout(() => { tela && tela.remove(); }, 3000);
+      return;
+    }
+
+    // Inicializa o dashoffset de cada elemento com seu comprimento real
+    function prepararLinha(seletor) {
+      document.querySelectorAll(seletor).forEach(el => {
+        const len = el.getTotalLength ? el.getTotalLength() : 200;
+        el.style.strokeDasharray  = len;
+        el.style.strokeDashoffset = len;
+      });
+    }
+
+    const todasLinhas = [
+      '.planta-parede-externa',
+      '.planta-parede-interna',
+      '.planta-linha-porta',
+      '.planta-arco-porta',
+      '.planta-janela-a',
+      '.planta-janela-b',
+      '.planta-degrau',
+      '.planta-borda-escada',
+      '.planta-cota-linha',
+      '.planta-cota-tick',
+      '.planta-norte-circulo',
+      '.planta-norte-linha',
+      '.planta-escala-linha',
+      '.planta-escala-tick',
+    ];
+    todasLinhas.forEach(prepararLinha);
+
+    // Timeline principal
+    const tl = gsap.timeline({ onComplete: sairDoPreloader });
+
+    // Contador de porcentagem sobe junto com a animação
+    const contadorEl = document.getElementById('contador-numero');
+    const objContador = { valor: 0 };
+    gsap.to(objContador, {
+      valor: 100,
+      duration: 3.8,
+      ease: 'power2.inOut',
+      onStart: () => {
+        gsap.to('.preloader-contador', { opacity: 1, duration: 0.4 });
+      },
+      onUpdate: () => {
+        if (contadorEl) contadorEl.textContent = Math.round(objContador.valor);
+      }
     });
+
+    // 1. Paredes externas — perímetro do edifício
+    tl.to('.planta-parede-externa', {
+      strokeDashoffset: 0,
+      duration: 1.2,
+      ease: 'power2.inOut'
+    })
+
+    // 2. Paredes internas — divisões dos cômodos
+    .to('.planta-parede-interna', {
+      strokeDashoffset: 0,
+      duration: 0.7,
+      ease: 'power2.out',
+      stagger: 0.15
+    }, '-=0.3')
+
+    // 3. Portas (linhas + arcos)
+    .to('.planta-linha-porta', {
+      strokeDashoffset: 0,
+      duration: 0.3,
+      stagger: 0.1,
+      ease: 'power1.out'
+    }, '-=0.2')
+    .to('.planta-arco-porta', {
+      strokeDashoffset: 0,
+      duration: 0.45,
+      stagger: 0.12,
+      ease: 'power1.inOut'
+    }, '-=0.2')
+
+    // 4. Janelas (dupla linha)
+    .to('.planta-janela-a, .planta-janela-b', {
+      strokeDashoffset: 0,
+      duration: 0.35,
+      ease: 'power1.out',
+      stagger: 0.06
+    }, '-=0.1')
+
+    // 5. Escada (degraus em cascata rápida)
+    .to('.planta-borda-escada', {
+      strokeDashoffset: 0,
+      duration: 0.3,
+      ease: 'power1.out'
+    }, '-=0.1')
+    .to('.planta-degrau', {
+      strokeDashoffset: 0,
+      duration: 0.12,
+      ease: 'none',
+      stagger: 0.06
+    }, '-=0.2')
+
+    // 6. Linhas de cota e indicadores técnicos
+    .to('.planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick', {
+      strokeDashoffset: 0,
+      duration: 0.4,
+      ease: 'power1.out',
+      stagger: 0.04
+    }, '-=0.1')
+    .to('.planta-norte-circulo, .planta-norte-linha', {
+      strokeDashoffset: 0,
+      duration: 0.4,
+      ease: 'power1.out',
+      stagger: 0.08
+    }, '-=0.3')
+
+    // 7. Textos (N, escala)
+    .to('.planta-norte-texto, .planta-escala-texto', {
+      opacity: 0.7,
+      duration: 0.4,
+      stagger: 0.1
+    }, '-=0.1')
+
+    // 8. Logo aparece com blur saindo
+    .fromTo('.preloader-logo-img',
+      { opacity: 0, filter: 'blur(12px)', y: 10 },
+      { opacity: 1, filter: 'blur(0px)', y: 0, duration: 0.9, ease: 'power2.out' },
+    '-=0.1')
+
+    // 9. Pausa para leitura
+    .to({}, { duration: 0.6 });
+
+    // Saída da tela
+    function sairDoPreloader() {
+      gsap.to(tela, {
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power2.inOut',
+        onComplete: () => tela.remove()
+      });
+    }
   }
 
   /* ==========================================
@@ -762,7 +895,7 @@
   /* ==========================================
      INICIALIZAR TUDO
   ========================================== */
-  removerTelaCarregamento();
+  animarPreloader();
   iniciarCursor();
   menuAoRolar();
   animarAoEntrarNaTela();

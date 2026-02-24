@@ -1,385 +1,646 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Milena Reis — Arquitetura</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Milena Reis — Arquitetura</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- =============================================
+       CURSOR PERSONALIZADO
+       .cursor-ponto  → bolinha que segue o mouse
+       .cursor-anel   → anel externo que acompanha
+  ============================================= -->
+    <div class="cursor-ponto" id="cursor-ponto"></div>
+    <div class="cursor-anel" id="cursor-anel"></div>
 
-  <!-- CURSOR PERSONALIZADO -->
-  <div class="cursor-ponto" id="cursor-ponto"></div>
-  <div class="cursor-anel"  id="cursor-anel"></div>
+    <!-- =============================================
+       TELA DE CARREGAMENTO (PRELOADER GSAP)
+       .preloader-planta   → SVG da planta baixa animada
+       .preloader-logo-img → logo que aparece no final
+       #contador-numero    → número de 0 a 100
+  ============================================= -->
+    <div id="tela-carregamento">
+      <div class="preloader-grade"></div>
 
-  <!-- TELA DE CARREGAMENTO -->
-  <div id="tela-carregamento">
-    <p class="carregamento-nome">Milena Reis</p>
-    <div class="carregamento-barra"></div>
-  </div>
-
-  <!-- MENU NAVEGAÇÃO -->
-  <nav id="menu-topo">
-    <a href="#" class="menu-logo">M<span>R</span></a>
-    <ul class="menu-links">
-      <li><a href="#secao-sobre">Sobre</a></li>
-      <li><a href="#secao-projetos">Projetos</a></li>
-      <li><a href="#secao-servicos">Serviços</a></li>
-      <li><a href="#secao-galeria">Galeria</a></li>
-      <li><a href="#secao-contato">Contato</a></li>
-    </ul>
-  </nav>
-
-  <!-- SEÇÃO HERO -->
-  <section id="secao-hero">
-
-    <div class="hero-coluna-esquerda">
-      <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
-      <h1 class="hero-titulo">
-        Espaços que<br>
-        <em>respiram</em><br>
-        elegância
-      </h1>
-      <p class="hero-descricao">
-        Criando ambientes que traduzem a alma de quem os habita, com rigor técnico e sensibilidade estética.
-      </p>
-      <div class="hero-botoes">
-        <a href="#secao-projetos" class="botao-primario"><span>Ver Projetos</span></a>
-        <a href="#secao-contato"  class="botao-secundario">Iniciar Projeto</a>
-      </div>
-    </div>
-
-    <div class="hero-coluna-direita">
-      <div class="hero-foto-wrap">
-        <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80"
-          alt="Arquitetura Milena Reis"
+      <svg
+        class="preloader-planta"
+        viewBox="0 0 560 400"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          class="planta-parede-externa"
+          x="80"
+          y="80"
+          width="400"
+          height="260"
+          fill="none"
         />
-      </div>
-      <div class="hero-foto-gradiente"></div>
-    </div>
+        <line
+          class="planta-parede-interna"
+          x1="280"
+          y1="80"
+          x2="280"
+          y2="290"
+        />
+        <line
+          class="planta-parede-interna"
+          x1="280"
+          y1="195"
+          x2="480"
+          y2="195"
+        />
+        <line
+          class="planta-parede-interna"
+          x1="80"
+          y1="195"
+          x2="200"
+          y2="195"
+        />
+        <line class="planta-linha-porta" x1="80" y1="215" x2="80" y2="255" />
+        <path
+          class="planta-arco-porta"
+          d="M 80 215 Q 120 215 120 255"
+          fill="none"
+        />
+        <line class="planta-linha-porta" x1="280" y1="235" x2="280" y2="270" />
+        <path
+          class="planta-arco-porta"
+          d="M 280 235 Q 315 235 315 270"
+          fill="none"
+        />
+        <line class="planta-janela-a" x1="130" y1="80" x2="210" y2="80" />
+        <line class="planta-janela-b" x1="130" y1="73" x2="210" y2="73" />
+        <line class="planta-janela-a" x1="330" y1="80" x2="430" y2="80" />
+        <line class="planta-janela-b" x1="330" y1="73" x2="430" y2="73" />
+        <line class="planta-janela-a" x1="480" y1="100" x2="480" y2="170" />
+        <line class="planta-janela-b" x1="487" y1="100" x2="487" y2="170" />
+        <line class="planta-degrau" x1="95" y1="120" x2="160" y2="120" />
+        <line class="planta-degrau" x1="95" y1="132" x2="160" y2="132" />
+        <line class="planta-degrau" x1="95" y1="144" x2="160" y2="144" />
+        <line class="planta-degrau" x1="95" y1="156" x2="160" y2="156" />
+        <line class="planta-degrau" x1="95" y1="168" x2="160" y2="168" />
+        <line class="planta-borda-escada" x1="95" y1="116" x2="95" y2="180" />
+        <line class="planta-borda-escada" x1="160" y1="116" x2="160" y2="180" />
+        <line class="planta-cota-linha" x1="80" y1="48" x2="480" y2="48" />
+        <line class="planta-cota-tick" x1="80" y1="42" x2="80" y2="54" />
+        <line class="planta-cota-tick" x1="480" y1="42" x2="480" y2="54" />
+        <line class="planta-cota-linha" x1="516" y1="80" x2="516" y2="340" />
+        <line class="planta-cota-tick" x1="510" y1="80" x2="522" y2="80" />
+        <line class="planta-cota-tick" x1="510" y1="340" x2="522" y2="340" />
+        <circle
+          class="planta-norte-circulo"
+          cx="535"
+          cy="38"
+          r="18"
+          fill="none"
+        />
+        <line class="planta-norte-linha" x1="535" y1="20" x2="535" y2="56" />
+        <line class="planta-norte-linha" x1="517" y1="38" x2="553" y2="38" />
+        <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">
+          N
+        </text>
+        <line class="planta-escala-linha" x1="95" y1="375" x2="255" y2="375" />
+        <line class="planta-escala-tick" x1="95" y1="369" x2="95" y2="381" />
+        <line class="planta-escala-tick" x1="175" y1="369" x2="175" y2="381" />
+        <line class="planta-escala-tick" x1="255" y1="369" x2="255" y2="381" />
+        <text class="planta-escala-texto" x="130" y="366" text-anchor="middle">
+          0
+        </text>
+        <text class="planta-escala-texto" x="215" y="366" text-anchor="middle">
+          5m
+        </text>
+      </svg>
 
-    <div class="hero-indicador-scroll">
-      <div class="scroll-linha"></div>
-      <span class="scroll-texto">Scroll</span>
-    </div>
-
-  </section>
-
-  <!-- FAIXA DE TEXTO ROLANTE -->
-  <div class="faixa-rolante">
-    <div class="faixa-rolante-conteudo">
-      <span>Arquitetura Residencial</span><span class="separador">·</span>
-      <span>Design de Interiores</span><span class="separador">·</span>
-      <span>Projeto Corporativo</span><span class="separador">·</span>
-      <span>Reforma & Restauro</span><span class="separador">·</span>
-      <span>Paisagismo</span><span class="separador">·</span>
-      <span>Consultoria de Materiais</span><span class="separador">·</span>
-      <!-- Repetido para o loop ser contínuo -->
-      <span>Arquitetura Residencial</span><span class="separador">·</span>
-      <span>Design de Interiores</span><span class="separador">·</span>
-      <span>Projeto Corporativo</span><span class="separador">·</span>
-      <span>Reforma & Restauro</span><span class="separador">·</span>
-      <span>Paisagismo</span><span class="separador">·</span>
-      <span>Consultoria de Materiais</span><span class="separador">·</span>
-    </div>
-  </div>
-
-  <!-- SEÇÃO SOBRE -->
-  <section id="secao-sobre">
-
-    <div class="sobre-foto-container animar-da-esquerda">
       <img
-        class="sobre-foto-principal"
-        src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80"
-        alt="Milena Reis Arquiteta"
+        class="preloader-logo-img"
+        src="assets/Logo Milena (Alt) (1).png"
+        alt="Milena Reis"
       />
-      <img
-        class="sobre-foto-destaque"
-        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80"
-        alt="Detalhe de projeto"
-      />
-      <div class="sobre-badge-anos">
-        <span>12+</span>
-        <small>Anos de<br>Experiência</small>
+
+      <div class="preloader-contador">
+        <span id="contador-numero">0</span
+        ><span class="contador-simbolo">%</span>
       </div>
     </div>
 
-    <div class="sobre-texto-container animar-da-direita">
-      <p class="etiqueta-secao">Sobre a Arquiteta</p>
-      <h2 class="titulo-secao texto-merge">
-        <span class="palavra">Forma,</span>
-        <span class="palavra">função</span>
-        <span class="palavra">e</span>
-        <span class="palavra"><em>emoção</em></span>
-      </h2>
+    <!-- =============================================
+       MENU DE NAVEGAÇÃO
+       .menu-logo   → logotipo "MR" no canto
+       .menu-links  → links para cada seção
+  ============================================= -->
+    <nav id="menu-topo">
+      <a href="#" class="menu-logo">
+        <img
+          class="menu-logo-claro"
+          src="assets/Logo Milena (Alt) (2).png"
+          alt="Milena Reis"
+        />
+        <img
+          class="menu-logo-escuro"
+          src="assets/Logo Milena (Alt) (1).png"
+          alt="Milena Reis"
+        />
+      </a>
+      <ul class="menu-links">
+        <li><a href="#secao-sobre">Sobre</a></li>
+        <li><a href="#secao-projetos">Projetos</a></li>
+        <li><a href="#secao-servicos">Serviços</a></li>
+        <li><a href="#secao-galeria">Galeria</a></li>
+        <li><a href="#secao-contato">Contato</a></li>
+      </ul>
+    </nav>
 
-      <p class="sobre-paragrafo">
-        Milena Reis é arquiteta e designer de interiores com mais de 12 anos de experiência na criação de espaços que transcendem o funcional e alcançam o essencial.
-      </p>
-      <p class="sobre-paragrafo">
-        Formada pela UFBA, com especialização em Design de Interiores em Lisboa, seu trabalho é marcado pela harmonia entre materiais naturais, luz e a narrativa de cada cliente.
-      </p>
-      <p class="sobre-paragrafo">
-        Cada projeto é uma conversa entre quem vive e o espaço que transforma essa vivência em arquitetura.
-      </p>
+    <!-- =============================================
+       SEÇÃO HERO (CAPA PRINCIPAL)
+       .hero-coluna-esquerda   → texto e botões
+       .hero-coluna-direita    → foto de capa
+       .hero-indicador-scroll  → seta animada embaixo
+  ============================================= -->
+    <section id="secao-hero">
+      <div class="hero-coluna-esquerda">
+        <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
+        <h1 class="hero-titulo">
+          Espaços que<br />
+          <em>respiram</em><br />
+          elegância
+        </h1>
+        <p class="hero-descricao">
+          Criando ambientes que traduzem a alma de quem os habita, com rigor
+          técnico e sensibilidade estética.
+        </p>
+        <div class="hero-botoes">
+          <a href="#secao-projetos" class="botao-primario"
+            ><span>Ver Projetos</span></a
+          >
+          <a href="#secao-contato" class="botao-secundario">Iniciar Projeto</a>
+        </div>
+      </div>
 
-      <div class="sobre-estatisticas">
-        <div class="estatistica animar-subindo">
-          <p class="estatistica-numero">87</p>
-          <p class="estatistica-label">Projetos Realizados</p>
+      <div class="hero-coluna-direita">
+        <div class="hero-foto-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80"
+            alt="Arquitetura Milena Reis"
+          />
         </div>
-        <div class="estatistica animar-subindo">
-          <p class="estatistica-numero">04</p>
-          <p class="estatistica-label">Prêmios IAB</p>
-        </div>
-        <div class="estatistica animar-subindo">
-          <p class="estatistica-numero">12</p>
-          <p class="estatistica-label">Anos de Carreira</p>
-        </div>
+        <div class="hero-foto-gradiente"></div>
+      </div>
+
+      <div class="hero-indicador-scroll">
+        <div class="scroll-linha"></div>
+        <span class="scroll-texto">Scroll</span>
+      </div>
+    </section>
+
+    <!-- =============================================
+       FAIXA DE TEXTO ROLANTE (MARQUEE)
+       Rola automaticamente com os serviços
+  ============================================= -->
+    <div class="faixa-rolante">
+      <div class="faixa-rolante-conteudo">
+        <span>Arquitetura Residencial</span><span class="separador">·</span>
+        <span>Design de Interiores</span><span class="separador">·</span>
+        <span>Projeto Corporativo</span><span class="separador">·</span>
+        <span>Reforma & Restauro</span><span class="separador">·</span>
+        <span>Paisagismo</span><span class="separador">·</span>
+        <span>Consultoria de Materiais</span><span class="separador">·</span>
+        <!-- Repetido para o loop ser contínuo -->
+        <span>Arquitetura Residencial</span><span class="separador">·</span>
+        <span>Design de Interiores</span><span class="separador">·</span>
+        <span>Projeto Corporativo</span><span class="separador">·</span>
+        <span>Reforma & Restauro</span><span class="separador">·</span>
+        <span>Paisagismo</span><span class="separador">·</span>
+        <span>Consultoria de Materiais</span><span class="separador">·</span>
       </div>
     </div>
 
-  </section>
-
-  <!-- SEÇÃO 3D -->
-  <section id="secao-modelo-3d">
-    <canvas id="canvas-3d"></canvas>
-    <div class="texto-sobre-3d">
-      <h2 class="titulo-3d entrada-blur">
-        Geometria<br><em>como linguagem</em>
-      </h2>
-      <p class="subtitulo-3d entrada-blur">Cada volume conta uma história</p>
-    </div>
-  </section>
-
-  <!-- SEÇÃO PROJETOS -->
-  <section id="secao-projetos">
-
-    <div class="projetos-cabecalho animar-subindo">
-      <div>
-        <p class="etiqueta-secao">Portfólio Selecionado</p>
-        <h2 class="titulo-secao">Criações em <em>destaque</em></h2>
-      </div>
-      <a href="#" class="link-ver-todos">Todos os projetos</a>
-    </div>
-
-    <div class="baralho-container">
-      <div class="baralho-cartas">
-
-        <div class="carta-projeto">
-          <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80" alt="Casa Litoral" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Salvador, BA</p>
-            <h3 class="carta-titulo">Casa Litoral<br>Transparente</h3>
-            <p class="carta-ano">2024</p>
-          </div>
+    <!-- =============================================
+       SEÇÃO SOBRE
+       .sobre-foto-container   → área das fotos + badge
+       .sobre-foto-principal   → foto grande à esquerda
+       .sobre-foto-destaque    → foto menor sobreposta
+       .sobre-badge-anos       → círculo giratório "12+"
+       .sobre-texto-container  → área de texto e stats
+       .sobre-paragrafo        → cada parágrafo de bio
+       .sobre-estatisticas     → grade com os 3 números
+       .estatistica-numero     → o número grande (87, 04...)
+       .estatistica-label      → o texto abaixo do número
+  ============================================= -->
+    <section id="secao-sobre">
+      <div class="sobre-foto-container animar-da-esquerda">
+        <img
+          class="sobre-foto-principal"
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80"
+          alt="Milena Reis Arquiteta"
+        />
+        <img
+          class="sobre-foto-destaque"
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80"
+          alt="Detalhe de projeto"
+        />
+        <div class="sobre-badge-anos">
+          <span>12+</span>
+          <small>Anos de<br />Experiência</small>
         </div>
-
-        <div class="carta-projeto">
-          <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80" alt="Apartamento Sereno" />
-          <div class="carta-info">
-            <p class="carta-categoria">Interiores · São Paulo, SP</p>
-            <h3 class="carta-titulo">Apartamento<br>Sereno</h3>
-            <p class="carta-ano">2023</p>
-          </div>
-        </div>
-
-        <div class="carta-projeto">
-          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80" alt="Villa Núcleo" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Bahia</p>
-            <h3 class="carta-titulo">Villa<br>Núcleo</h3>
-            <p class="carta-ano">2023</p>
-          </div>
-        </div>
-
-        <div class="carta-projeto">
-          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80" alt="Escritório Vértice" />
-          <div class="carta-info">
-            <p class="carta-categoria">Comercial · Brasília, DF</p>
-            <h3 class="carta-titulo">Escritório<br>Vértice</h3>
-            <p class="carta-ano">2022</p>
-          </div>
-        </div>
-
-        <div class="carta-projeto">
-          <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80" alt="Residência Aura" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Recife, PE</p>
-            <h3 class="carta-titulo">Residência<br>Aura</h3>
-            <p class="carta-ano">2022</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </section>
-
-  <!-- SEÇÃO SERVIÇOS -->
-  <section id="secao-servicos">
-    <p class="etiqueta-secao animar-subindo">O que fazemos</p>
-    <h2 class="titulo-secao animar-subindo">Serviços de<br><em>arquitetura</em></h2>
-
-    <div class="servicos-grade">
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">01</p>
-        <h3 class="servico-titulo">Projeto Arquitetônico</h3>
-        <p class="servico-descricao">Do conceito à execução, desenvolvemos projetos residenciais e comerciais com precisão técnica e identidade própria.</p>
       </div>
 
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">02</p>
-        <h3 class="servico-titulo">Design de Interiores</h3>
-        <p class="servico-descricao">Ambientação completa de espaços com curadoria de materiais, mobiliário e elementos decorativos que traduzem a sua essência.</p>
-      </div>
+      <div class="sobre-texto-container animar-da-direita">
+        <p class="etiqueta-secao">Sobre a Arquiteta</p>
+        <h2 class="titulo-secao texto-merge">
+          <span class="palavra">Forma,</span>
+          <span class="palavra">função</span>
+          <span class="palavra">e</span>
+          <span class="palavra"><em>emoção</em></span>
+        </h2>
 
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">03</p>
-        <h3 class="servico-titulo">Reforma e Restauro</h3>
-        <p class="servico-descricao">Requalificação de imóveis preservando a história e introduzindo modernidade com responsabilidade patrimonial.</p>
-      </div>
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">04</p>
-        <h3 class="servico-titulo">Gestão de Obra</h3>
-        <p class="servico-descricao">Acompanhamento integral do processo construtivo garantindo fidelidade ao projeto, prazo e orçamento.</p>
-      </div>
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">05</p>
-        <h3 class="servico-titulo">Paisagismo</h3>
-        <p class="servico-descricao">Integração entre arquitetura e natureza através de projetos de jardim e áreas externas que ampliam o habitar.</p>
-      </div>
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">06</p>
-        <h3 class="servico-titulo">Consultoria</h3>
-        <p class="servico-descricao">Orientação especializada para reformas, compra de imóveis e projetos de decoração pontuais com expertise técnica.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SEÇÃO GALERIA -->
-  <section id="secao-galeria">
-
-    <div class="galeria-cabecalho">
-      <p class="etiqueta-secao animar-subindo">Galeria</p>
-      <h2 class="titulo-secao animar-subindo">Detalhes que <em>importam</em></h2>
-    </div>
-
-    <div class="galeria-trilha" id="galeria-trilha">
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80" alt="Matéria e Luz" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Matéria e Luz</p></div>
-      </div>
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Volumes Serenos" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Volumes Serenos</p></div>
-      </div>
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80" alt="Silêncio Construído" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Silêncio Construído</p></div>
-      </div>
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80" alt="Textura Viva" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Textura Viva</p></div>
-      </div>
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80" alt="Equilíbrio Orgânico" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Equilíbrio Orgânico</p></div>
-      </div>
-
-      <div class="galeria-foto">
-        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Névoa de Design" />
-        <div class="galeria-legenda-wrap"><p class="galeria-legenda">Névoa de Design</p></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SEÇÃO CONTATO -->
-  <section id="secao-contato">
-    <div class="contato-grade">
-
-      <div class="contato-coluna-info animar-da-esquerda">
-        <p class="etiqueta-secao">Vamos Conversar</p>
-        <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
-        <p class="contato-apresentacao">
-          Cada grande projeto começa com uma conversa. Conte-nos sobre o seu espaço, seus sonhos e vamos construir juntos.
+        <p class="sobre-paragrafo">
+          Milena Reis é arquiteta e designer de interiores com mais de 12 anos
+          de experiência na criação de espaços que transcendem o funcional e
+          alcançam o essencial.
+        </p>
+        <p class="sobre-paragrafo">
+          Formada pela UFBA, com especialização em Design de Interiores em
+          Lisboa, seu trabalho é marcado pela harmonia entre materiais naturais,
+          luz e a narrativa de cada cliente.
+        </p>
+        <p class="sobre-paragrafo">
+          Cada projeto é uma conversa entre quem vive e o espaço que transforma
+          essa vivência em arquitetura.
         </p>
 
-        <div class="contato-item">
-          <div class="contato-icone">✉</div>
-          <div class="contato-texto">
-            <strong>Email</strong>
-            milena@milenareis.arq.br
+        <div class="sobre-estatisticas">
+          <div class="estatistica animar-subindo">
+            <p class="estatistica-numero">87</p>
+            <p class="estatistica-label">Projetos Realizados</p>
           </div>
-        </div>
-
-        <div class="contato-item">
-          <div class="contato-icone">✆</div>
-          <div class="contato-texto">
-            <strong>Telefone</strong>
-            +55 71 99999-0000
+          <div class="estatistica animar-subindo">
+            <p class="estatistica-numero">04</p>
+            <p class="estatistica-label">Prêmios IAB</p>
           </div>
-        </div>
-
-        <div class="contato-item">
-          <div class="contato-icone">◈</div>
-          <div class="contato-texto">
-            <strong>Atelier</strong>
-            Salvador, Bahia — Brasil
+          <div class="estatistica animar-subindo">
+            <p class="estatistica-numero">12</p>
+            <p class="estatistica-label">Anos de Carreira</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="contato-formulario animar-da-direita">
-        <div class="campo-grupo">
-          <input type="text"  id="campo-nome"    placeholder=" " />
-          <label for="campo-nome">Seu nome</label>
+    <!-- =============================================
+       SEÇÃO 3D (THREE.JS)
+       #canvas-3d     → onde o Three.js renderiza
+       .texto-sobre-3d → título flutuante sobre o 3D
+       .titulo-3d      → título grande
+       .subtitulo-3d   → linha pequena abaixo
+  ============================================= -->
+    <section id="secao-modelo-3d">
+      <canvas id="canvas-3d"></canvas>
+      <div class="texto-sobre-3d">
+        <h2 class="titulo-3d entrada-blur">
+          Geometria<br /><em>como linguagem</em>
+        </h2>
+        <p class="subtitulo-3d entrada-blur">Cada volume conta uma história</p>
+      </div>
+    </section>
+
+    <!-- =============================================
+       SEÇÃO PROJETOS — DEQUE DE CARTAS
+       .projetos-cabecalho  → título + link "ver todos"
+       .baralho-container   → área total do deque
+       .baralho-cartas      → wrapper posicionador
+       .carta-projeto       → cada carta individual
+         .carta-info        → info na base da carta
+         .carta-categoria   → ex: "Residencial · Salvador"
+         .carta-titulo      → nome do projeto
+         .carta-ano         → ex: "2024"
+  ============================================= -->
+    <section id="secao-projetos">
+      <div class="projetos-cabecalho animar-subindo">
+        <div>
+          <p class="etiqueta-secao">Portfólio Selecionado</p>
+          <h2 class="titulo-secao">Criações em <em>destaque</em></h2>
         </div>
-        <div class="campo-grupo">
-          <input type="email" id="campo-email"   placeholder=" " />
-          <label for="campo-email">Email</label>
-        </div>
-        <div class="campo-grupo">
-          <input type="text"  id="campo-assunto" placeholder=" " />
-          <label for="campo-assunto">Tipo de projeto</label>
-        </div>
-        <div class="campo-grupo">
-          <textarea id="campo-mensagem" placeholder=" "></textarea>
-          <label for="campo-mensagem">Sua mensagem</label>
-        </div>
-        <a href="mailto:milena@milenareis.arq.br" class="botao-primario">
-          <span>Enviar Mensagem</span>
-        </a>
+        <a href="#" class="link-ver-todos">Todos os projetos</a>
       </div>
 
-    </div>
-  </section>
+      <div class="baralho-container">
+        <div class="baralho-cartas">
+          <div class="carta-projeto">
+            <img
+              src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80"
+              alt="Casa Litoral"
+            />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Salvador, BA</p>
+              <h3 class="carta-titulo">Casa Litoral<br />Transparente</h3>
+              <p class="carta-ano">2024</p>
+            </div>
+          </div>
 
-  <!-- RODAPÉ -->
-  <footer id="rodape">
-    <p class="rodape-logo">Milena Reis</p>
-    <div class="rodape-links">
-      <a href="#">Instagram</a>
-      <a href="#">Behance</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Pinterest</a>
-    </div>
-    <p class="rodape-copy">© 2025 Milena Reis Arquitetura. Todos os direitos reservados.</p>
-  </footer>
+          <div class="carta-projeto">
+            <img
+              src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80"
+              alt="Apartamento Sereno"
+            />
+            <div class="carta-info">
+              <p class="carta-categoria">Interiores · São Paulo, SP</p>
+              <h3 class="carta-titulo">Apartamento<br />Sereno</h3>
+              <p class="carta-ano">2023</p>
+            </div>
+          </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="script.js"></script>
-</body>
+          <div class="carta-projeto">
+            <img
+              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80"
+              alt="Villa Núcleo"
+            />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Bahia</p>
+              <h3 class="carta-titulo">Villa<br />Núcleo</h3>
+              <p class="carta-ano">2023</p>
+            </div>
+          </div>
+
+          <div class="carta-projeto">
+            <img
+              src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80"
+              alt="Escritório Vértice"
+            />
+            <div class="carta-info">
+              <p class="carta-categoria">Comercial · Brasília, DF</p>
+              <h3 class="carta-titulo">Escritório<br />Vértice</h3>
+              <p class="carta-ano">2022</p>
+            </div>
+          </div>
+
+          <div class="carta-projeto">
+            <img
+              src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80"
+              alt="Residência Aura"
+            />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Recife, PE</p>
+              <h3 class="carta-titulo">Residência<br />Aura</h3>
+              <p class="carta-ano">2022</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+       SEÇÃO SERVIÇOS
+       .servicos-grade      → grid com os 6 serviços
+       .servico-item        → cada bloco de serviço
+         .servico-numero    → "01", "02"...
+         .servico-titulo    → nome do serviço
+         .servico-descricao → texto explicativo
+  ============================================= -->
+    <section id="secao-servicos">
+      <p class="etiqueta-secao animar-subindo">O que fazemos</p>
+      <h2 class="titulo-secao animar-subindo">
+        Serviços de<br /><em>arquitetura</em>
+      </h2>
+
+      <div class="servicos-grade">
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">01</p>
+          <h3 class="servico-titulo">Projeto Arquitetônico</h3>
+          <p class="servico-descricao">
+            Do conceito à execução, desenvolvemos projetos residenciais e
+            comerciais com precisão técnica e identidade própria.
+          </p>
+        </div>
+
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">02</p>
+          <h3 class="servico-titulo">Design de Interiores</h3>
+          <p class="servico-descricao">
+            Ambientação completa de espaços com curadoria de materiais,
+            mobiliário e elementos decorativos que traduzem a sua essência.
+          </p>
+        </div>
+
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">03</p>
+          <h3 class="servico-titulo">Reforma e Restauro</h3>
+          <p class="servico-descricao">
+            Requalificação de imóveis preservando a história e introduzindo
+            modernidade com responsabilidade patrimonial.
+          </p>
+        </div>
+
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">04</p>
+          <h3 class="servico-titulo">Gestão de Obra</h3>
+          <p class="servico-descricao">
+            Acompanhamento integral do processo construtivo garantindo
+            fidelidade ao projeto, prazo e orçamento.
+          </p>
+        </div>
+
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">05</p>
+          <h3 class="servico-titulo">Paisagismo</h3>
+          <p class="servico-descricao">
+            Integração entre arquitetura e natureza através de projetos de
+            jardim e áreas externas que ampliam o habitar.
+          </p>
+        </div>
+
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero">06</p>
+          <h3 class="servico-titulo">Consultoria</h3>
+          <p class="servico-descricao">
+            Orientação especializada para reformas, compra de imóveis e projetos
+            de decoração pontuais com expertise técnica.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+       SEÇÃO GALERIA (arraste para os lados)
+       .galeria-cabecalho     → título da seção
+       .galeria-trilha        → faixa horizontal arrastável
+       .galeria-foto          → cada foto na trilha
+         .galeria-legenda-wrap → overlay escuro ao hover
+         .galeria-legenda      → nome da foto
+  ============================================= -->
+    <section id="secao-galeria">
+      <div class="galeria-cabecalho">
+        <p class="etiqueta-secao animar-subindo">Galeria</p>
+        <h2 class="titulo-secao animar-subindo">
+          Detalhes que <em>importam</em>
+        </h2>
+      </div>
+
+      <div class="galeria-trilha" id="galeria-trilha">
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80"
+            alt="Matéria e Luz"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Matéria e Luz</p>
+          </div>
+        </div>
+
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80"
+            alt="Volumes Serenos"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Volumes Serenos</p>
+          </div>
+        </div>
+
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80"
+            alt="Silêncio Construído"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Silêncio Construído</p>
+          </div>
+        </div>
+
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80"
+            alt="Textura Viva"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Textura Viva</p>
+          </div>
+        </div>
+
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80"
+            alt="Equilíbrio Orgânico"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Equilíbrio Orgânico</p>
+          </div>
+        </div>
+
+        <div class="galeria-foto">
+          <img
+            src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80"
+            alt="Névoa de Design"
+          />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Névoa de Design</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+       SEÇÃO CONTATO
+       .contato-grade          → layout 2 colunas
+       .contato-coluna-info    → esquerda: texto + dados
+       .contato-item           → cada linha (email, tel...)
+         .contato-icone        → símbolo do item
+         .contato-texto        → conteúdo do item
+       .contato-formulario     → direita: campos do form
+         .campo-grupo          → cada campo (label + input)
+  ============================================= -->
+    <section id="secao-contato">
+      <div class="contato-grade">
+        <div class="contato-coluna-info animar-da-esquerda">
+          <p class="etiqueta-secao">Vamos Conversar</p>
+          <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
+          <p class="contato-apresentacao">
+            Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
+            espaço, seus sonhos e vamos construir juntos.
+          </p>
+
+          <div class="contato-item">
+            <div class="contato-icone">✉</div>
+            <div class="contato-texto">
+              <strong>Email</strong>
+              <a
+                href="/cdn-cgi/l/email-protection"
+                class="__cf_email__"
+                data-cfemail="523f3b3e373c33123f3b3e373c3320373b217c3320237c3020"
+                >[email&#160;protected]</a
+              >
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-icone">✆</div>
+            <div class="contato-texto">
+              <strong>Telefone</strong>
+              +55 71 99999-0000
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-icone">◈</div>
+            <div class="contato-texto">
+              <strong>Atelier</strong>
+              Salvador, Bahia — Brasil
+            </div>
+          </div>
+        </div>
+
+        <div class="contato-formulario animar-da-direita">
+          <div class="campo-grupo">
+            <input type="text" id="campo-nome" placeholder=" " />
+            <label for="campo-nome">Seu nome</label>
+          </div>
+          <div class="campo-grupo">
+            <input type="email" id="campo-email" placeholder=" " />
+            <label for="campo-email">Email</label>
+          </div>
+          <div class="campo-grupo">
+            <input type="text" id="campo-assunto" placeholder=" " />
+            <label for="campo-assunto">Tipo de projeto</label>
+          </div>
+          <div class="campo-grupo">
+            <textarea id="campo-mensagem" placeholder=" "></textarea>
+            <label for="campo-mensagem">Sua mensagem</label>
+          </div>
+          <a
+            href="/cdn-cgi/l/email-protection#d8b5b1b4bdb6b998b5b1b4bdb6b9aabdb1abf6b9aaa9f6baaa"
+            class="botao-primario"
+          >
+            <span>Enviar Mensagem</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+       RODAPÉ
+       .rodape-logo   → nome da arquiteta
+       .rodape-links  → links de redes sociais
+       .rodape-copy   → texto de copyright
+  ============================================= -->
+    <footer id="rodape">
+      <img
+        class="rodape-logo"
+        src="assets/Logo Milena Reis (Comp) (3).png"
+        alt="Milena Reis"
+      />
+      <div class="rodape-links">
+        <a href="#">Instagram</a>
+        <a href="#">Behance</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Pinterest</a>
+      </div>
+      <p class="rodape-copy">
+        © 2025 Milena Reis Arquitetura. Todos os direitos reservados.
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
