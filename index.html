@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- =============================================
-       CURSOR PERSONALIZADO
-       .cursor-ponto  → bolinha que segue o mouse
-       .cursor-anel   → anel externo que acompanha
-  ============================================= -->
-    <div class="cursor-ponto" id="cursor-ponto"></div>
-    <div class="cursor-anel" id="cursor-anel"></div>
+    <!-- CURSOR CAD
+       #cursor-cad     → wrapper que segue o mouse
+       .cursor-linha-h → linha horizontal
+       .cursor-linha-v → linha vertical
+       .cursor-centro  → ponto central minúsculo -->
+    <div id="cursor-cad">
+      <div class="cursor-linha-h"></div>
+      <div class="cursor-linha-v"></div>
+      <div class="cursor-centro"></div>
+    </div>
 
     <!-- =============================================
        TELA DE CARREGAMENTO (PRELOADER GSAP)

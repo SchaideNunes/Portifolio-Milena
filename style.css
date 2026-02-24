@@ -86,52 +86,80 @@ body {
   border-radius: 10px;
 }
 
-/* =============================================
-   CURSOR PERSONALIZADO
-   .cursor-ponto → bolinha pequena na posição exata
-   .cursor-anel  → anel que segue com delay suave
-   .ativo        → estado quando está sobre link/botão
-============================================= */
-.cursor-ponto {
-  width: 10px;
-  height: 10px;
-  background: var(--cor-marrom);
-  border-radius: 50%;
+/* CURSOR CAD — mira estilo AutoCAD
+   Duas linhas finas que se cruzam + ponto central
+   Expande ao passar sobre links e botões */
+
+body {
+  cursor: none;
+}
+
+#cursor-cad {
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition:
-    width 0.3s var(--curva-animacao),
-    height 0.3s var(--curva-animacao),
-    background 0.3s ease;
+  transition: transform 0.05s linear;
 }
 
-.cursor-anel {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--cor-nude-texto);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9998;
+.cursor-linha-h {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  transition: all 0.15s var(--curva-animacao);
+  width: 24px;
+  height: 1px;
+  background: var(--cor-marrom);
+  transition:
+    width 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.cursor-ponto.ativo {
-  width: 20px;
-  height: 20px;
-  background: var(--cor-marrom-texto);
+.cursor-linha-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 24px;
+  background: var(--cor-marrom);
+  transition:
+    height 0.2s ease,
+    opacity 0.2s ease;
 }
-.cursor-anel.ativo {
-  width: 60px;
-  height: 60px;
-  border-color: var(--cor-nude-borda);
+
+.cursor-centro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 3px;
+  background: var(--cor-marrom);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+/* Estado hover — mira se abre um pouco */
+#cursor-cad.ativo .cursor-linha-h {
+  width: 36px;
+  opacity: 0.6;
+}
+#cursor-cad.ativo .cursor-linha-v {
+  height: 36px;
+  opacity: 0.6;
+}
+#cursor-cad.ativo .cursor-centro {
+  transform: translate(-50%, -50%) scale(1.8);
+}
+
+/* Em seções escuras a mira fica clara */
+#cursor-cad.claro .cursor-linha-h,
+#cursor-cad.claro .cursor-linha-v,
+#cursor-cad.claro .cursor-centro {
+  background: var(--cor-nude-borda);
 }
 
 /* =============================================
