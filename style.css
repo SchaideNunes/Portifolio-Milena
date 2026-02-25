@@ -372,7 +372,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/Pattern\ \(1\).jpg");
+  background-image: url("assets/Pattern__1_.jpg");
   background-size: 400px;
   opacity: 0.3;
   z-index: 0;
@@ -392,7 +392,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/Pattern\ \(2\).jpg");
+  background-image: url("assets/Pattern__2_.jpg");
   background-size: 350px;
   opacity: 0.6;
   z-index: 0;
@@ -412,7 +412,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/Pattern\ \(3\).jpg");
+  background-image: url("assets/Pattern__3_.jpg");
   background-size: 300px;
   opacity: 0.07;
   z-index: 0;
@@ -433,7 +433,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/Pattern\ \(4\).jpg");
+  background-image: url("assets/Pattern__4_.jpg");
   background-size: 300px;
   opacity: 0.1;
   z-index: 0;
@@ -893,6 +893,66 @@ body {
 }
 
 /* --- Estatísticas (números) --- */
+/* Filosofia — missão, visão e valores
+   Cards com arco superior, inspirado no layout da Milena */
+.sobre-filosofia {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 40px 0 44px;
+}
+
+.filosofia-item {
+  background: var(--cor-nude-suave);
+  border-radius: 120px 120px 12px 12px;
+  padding: 44px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  transition: transform 0.3s var(--curva-animacao);
+}
+
+.filosofia-item:hover {
+  transform: translateY(-6px);
+}
+
+.filosofia-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--cor-marrom);
+}
+
+/* Traço decorativo abaixo do título, como no referencial */
+.filosofia-titulo::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--cor-nude-borda);
+  margin: 10px auto 0;
+}
+
+.filosofia-texto {
+  font-size: 0.8rem;
+  color: var(--cor-nude-texto);
+  line-height: 1.75;
+  opacity: 0.9;
+}
+
+@media (max-width: 700px) {
+  .sobre-filosofia {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .filosofia-item {
+    border-radius: 80px 80px 12px 12px;
+  }
+}
+
 .sobre-estatisticas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1245,9 +1305,32 @@ body {
   color: #b89e8c;
 }
 
-/* =============================================
-   SEÇÃO GALERIA (arraste para os lados)
-============================================= */
+/* SEPARADOR DE ONDA — entre Serviços e Galeria
+   Dois caminhos SVG sobrepostos criam profundidade.
+   A onda traseira é translúcida, a da frente é sólida. */
+.onda-separadora {
+  display: block;
+  background: var(--cor-escuro);
+  line-height: 0;
+  margin-bottom: -2px;
+}
+
+.onda-separadora svg {
+  width: 100%;
+  height: clamp(60px, 8vw, 120px);
+  display: block;
+}
+
+.onda-caminho-traseira {
+  fill: var(--cor-fundo-creme);
+  opacity: 0.35;
+}
+
+.onda-caminho-frente {
+  fill: var(--cor-fundo-creme);
+}
+
+/* SEÇÃO GALERIA (arraste para os lados) */
 #secao-galeria {
   padding: 120px 0;
   background: var(--cor-fundo-creme);
@@ -1260,12 +1343,19 @@ body {
   margin-bottom: 60px;
 }
 
-/* Trilha horizontal arrastável */
+/* Trilha — agora com scroll automático em loop via JS
+   O overflow fica hidden e o movimento é controlado por JS */
 .galeria-trilha {
   display: flex;
   gap: 20px;
   padding: 0 60px;
-  overflow: visible;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Estado pausado: JS adiciona .pausado quando mouse entra */
+.galeria-trilha.pausado {
+  cursor: default;
 }
 
 .galeria-foto {
@@ -1275,6 +1365,7 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .galeria-foto img {
@@ -1302,7 +1393,7 @@ body {
 }
 
 .galeria-foto:hover .galeria-legenda-wrap {
-  background: rgba(42, 31, 26, 0.2);
+  background: rgba(42, 31, 26, 0.25);
 }
 
 .galeria-legenda {
@@ -1320,6 +1411,175 @@ body {
 .galeria-foto:hover .galeria-legenda {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Ícone de "ver projeto" que aparece ao hover */
+.galeria-icone-ver {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  color: var(--cor-branco);
+  font-size: 1rem;
+}
+
+.galeria-foto:hover .galeria-icone-ver {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* MODAL DE PROJETO COMPLETO
+   Cobre a tela inteira com o projeto expandido.
+   JS adiciona .aberto para exibir. */
+#modal-projeto {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: var(--cor-fundo-creme);
+  display: flex;
+  align-items: stretch;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+  overflow-y: auto;
+}
+
+#modal-projeto.aberto {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-fechar {
+  position: fixed;
+  top: 32px;
+  right: 40px;
+  z-index: 8100;
+  background: none;
+  border: 1px solid var(--cor-nude-borda);
+  color: var(--cor-escuro);
+  font-family: var(--fonte-titulo);
+  font-size: 0.85rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  padding: 10px 22px;
+  cursor: pointer;
+  border-radius: 40px;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.modal-fechar:hover {
+  background: var(--cor-escuro);
+  color: var(--cor-branco);
+}
+
+.modal-conteudo {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.modal-foto-principal {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.modal-foto-principal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-info {
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.modal-categoria {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cor-marrom);
+}
+
+.modal-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--cor-escuro);
+}
+
+.modal-ano {
+  font-family: var(--fonte-titulo);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--cor-nude-borda);
+}
+
+.modal-descricao {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--cor-nude-texto);
+  max-width: 480px;
+}
+
+.modal-ficha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--cor-nude-borda);
+}
+
+.modal-ficha-item strong {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-marrom);
+  margin-bottom: 4px;
+}
+
+.modal-ficha-item span {
+  font-size: 0.85rem;
+  color: var(--cor-nude-texto);
+}
+
+.modal-cta {
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .modal-conteudo {
+    grid-template-columns: 1fr;
+  }
+  .modal-foto-principal {
+    position: relative;
+    height: 60vw;
+  }
+  .modal-info {
+    padding: 50px 30px;
+  }
 }
 
 /* =============================================
