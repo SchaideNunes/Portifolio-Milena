@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Milena Reis — Arquitetura</title>
+    <meta name="description" content="Milena Reis - Arquiteta e Designer de Interiores. Projetos completos de arquitetura, interiores, iluminação e móveis sob medida. Transformando ideias em espaços únicos." />
+    <meta name="keywords" content="arquitetura, design de interiores, projetos arquitetônicos, móveis sob medida, iluminação, reforma, Milena Reis" />
+    <title>Milena Reis | Arquitetura e Design de Interiores</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -23,7 +25,7 @@
        .preloader-planta   → SVG da planta baixa animada
        .preloader-logo-img → logo que aparece no final
        #contador-numero    → número de 0 a 100
-  ============================================= -->
+    ============================================= -->
     <div id="tela-carregamento">
       <div class="preloader-grade"></div>
 
@@ -116,9 +118,10 @@
         </text>
       </svg>
 
+      <!-- REFERÊNCIA: Imagem da logo (aparece na animação inicial) -->
       <img
         class="preloader-logo-img"
-        src="assets/Logo Milena (Alt) (1).png"
+        src="assets/Logo Milena Reis (Comp) (3).png"
         alt="Milena Reis"
       />
 
@@ -132,19 +135,12 @@
        MENU DE NAVEGAÇÃO
        .menu-logo   → logotipo "MR" no canto
        .menu-links  → links para cada seção
-  ============================================= -->
+    ============================================= -->
     <nav id="menu-topo">
+      <!-- REFERÊNCIA: Imagens da logo no menu (clara e escura) -->
       <a href="#" class="menu-logo">
-        <img
-          class="menu-logo-claro"
-          src="assets/Logo Milena (Alt) (2).png"
-          alt="Milena Reis"
-        />
-        <img
-          class="menu-logo-escuro"
-          src="assets/Logo Milena (Alt) (1).png"
-          alt="Milena Reis"
-        />
+        <img src="assets/Logo Milena (Alt) (2).png" alt="Milena Reis" class="menu-logo-claro" />
+        <img src="assets/Logo Milena (Alt) (3).png" alt="Milena Reis" class="menu-logo-escuro" />
       </a>
       <ul class="menu-links">
         <li><a href="#secao-sobre">Sobre</a></li>
@@ -160,18 +156,17 @@
        .hero-coluna-esquerda   → texto e botões
        .hero-coluna-direita    → foto de capa
        .hero-indicador-scroll  → seta animada embaixo
-  ============================================= -->
+    ============================================= -->
     <section id="secao-hero">
       <div class="hero-coluna-esquerda">
         <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
         <h1 class="hero-titulo">
-          Espaços que<br />
-          <em>respiram</em><br />
-          elegância
+          Transformando<br />
+          <em>ideias</em> em<br />
+          realidade
         </h1>
         <p class="hero-descricao">
-          Criando ambientes que traduzem a alma de quem os habita, com rigor
-          técnico e sensibilidade estética.
+          Olá! Sou a Milena. Meu trabalho é transformar espaços em experiências únicas e funcionais. Vamos criar algo extraordinário juntos!
         </p>
         <div class="hero-botoes">
           <a href="#secao-projetos" class="botao-primario"
@@ -183,8 +178,9 @@
 
       <div class="hero-coluna-direita">
         <div class="hero-foto-wrap">
+          <!-- REFERÊNCIA: Foto grande da capa de entrada -->
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80"
+            src="assets/hero-capa.jpg"
             alt="Arquitetura Milena Reis"
           />
         </div>
@@ -200,7 +196,7 @@
     <!-- =============================================
        FAIXA DE TEXTO ROLANTE (MARQUEE)
        Rola automaticamente com os serviços
-  ============================================= -->
+    ============================================= -->
     <div class="faixa-rolante">
       <div class="faixa-rolante-conteudo">
         <span>Arquitetura Residencial</span><span class="separador">·</span>
@@ -230,60 +226,49 @@
        .sobre-estatisticas     → grade com os 3 números
        .estatistica-numero     → o número grande (87, 04...)
        .estatistica-label      → o texto abaixo do número
-  ============================================= -->
+    ============================================= -->
     <section id="secao-sobre">
       <div class="sobre-foto-container animar-da-esquerda">
+        <!-- REFERÊNCIA: Foto principal sobre a arquiteta (retrato) -->
         <img
           class="sobre-foto-principal"
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80"
+          src="assets/sobre-perfil.jpg"
           alt="Milena Reis Arquiteta"
         />
+        <!-- REFERÊNCIA: Foto secundária de detalhe que fica por cima do retrato -->
         <img
           class="sobre-foto-destaque"
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80"
+          src="assets/sobre-detalhe.jpg"
           alt="Detalhe de projeto"
         />
-        <div class="sobre-badge-anos">
-          <span>12+</span>
-          <small>Anos de<br />Experiência</small>
-        </div>
       </div>
 
       <div class="sobre-texto-container animar-da-direita">
-        <p class="etiqueta-secao">Sobre a Arquiteta</p>
+        <p class="etiqueta-secao">Sobre mim</p>
         <h2 class="titulo-secao texto-merge">
-          <span class="palavra">Forma,</span>
-          <span class="palavra">função</span>
+          <span class="palavra">Excelência,</span>
+          <span class="palavra">criatividade</span>
           <span class="palavra">e</span>
-          <span class="palavra"><em>emoção</em></span>
+          <span class="palavra"><em>ética</em></span>
         </h2>
 
         <p class="sobre-paragrafo">
-          Milena Reis é arquiteta e designer de interiores com mais de 12 anos
-          de experiência na criação de espaços que transcendem o funcional e
-          alcançam o essencial.
+          Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores, reformas e construções do zero.
         </p>
         <p class="sobre-paragrafo">
-          Formada pela UFBA, com especialização em Design de Interiores em
-          Lisboa, seu trabalho é marcado pela harmonia entre materiais naturais,
-          luz e a narrativa de cada cliente.
+          Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
         </p>
         <p class="sobre-paragrafo">
-          Cada projeto é uma conversa entre quem vive e o espaço que transforma
-          essa vivência em arquitetura.
+          Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e sustentáveis, proporcionando uma experiência memorável que supera expectativas.
         </p>
 
         <div class="sobre-estatisticas">
           <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">87</p>
+            <p class="estatistica-numero" data-valor="100" data-sufixo="+">100+</p>
             <p class="estatistica-label">Projetos Realizados</p>
           </div>
           <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">04</p>
-            <p class="estatistica-label">Prêmios IAB</p>
-          </div>
-          <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">12</p>
+            <p class="estatistica-numero">10</p>
             <p class="estatistica-label">Anos de Carreira</p>
           </div>
         </div>
@@ -296,7 +281,7 @@
        .texto-sobre-3d → título flutuante sobre o 3D
        .titulo-3d      → título grande
        .subtitulo-3d   → linha pequena abaixo
-  ============================================= -->
+    ============================================= -->
     <section id="secao-modelo-3d">
       <canvas id="canvas-3d"></canvas>
       <div class="texto-sobre-3d">
@@ -317,7 +302,7 @@
          .carta-categoria   → ex: "Residencial · Salvador"
          .carta-titulo      → nome do projeto
          .carta-ano         → ex: "2024"
-  ============================================= -->
+    ============================================= -->
     <section id="secao-projetos">
       <div class="projetos-cabecalho animar-subindo">
         <div>
@@ -329,9 +314,10 @@
 
       <div class="baralho-container">
         <div class="baralho-cartas">
+          <!-- REFERÊNCIA: Imagem Projeto 1 -->
           <div class="carta-projeto" data-titulo="Casa Litoral">
             <img
-              src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80"
+              src="assets/projeto-casa-litoral.jpg"
               alt="Casa Litoral"
             />
             <div class="carta-info">
@@ -341,9 +327,10 @@
             </div>
           </div>
 
+          <!-- REFERÊNCIA: Imagem Projeto 2 -->
           <div class="carta-projeto" data-titulo="Apartamento Sereno">
             <img
-              src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80"
+              src="assets/projeto-apt-sereno.jpg"
               alt="Apartamento Sereno"
             />
             <div class="carta-info">
@@ -353,9 +340,10 @@
             </div>
           </div>
 
+          <!-- REFERÊNCIA: Imagem Projeto 3 -->
           <div class="carta-projeto" data-titulo="Villa Núcleo">
             <img
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80"
+              src="assets/projeto-villa-nucleo.jpg"
               alt="Villa Núcleo"
             />
             <div class="carta-info">
@@ -365,9 +353,10 @@
             </div>
           </div>
 
+          <!-- REFERÊNCIA: Imagem Projeto 4 -->
           <div class="carta-projeto" data-titulo="Escritório Vértice">
             <img
-              src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80"
+              src="assets/projeto-escritorio.jpg"
               alt="Escritório Vértice"
             />
             <div class="carta-info">
@@ -377,9 +366,10 @@
             </div>
           </div>
 
+          <!-- REFERÊNCIA: Imagem Projeto 5 -->
           <div class="carta-projeto" data-titulo="Residência Aura">
             <img
-              src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80"
+              src="assets/projeto-residencia-aura.jpg"
               alt="Residência Aura"
             />
             <div class="carta-info">
@@ -399,20 +389,19 @@
          .servico-numero    → "01", "02"...
          .servico-titulo    → nome do serviço
          .servico-descricao → texto explicativo
-  ============================================= -->
+    ============================================= -->
     <section id="secao-servicos">
       <p class="etiqueta-secao animar-subindo">O que fazemos</p>
       <h2 class="titulo-secao animar-subindo">
-        Serviços de<br /><em>arquitetura</em>
+        Meus<br /><em>serviços</em>
       </h2>
 
       <div class="servicos-grade">
         <div class="servico-item animar-subindo">
           <p class="servico-numero">01</p>
-          <h3 class="servico-titulo">Projeto Arquitetônico</h3>
+          <h3 class="servico-titulo">Projetos de Arquitetura</h3>
           <p class="servico-descricao">
-            Do conceito à execução, desenvolvemos projetos residenciais e
-            comerciais com precisão técnica e identidade própria.
+            Elaboração de plantas e espaços arquitetônicos completos, incluindo residências, escritórios, lojas e clínicas com identidade própria.
           </p>
         </div>
 
@@ -420,44 +409,39 @@
           <p class="servico-numero">02</p>
           <h3 class="servico-titulo">Design de Interiores</h3>
           <p class="servico-descricao">
-            Ambientação completa de espaços com curadoria de materiais,
-            mobiliário e elementos decorativos que traduzem a sua essência.
+            Planejamento detalhado da disposição de móveis, cores, materiais e decoração, garantindo funcionalidade e estética sob medida.
           </p>
         </div>
 
         <div class="servico-item animar-subindo">
           <p class="servico-numero">03</p>
-          <h3 class="servico-titulo">Reforma e Restauro</h3>
+          <h3 class="servico-titulo">Projetos de Iluminação</h3>
           <p class="servico-descricao">
-            Requalificação de imóveis preservando a história e introduzindo
-            modernidade com responsabilidade patrimonial.
+            Plano técnico focado no layout de luminárias, temperatura de cor e normas locais para valorizar cada detalhe do ambiente.
           </p>
         </div>
 
         <div class="servico-item animar-subindo">
           <p class="servico-numero">04</p>
-          <h3 class="servico-titulo">Gestão de Obra</h3>
+          <h3 class="servico-titulo">Mobiliário Sob Medida</h3>
           <p class="servico-descricao">
-            Acompanhamento integral do processo construtivo garantindo
-            fidelidade ao projeto, prazo e orçamento.
+            Criação de móveis específicos e exclusivos desenhados para que cada detalhe se ajuste perfeitamente à sua necessidade.
           </p>
         </div>
 
         <div class="servico-item animar-subindo">
           <p class="servico-numero">05</p>
-          <h3 class="servico-titulo">Paisagismo</h3>
+          <h3 class="servico-titulo">Aprovações Legais</h3>
           <p class="servico-descricao">
-            Integração entre arquitetura e natureza através de projetos de
-            jardim e áreas externas que ampliam o habitar.
+            Adequação de projetos visando aprovação garantida e segura, atendendo a todos os critérios e normas de condomínios e prefeituras.
           </p>
         </div>
 
         <div class="servico-item animar-subindo">
           <p class="servico-numero">06</p>
-          <h3 class="servico-titulo">Consultoria</h3>
+          <h3 class="servico-titulo">Relatórios e Cadastros</h3>
           <p class="servico-descricao">
-            Orientação especializada para reformas, compra de imóveis e projetos
-            de decoração pontuais com expertise técnica.
+            Elaboração de laudos, cadastros de imóveis e verificação de conclusão de obra em conformidade com o planejamento técnico.
           </p>
         </div>
       </div>
@@ -470,7 +454,7 @@
        .galeria-foto          → cada foto na trilha
          .galeria-legenda-wrap → overlay escuro ao hover
          .galeria-legenda      → nome da foto
-  ============================================= -->
+    ============================================= -->
     <section id="secao-galeria">
       <div class="galeria-cabecalho">
         <p class="etiqueta-secao animar-subindo">Galeria</p>
@@ -479,68 +463,133 @@
         </h2>
       </div>
 
-      <div class="galeria-trilha" id="galeria-trilha">
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80"
-            alt="Matéria e Luz"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Matéria e Luz</p>
+      <div class="galeria-marquee-container">
+        <!-- O container possui a trilha duplicada para o scroll infinito rodar sem falhas -->
+        <div class="galeria-trilha" id="galeria-trilha">
+          
+          <!-- PRIMEIRO SET DE IMAGENS -->
+          <div class="galeria-foto" data-titulo="Matéria e Luz" data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
+            <!-- REFERÊNCIA: Imagem Galeria 1 -->
+            <img src="assets/galeria-1.jpg" alt="Matéria e Luz" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Matéria e Luz</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80"
-            alt="Volumes Serenos"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Volumes Serenos</p>
+          <div class="galeria-foto" data-titulo="Volumes Serenos" data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
+            <!-- REFERÊNCIA: Imagem Galeria 2 -->
+            <img src="assets/galeria-2.jpg" alt="Volumes Serenos" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Volumes Serenos</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80"
-            alt="Silêncio Construído"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Silêncio Construído</p>
+          <div class="galeria-foto" data-titulo="Silêncio Construído" data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
+            <!-- REFERÊNCIA: Imagem Galeria 3 -->
+            <img src="assets/galeria-3.jpg" alt="Silêncio Construído" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Silêncio Construído</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80"
-            alt="Textura Viva"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Textura Viva</p>
+          <div class="galeria-foto" data-titulo="Textura Viva" data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
+            <!-- REFERÊNCIA: Imagem Galeria 4 -->
+            <img src="assets/galeria-4.jpg" alt="Textura Viva" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Textura Viva</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80"
-            alt="Equilíbrio Orgânico"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Equilíbrio Orgânico</p>
+          <div class="galeria-foto" data-titulo="Equilíbrio Orgânico" data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
+            <!-- REFERÊNCIA: Imagem Galeria 5 -->
+            <img src="assets/galeria-5.jpg" alt="Equilíbrio Orgânico" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Equilíbrio Orgânico</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto">
-          <img
-            src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80"
-            alt="Névoa de Design"
-          />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Névoa de Design</p>
+          <div class="galeria-foto" data-titulo="Névoa de Design" data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
+            <!-- REFERÊNCIA: Imagem Galeria 6 -->
+            <img src="assets/galeria-6.jpg" alt="Névoa de Design" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Névoa de Design</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <!-- SEGUNDO SET DE IMAGENS (Idêntico, essencial para o loop ser contínuo e perfeito) -->
+          <div class="galeria-foto" data-titulo="Matéria e Luz" data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
+            <img src="assets/galeria-1.jpg" alt="Matéria e Luz" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Matéria e Luz</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <div class="galeria-foto" data-titulo="Volumes Serenos" data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
+            <img src="assets/galeria-2.jpg" alt="Volumes Serenos" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Volumes Serenos</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <div class="galeria-foto" data-titulo="Silêncio Construído" data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
+            <img src="assets/galeria-3.jpg" alt="Silêncio Construído" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Silêncio Construído</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <div class="galeria-foto" data-titulo="Textura Viva" data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
+            <img src="assets/galeria-4.jpg" alt="Textura Viva" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Textura Viva</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <div class="galeria-foto" data-titulo="Equilíbrio Orgânico" data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
+            <img src="assets/galeria-5.jpg" alt="Equilíbrio Orgânico" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Equilíbrio Orgânico</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
+          </div>
+
+          <div class="galeria-foto" data-titulo="Névoa de Design" data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
+            <img src="assets/galeria-6.jpg" alt="Névoa de Design" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Névoa de Design</p>
+              <div class="galeria-icone-expandir">+</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Modal da Galeria -->
+    <div id="modal-galeria">
+      <div class="modal-overlay"></div>
+      <div class="modal-conteudo">
+        <button class="modal-fechar">&times;</button>
+        <div class="modal-imagem">
+          <img src="" alt="Imagem do Projeto" />
+        </div>
+        <div class="modal-info">
+          <p class="modal-etiqueta">Análise de Detalhe</p>
+          <h3 class="modal-titulo">Título</h3>
+          <p class="modal-descricao">Descrição do projeto...</p>
+          <a href="#secao-contato" class="botao-secundario" id="btn-modal-contato">Quero um espaço assim</a>
+        </div>
+      </div>
+    </div>
 
     <!-- =============================================
        SEÇÃO CONTATO
@@ -551,7 +600,7 @@
          .contato-texto        → conteúdo do item
        .contato-formulario     → direita: campos do form
          .campo-grupo          → cada campo (label + input)
-  ============================================= -->
+    ============================================= -->
     <section id="secao-contato">
       <div class="contato-grade">
         <div class="contato-coluna-info animar-da-esquerda">
@@ -566,12 +615,7 @@
             <div class="contato-icone">✉</div>
             <div class="contato-texto">
               <strong>Email</strong>
-              <a
-                href="/cdn-cgi/l/email-protection"
-                class="__cf_email__"
-                data-cfemail="523f3b3e373c33123f3b3e373c3320373b217c3320237c3020"
-                >[email&#160;protected]</a
-              >
+              contato@milenareis.arq.br
             </div>
           </div>
 
@@ -610,7 +654,7 @@
             <label for="campo-mensagem">Sua mensagem</label>
           </div>
           <a
-            href="/cdn-cgi/l/email-protection#d8b5b1b4bdb6b998b5b1b4bdb6b9aabdb1abf6b9aaa9f6baaa"
+            href="#"
             class="botao-primario"
           >
             <span>Enviar Mensagem</span>
@@ -624,8 +668,9 @@
        .rodape-logo   → nome da arquiteta
        .rodape-links  → links de redes sociais
        .rodape-copy   → texto de copyright
-  ============================================= -->
+    ============================================= -->
     <footer id="rodape">
+      <!-- REFERÊNCIA: Imagem da logo final no rodapé -->
       <img
         class="rodape-logo"
         src="assets/Logo Milena Reis (Comp) (3).png"
