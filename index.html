@@ -7,14 +7,26 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- CURSOR CAD
+       #cursor-cad     → wrapper que segue o mouse
+       .cursor-linha-h → linha horizontal
+       .cursor-linha-v → linha vertical
+       .cursor-centro  → ponto central minúsculo -->
     <div id="cursor-cad">
       <div class="cursor-linha-h"></div>
       <div class="cursor-linha-v"></div>
       <div class="cursor-centro"></div>
     </div>
 
+    <!-- =============================================
+       TELA DE CARREGAMENTO (PRELOADER GSAP)
+       .preloader-planta   → SVG da planta baixa animada
+       .preloader-logo-img → logo que aparece no final
+       #contador-numero    → número de 0 a 100
+  ============================================= -->
     <div id="tela-carregamento">
       <div class="preloader-grade"></div>
+
       <svg
         class="preloader-planta"
         viewBox="0 0 560 400"
@@ -103,17 +115,24 @@
           5m
         </text>
       </svg>
+
       <img
         class="preloader-logo-img"
         src="assets/Logo Milena (Alt) (1).png"
         alt="Milena Reis"
       />
+
       <div class="preloader-contador">
         <span id="contador-numero">0</span
         ><span class="contador-simbolo">%</span>
       </div>
     </div>
 
+    <!-- =============================================
+       MENU DE NAVEGAÇÃO
+       .menu-logo   → logotipo "MR" no canto
+       .menu-links  → links para cada seção
+  ============================================= -->
     <nav id="menu-topo">
       <a href="#" class="menu-logo">
         <img
@@ -136,6 +155,12 @@
       </ul>
     </nav>
 
+    <!-- =============================================
+       SEÇÃO HERO (CAPA PRINCIPAL)
+       .hero-coluna-esquerda   → texto e botões
+       .hero-coluna-direita    → foto de capa
+       .hero-indicador-scroll  → seta animada embaixo
+  ============================================= -->
     <section id="secao-hero">
       <div class="hero-coluna-esquerda">
         <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
@@ -155,6 +180,7 @@
           <a href="#secao-contato" class="botao-secundario">Iniciar Projeto</a>
         </div>
       </div>
+
       <div class="hero-coluna-direita">
         <div class="hero-foto-wrap">
           <img
@@ -164,12 +190,17 @@
         </div>
         <div class="hero-foto-gradiente"></div>
       </div>
+
       <div class="hero-indicador-scroll">
         <div class="scroll-linha"></div>
         <span class="scroll-texto">Scroll</span>
       </div>
     </section>
 
+    <!-- =============================================
+       FAIXA DE TEXTO ROLANTE (MARQUEE)
+       Rola automaticamente com os serviços
+  ============================================= -->
     <div class="faixa-rolante">
       <div class="faixa-rolante-conteudo">
         <span>Arquitetura Residencial</span><span class="separador">·</span>
@@ -178,6 +209,7 @@
         <span>Reforma & Restauro</span><span class="separador">·</span>
         <span>Paisagismo</span><span class="separador">·</span>
         <span>Consultoria de Materiais</span><span class="separador">·</span>
+        <!-- Repetido para o loop ser contínuo -->
         <span>Arquitetura Residencial</span><span class="separador">·</span>
         <span>Design de Interiores</span><span class="separador">·</span>
         <span>Projeto Corporativo</span><span class="separador">·</span>
@@ -187,6 +219,18 @@
       </div>
     </div>
 
+    <!-- =============================================
+       SEÇÃO SOBRE
+       .sobre-foto-container   → área das fotos + badge
+       .sobre-foto-principal   → foto grande à esquerda
+       .sobre-foto-destaque    → foto menor sobreposta
+       .sobre-badge-anos       → círculo giratório "12+"
+       .sobre-texto-container  → área de texto e stats
+       .sobre-paragrafo        → cada parágrafo de bio
+       .sobre-estatisticas     → grade com os 3 números
+       .estatistica-numero     → o número grande (87, 04...)
+       .estatistica-label      → o texto abaixo do número
+  ============================================= -->
     <section id="secao-sobre">
       <div class="sobre-foto-container animar-da-esquerda">
         <img
@@ -200,7 +244,7 @@
           alt="Detalhe de projeto"
         />
         <div class="sobre-badge-anos">
-          <span>10+</span>
+          <span>12+</span>
           <small>Anos de<br />Experiência</small>
         </div>
       </div>
@@ -215,7 +259,7 @@
         </h2>
 
         <p class="sobre-paragrafo">
-          Milena Reis é arquiteta e designer de interiores com mais de 10 anos
+          Milena Reis é arquiteta e designer de interiores com mais de 12 anos
           de experiência na criação de espaços que transcendem o funcional e
           alcançam o essencial.
         </p>
@@ -229,51 +273,30 @@
           essa vivência em arquitetura.
         </p>
 
-        <!-- Filosofia: Missão / Visão / Valores com arco -->
-        <div class="sobre-filosofia">
-          <div class="filosofia-item animar-subindo">
-            <p class="filosofia-titulo">Missão</p>
-            <p class="filosofia-texto">
-              Entender profundamente as necessidades e desejos de meus clientes,
-              para criar soluções únicas e sob medida, que superem suas
-              expectativas.
-            </p>
-          </div>
-          <div class="filosofia-item animar-subindo">
-            <p class="filosofia-titulo">Visão</p>
-            <p class="filosofia-texto">
-              Destacar-me não apenas pela estética e funcionalidade dos
-              projetos, mas pela excelência no atendimento, inovação e
-              capacidade de superar expectativas.
-            </p>
-          </div>
-          <div class="filosofia-item animar-subindo">
-            <p class="filosofia-titulo">Valores</p>
-            <p class="filosofia-texto">
-              Excelência, criatividade e ética em cada projeto, valorizando a
-              sustentabilidade e buscando aprendizado contínuo em design de
-              interiores.
-            </p>
-          </div>
-        </div>
-
         <div class="sobre-estatisticas">
           <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">100</p>
+            <p class="estatistica-numero">87</p>
             <p class="estatistica-label">Projetos Realizados</p>
           </div>
           <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">10</p>
-            <p class="estatistica-label">Anos de Carreira</p>
+            <p class="estatistica-numero">04</p>
+            <p class="estatistica-label">Prêmios IAB</p>
           </div>
           <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">100</p>
-            <p class="estatistica-label">% Dedicação</p>
+            <p class="estatistica-numero">12</p>
+            <p class="estatistica-label">Anos de Carreira</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- =============================================
+       SEÇÃO 3D (THREE.JS)
+       #canvas-3d     → onde o Three.js renderiza
+       .texto-sobre-3d → título flutuante sobre o 3D
+       .titulo-3d      → título grande
+       .subtitulo-3d   → linha pequena abaixo
+  ============================================= -->
     <section id="secao-modelo-3d">
       <canvas id="canvas-3d"></canvas>
       <div class="texto-sobre-3d">
@@ -284,6 +307,17 @@
       </div>
     </section>
 
+    <!-- =============================================
+       SEÇÃO PROJETOS — DEQUE DE CARTAS
+       .projetos-cabecalho  → título + link "ver todos"
+       .baralho-container   → área total do deque
+       .baralho-cartas      → wrapper posicionador
+       .carta-projeto       → cada carta individual
+         .carta-info        → info na base da carta
+         .carta-categoria   → ex: "Residencial · Salvador"
+         .carta-titulo      → nome do projeto
+         .carta-ano         → ex: "2024"
+  ============================================= -->
     <section id="secao-projetos">
       <div class="projetos-cabecalho animar-subindo">
         <div>
@@ -292,9 +326,10 @@
         </div>
         <a href="#" class="link-ver-todos">Todos os projetos</a>
       </div>
+
       <div class="baralho-container">
         <div class="baralho-cartas">
-          <div class="carta-projeto">
+          <div class="carta-projeto" data-titulo="Casa Litoral">
             <img
               src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80"
               alt="Casa Litoral"
@@ -305,7 +340,8 @@
               <p class="carta-ano">2024</p>
             </div>
           </div>
-          <div class="carta-projeto">
+
+          <div class="carta-projeto" data-titulo="Apartamento Sereno">
             <img
               src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80"
               alt="Apartamento Sereno"
@@ -316,7 +352,8 @@
               <p class="carta-ano">2023</p>
             </div>
           </div>
-          <div class="carta-projeto">
+
+          <div class="carta-projeto" data-titulo="Villa Núcleo">
             <img
               src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=80"
               alt="Villa Núcleo"
@@ -327,7 +364,8 @@
               <p class="carta-ano">2023</p>
             </div>
           </div>
-          <div class="carta-projeto">
+
+          <div class="carta-projeto" data-titulo="Escritório Vértice">
             <img
               src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80"
               alt="Escritório Vértice"
@@ -338,7 +376,8 @@
               <p class="carta-ano">2022</p>
             </div>
           </div>
-          <div class="carta-projeto">
+
+          <div class="carta-projeto" data-titulo="Residência Aura">
             <img
               src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80"
               alt="Residência Aura"
@@ -353,11 +392,20 @@
       </div>
     </section>
 
+    <!-- =============================================
+       SEÇÃO SERVIÇOS
+       .servicos-grade      → grid com os 6 serviços
+       .servico-item        → cada bloco de serviço
+         .servico-numero    → "01", "02"...
+         .servico-titulo    → nome do serviço
+         .servico-descricao → texto explicativo
+  ============================================= -->
     <section id="secao-servicos">
       <p class="etiqueta-secao animar-subindo">O que fazemos</p>
       <h2 class="titulo-secao animar-subindo">
         Serviços de<br /><em>arquitetura</em>
       </h2>
+
       <div class="servicos-grade">
         <div class="servico-item animar-subindo">
           <p class="servico-numero">01</p>
@@ -367,6 +415,7 @@
             comerciais com precisão técnica e identidade própria.
           </p>
         </div>
+
         <div class="servico-item animar-subindo">
           <p class="servico-numero">02</p>
           <h3 class="servico-titulo">Design de Interiores</h3>
@@ -375,6 +424,7 @@
             mobiliário e elementos decorativos que traduzem a sua essência.
           </p>
         </div>
+
         <div class="servico-item animar-subindo">
           <p class="servico-numero">03</p>
           <h3 class="servico-titulo">Reforma e Restauro</h3>
@@ -383,6 +433,7 @@
             modernidade com responsabilidade patrimonial.
           </p>
         </div>
+
         <div class="servico-item animar-subindo">
           <p class="servico-numero">04</p>
           <h3 class="servico-titulo">Gestão de Obra</h3>
@@ -391,6 +442,7 @@
             fidelidade ao projeto, prazo e orçamento.
           </p>
         </div>
+
         <div class="servico-item animar-subindo">
           <p class="servico-numero">05</p>
           <h3 class="servico-titulo">Paisagismo</h3>
@@ -399,6 +451,7 @@
             jardim e áreas externas que ampliam o habitar.
           </p>
         </div>
+
         <div class="servico-item animar-subindo">
           <p class="servico-numero">06</p>
           <h3 class="servico-titulo">Consultoria</h3>
@@ -410,24 +463,14 @@
       </div>
     </section>
 
-    <!-- SEPARADOR DE ONDA -->
-    <div class="onda-separadora" aria-hidden="true">
-      <svg
-        viewBox="0 0 1440 120"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-      >
-        <path
-          class="onda-caminho-traseira"
-          d="M0,60 C180,100 360,20 540,60 C720,100 900,20 1080,60 C1260,100 1380,40 1440,55 L1440,120 L0,120 Z"
-        />
-        <path
-          class="onda-caminho-frente"
-          d="M0,75 C200,30 400,110 600,70 C800,30 1000,100 1200,65 C1320,45 1400,80 1440,72 L1440,120 L0,120 Z"
-        />
-      </svg>
-    </div>
-
+    <!-- =============================================
+       SEÇÃO GALERIA (arraste para os lados)
+       .galeria-cabecalho     → título da seção
+       .galeria-trilha        → faixa horizontal arrastável
+       .galeria-foto          → cada foto na trilha
+         .galeria-legenda-wrap → overlay escuro ao hover
+         .galeria-legenda      → nome da foto
+  ============================================= -->
     <section id="secao-galeria">
       <div class="galeria-cabecalho">
         <p class="etiqueta-secao animar-subindo">Galeria</p>
@@ -436,9 +479,8 @@
         </h2>
       </div>
 
-      <!-- Trilha com loop automático — JS duplica os cards e anima -->
       <div class="galeria-trilha" id="galeria-trilha">
-        <div class="galeria-foto" data-projeto="0">
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80"
             alt="Matéria e Luz"
@@ -446,9 +488,9 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Matéria e Luz</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
-        <div class="galeria-foto" data-projeto="1">
+
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80"
             alt="Volumes Serenos"
@@ -456,9 +498,9 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Volumes Serenos</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
-        <div class="galeria-foto" data-projeto="2">
+
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80"
             alt="Silêncio Construído"
@@ -466,9 +508,9 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Silêncio Construído</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
-        <div class="galeria-foto" data-projeto="3">
+
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80"
             alt="Textura Viva"
@@ -476,9 +518,9 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Textura Viva</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
-        <div class="galeria-foto" data-projeto="4">
+
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80"
             alt="Equilíbrio Orgânico"
@@ -486,9 +528,9 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Equilíbrio Orgânico</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
-        <div class="galeria-foto" data-projeto="5">
+
+        <div class="galeria-foto">
           <img
             src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80"
             alt="Névoa de Design"
@@ -496,11 +538,20 @@
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Névoa de Design</p>
           </div>
-          <div class="galeria-icone-ver">↗</div>
         </div>
       </div>
     </section>
 
+    <!-- =============================================
+       SEÇÃO CONTATO
+       .contato-grade          → layout 2 colunas
+       .contato-coluna-info    → esquerda: texto + dados
+       .contato-item           → cada linha (email, tel...)
+         .contato-icone        → símbolo do item
+         .contato-texto        → conteúdo do item
+       .contato-formulario     → direita: campos do form
+         .campo-grupo          → cada campo (label + input)
+  ============================================= -->
     <section id="secao-contato">
       <div class="contato-grade">
         <div class="contato-coluna-info animar-da-esquerda">
@@ -510,15 +561,20 @@
             Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
             espaço, seus sonhos e vamos construir juntos.
           </p>
+
           <div class="contato-item">
             <div class="contato-icone">✉</div>
             <div class="contato-texto">
               <strong>Email</strong>
-              <a href="mailto:milena@milenareis.arq.br"
-                >milena@milenareis.arq.br</a
+              <a
+                href="/cdn-cgi/l/email-protection"
+                class="__cf_email__"
+                data-cfemail="523f3b3e373c33123f3b3e373c3320373b217c3320237c3020"
+                >[email&#160;protected]</a
               >
             </div>
           </div>
+
           <div class="contato-item">
             <div class="contato-icone">✆</div>
             <div class="contato-texto">
@@ -526,6 +582,7 @@
               +55 71 99999-0000
             </div>
           </div>
+
           <div class="contato-item">
             <div class="contato-icone">◈</div>
             <div class="contato-texto">
@@ -534,6 +591,7 @@
             </div>
           </div>
         </div>
+
         <div class="contato-formulario animar-da-direita">
           <div class="campo-grupo">
             <input type="text" id="campo-nome" placeholder=" " />
@@ -551,13 +609,22 @@
             <textarea id="campo-mensagem" placeholder=" "></textarea>
             <label for="campo-mensagem">Sua mensagem</label>
           </div>
-          <a href="mailto:milena@milenareis.arq.br" class="botao-primario">
+          <a
+            href="/cdn-cgi/l/email-protection#d8b5b1b4bdb6b998b5b1b4bdb6b9aabdb1abf6b9aaa9f6baaa"
+            class="botao-primario"
+          >
             <span>Enviar Mensagem</span>
           </a>
         </div>
       </div>
     </section>
 
+    <!-- =============================================
+       RODAPÉ
+       .rodape-logo   → nome da arquiteta
+       .rodape-links  → links de redes sociais
+       .rodape-copy   → texto de copyright
+  ============================================= -->
     <footer id="rodape">
       <img
         class="rodape-logo"
@@ -574,49 +641,6 @@
         © 2025 Milena Reis Arquitetura. Todos os direitos reservados.
       </p>
     </footer>
-
-    <!-- MODAL DE PROJETO — abre ao clicar em um card da galeria -->
-    <div id="modal-projeto">
-      <button class="modal-fechar" id="modal-fechar">✕ fechar</button>
-      <div class="modal-conteudo">
-        <div class="modal-foto-principal">
-          <img id="modal-imagem" src="" alt="" />
-        </div>
-        <div class="modal-info">
-          <p class="modal-categoria" id="modal-categoria"></p>
-          <h2 class="modal-titulo" id="modal-titulo"></h2>
-          <p class="modal-ano" id="modal-ano"></p>
-          <p class="modal-descricao" id="modal-descricao"></p>
-          <div class="modal-ficha">
-            <div class="modal-ficha-item">
-              <strong>Área</strong>
-              <span id="modal-area"></span>
-            </div>
-            <div class="modal-ficha-item">
-              <strong>Serviço</strong>
-              <span id="modal-servico"></span>
-            </div>
-            <div class="modal-ficha-item">
-              <strong>Local</strong>
-              <span id="modal-local"></span>
-            </div>
-            <div class="modal-ficha-item">
-              <strong>Ano</strong>
-              <span id="modal-ano-ficha"></span>
-            </div>
-          </div>
-          <div class="modal-cta">
-            <a
-              href="#secao-contato"
-              class="botao-primario"
-              id="modal-botao-contato"
-            >
-              <span>Quero um projeto assim</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

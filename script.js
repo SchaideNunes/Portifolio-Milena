@@ -23,262 +23,193 @@
   // 1. PRELOADER — PLANTA BAIXA ANIMADA COM GSAP
   // A planta se desenha como se uma mão a estivesse traçando,
   // depois a logo aparece e a tela some suavemente.
-  function animarPreloader(aoTerminar) {
+  function animarPreloader() {
     const tela = document.getElementById("tela-carregamento");
-    if (!tela) {
-      if (aoTerminar) aoTerminar();
+    if (!tela || typeof gsap === "undefined") {
+      // Fallback sem GSAP
+      setTimeout(() => {
+        tela && tela.remove();
+      }, 3000);
       return;
     }
 
-    document.body.style.overflow = "hidden";
-
-    function iniciarAnimacao() {
-      if (typeof gsap === "undefined") {
-        tela.remove();
-        document.body.style.overflow = "";
-        if (aoTerminar) aoTerminar();
-        return;
-      }
-
-      // Todos os traços começam invisíveis (dashoffset = comprimento)
-      const DASH = 2000;
-      const todosOsTracados = [
-        ".planta-parede-externa",
-        ".planta-parede-interna",
-        ".planta-linha-porta",
-        ".planta-arco-porta",
-        ".planta-janela-a",
-        ".planta-janela-b",
-        ".planta-degrau",
-        ".planta-borda-escada",
-        ".planta-cota-linha",
-        ".planta-cota-tick",
-        ".planta-norte-circulo",
-        ".planta-norte-linha",
-        ".planta-escala-linha",
-        ".planta-escala-tick",
-      ];
-      gsap.set(todosOsTracados.join(","), {
-        strokeDasharray: DASH,
-        strokeDashoffset: DASH,
+    // Inicializa o dashoffset de cada elemento com seu comprimento real
+    function prepararLinha(seletor) {
+      document.querySelectorAll(seletor).forEach((el) => {
+        const len = el.getTotalLength ? el.getTotalLength() : 200;
+        el.style.strokeDasharray = len;
+        el.style.strokeDashoffset = len;
       });
-
-      // SVG e logo começam invisíveis — fade de entrada suave
-      gsap.set(".preloader-planta", { opacity: 0, scale: 0.97 });
-      gsap.set(".preloader-logo-img", {
-        opacity: 0,
-        y: 16,
-        filter: "blur(8px)",
-      });
-      gsap.set(".preloader-contador", { opacity: 0 });
-
-      // Contador sobe de 0 a 100 durante toda a animação
-      const contadorEl = document.getElementById("contador-numero");
-      const objContador = { valor: 0 };
-
-      // Timeline principal com defaults suaves
-      const durTotal = 5.2; // duração total esperada da animação
-      const tl = gsap.timeline({
-        defaults: { ease: "sine.inOut" },
-        onComplete: sairDoPreloader,
-      });
-
-      // — Fase 0: a planta surge do fade com escala suave
-      tl.to(".preloader-planta", {
-        opacity: 1,
-        scale: 1,
-        duration: 1.0,
-        ease: "power2.out",
-      })
-
-        // — Fase 1: paredes externas se desenham (o perímetro aparece devagar)
-        .to(
-          ".planta-parede-externa",
-          {
-            strokeDashoffset: 0,
-            duration: 1.6,
-            ease: "power3.inOut",
-          },
-          "-=0.4",
-        )
-
-        // — Fase 2: divisões internas fluem logo depois
-        .to(
-          ".planta-parede-interna",
-          {
-            strokeDashoffset: 0,
-            duration: 1.0,
-            ease: "power2.inOut",
-            stagger: 0.2,
-          },
-          "-=0.6",
-        )
-
-        // — Fase 3: portas — linha + arco em sequência fluida
-        .to(
-          ".planta-linha-porta",
-          {
-            strokeDashoffset: 0,
-            duration: 0.5,
-            ease: "sine.out",
-            stagger: 0.15,
-          },
-          "-=0.5",
-        )
-        .to(
-          ".planta-arco-porta",
-          {
-            strokeDashoffset: 0,
-            duration: 0.6,
-            ease: "sine.inOut",
-            stagger: 0.18,
-          },
-          "-=0.35",
-        )
-
-        // — Fase 4: janelas (dupla linha, quase simultâneas)
-        .to(
-          ".planta-janela-a, .planta-janela-b",
-          {
-            strokeDashoffset: 0,
-            duration: 0.5,
-            ease: "sine.out",
-            stagger: 0.05,
-          },
-          "-=0.4",
-        )
-
-        // — Fase 5: escada — bordas primeiro, depois degraus em cascata suave
-        .to(
-          ".planta-borda-escada",
-          {
-            strokeDashoffset: 0,
-            duration: 0.45,
-            ease: "sine.out",
-          },
-          "-=0.3",
-        )
-        .to(
-          ".planta-degrau",
-          {
-            strokeDashoffset: 0,
-            duration: 0.18,
-            ease: "none",
-            stagger: 0.07,
-          },
-          "-=0.3",
-        )
-
-        // — Fase 6: cotas e indicadores técnicos surgem juntos, devagar
-        .to(
-          ".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick",
-          {
-            strokeDashoffset: 0,
-            duration: 0.55,
-            ease: "sine.inOut",
-            stagger: 0.04,
-          },
-          "-=0.2",
-        )
-        .to(
-          ".planta-norte-circulo, .planta-norte-linha",
-          {
-            strokeDashoffset: 0,
-            duration: 0.55,
-            ease: "sine.inOut",
-            stagger: 0.1,
-          },
-          "-=0.45",
-        )
-
-        // — Fase 7: textos N e escala pulsam em opacidade
-        .to(
-          ".planta-norte-texto, .planta-escala-texto",
-          {
-            opacity: 0.7,
-            duration: 0.7,
-            ease: "power1.inOut",
-            stagger: 0.15,
-          },
-          "-=0.3",
-        )
-
-        // — Fase 8: contador aparece suavemente
-        .to(
-          ".preloader-contador",
-          {
-            opacity: 1,
-            duration: 0.6,
-            ease: "power1.out",
-          },
-          "<",
-        )
-
-        // — Fase 9: pausa para contemplar a planta completa
-        .to({}, { duration: 0.5 })
-
-        // — Fase 10: logo surge com desfoque saindo — momento elegante
-        .to(".preloader-logo-img", {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 1.2,
-          ease: "power2.out",
-        })
-
-        // — Fase 11: breve pausa antes de sair
-        .to({}, { duration: 0.7 });
-
-      // Contador sincronizado com a timeline (começa junto com a planta)
-      gsap.to(objContador, {
-        valor: 100,
-        duration: durTotal,
-        ease: "power1.inOut",
-        delay: 0.6, // começa junto com o fade da planta
-        onUpdate: () => {
-          if (contadorEl)
-            contadorEl.textContent = Math.round(objContador.valor);
-        },
-      });
-
-      // Saída cinematográfica: a planta dissolve primeiro, depois a tela inteira some
-      function sairDoPreloader() {
-        const tlSaida = gsap.timeline({
-          onComplete: () => {
-            tela.remove();
-            document.body.style.overflow = "";
-            if (aoTerminar) aoTerminar();
-          },
-        });
-
-        tlSaida
-          // Planta e logo dissolvem levemente
-          .to(".preloader-planta, .preloader-logo-img", {
-            opacity: 0,
-            y: -12,
-            duration: 0.7,
-            ease: "power2.in",
-            stagger: 0.1,
-          })
-          // Tela inteira some com fade suave
-          .to(
-            tela,
-            {
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.inOut",
-            },
-            "-=0.3",
-          );
-      }
     }
 
-    if (document.readyState === "complete") {
-      requestAnimationFrame(iniciarAnimacao);
-    } else {
-      window.addEventListener("load", () =>
-        requestAnimationFrame(iniciarAnimacao),
-      );
+    const todasLinhas = [
+      ".planta-parede-externa",
+      ".planta-parede-interna",
+      ".planta-linha-porta",
+      ".planta-arco-porta",
+      ".planta-janela-a",
+      ".planta-janela-b",
+      ".planta-degrau",
+      ".planta-borda-escada",
+      ".planta-cota-linha",
+      ".planta-cota-tick",
+      ".planta-norte-circulo",
+      ".planta-norte-linha",
+      ".planta-escala-linha",
+      ".planta-escala-tick",
+    ];
+    todasLinhas.forEach(prepararLinha);
+
+    // Timeline principal
+    const tl = gsap.timeline({ onComplete: sairDoPreloader });
+
+    // Contador de porcentagem sobe junto com a animação
+    const contadorEl = document.getElementById("contador-numero");
+    const objContador = { valor: 0 };
+    gsap.to(objContador, {
+      valor: 100,
+      duration: 3.8,
+      ease: "power2.inOut",
+      onStart: () => {
+        gsap.to(".preloader-contador", { opacity: 1, duration: 0.4 });
+      },
+      onUpdate: () => {
+        if (contadorEl) contadorEl.textContent = Math.round(objContador.valor);
+      },
+    });
+
+    // 1. Paredes externas — perímetro do edifício
+    tl.to(".planta-parede-externa", {
+      strokeDashoffset: 0,
+      duration: 1.2,
+      ease: "power2.inOut",
+    })
+
+      // 2. Paredes internas — divisões dos cômodos
+      .to(
+        ".planta-parede-interna",
+        {
+          strokeDashoffset: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          stagger: 0.15,
+        },
+        "-=0.3",
+      )
+
+      // 3. Portas (linhas + arcos)
+      .to(
+        ".planta-linha-porta",
+        {
+          strokeDashoffset: 0,
+          duration: 0.3,
+          stagger: 0.1,
+          ease: "power1.out",
+        },
+        "-=0.2",
+      )
+      .to(
+        ".planta-arco-porta",
+        {
+          strokeDashoffset: 0,
+          duration: 0.45,
+          stagger: 0.12,
+          ease: "power1.inOut",
+        },
+        "-=0.2",
+      )
+
+      // 4. Janelas (dupla linha)
+      .to(
+        ".planta-janela-a, .planta-janela-b",
+        {
+          strokeDashoffset: 0,
+          duration: 0.35,
+          ease: "power1.out",
+          stagger: 0.06,
+        },
+        "-=0.1",
+      )
+
+      // 5. Escada (degraus em cascata rápida)
+      .to(
+        ".planta-borda-escada",
+        {
+          strokeDashoffset: 0,
+          duration: 0.3,
+          ease: "power1.out",
+        },
+        "-=0.1",
+      )
+      .to(
+        ".planta-degrau",
+        {
+          strokeDashoffset: 0,
+          duration: 0.12,
+          ease: "none",
+          stagger: 0.06,
+        },
+        "-=0.2",
+      )
+
+      // 6. Linhas de cota e indicadores técnicos
+      .to(
+        ".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick",
+        {
+          strokeDashoffset: 0,
+          duration: 0.4,
+          ease: "power1.out",
+          stagger: 0.04,
+        },
+        "-=0.1",
+      )
+      .to(
+        ".planta-norte-circulo, .planta-norte-linha",
+        {
+          strokeDashoffset: 0,
+          duration: 0.4,
+          ease: "power1.out",
+          stagger: 0.08,
+        },
+        "-=0.3",
+      )
+
+      // 7. Textos (N, escala)
+      .to(
+        ".planta-norte-texto, .planta-escala-texto",
+        {
+          opacity: 0.7,
+          duration: 0.4,
+          stagger: 0.1,
+        },
+        "-=0.1",
+      )
+
+      // 8. Logo aparece com blur saindo
+      .fromTo(
+        ".preloader-logo-img",
+        { opacity: 0, filter: "blur(12px)", y: 10 },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          y: 0,
+          duration: 0.9,
+          ease: "power2.out",
+        },
+        "-=0.1",
+      )
+
+      // 9. Pausa para leitura
+      .to({}, { duration: 0.6 });
+
+    // Saída da tela
+    function sairDoPreloader() {
+      gsap.to(tela, {
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => tela.remove(),
+      });
     }
   }
 
@@ -450,217 +381,69 @@
     if (blocoEstatisticas) observadorEstatisticas.observe(blocoEstatisticas);
   }
 
-  // 8. GALERIA COM SCROLL AUTOMÁTICO EM LOOP
-  // Os cards rolam para a esquerda sozinhos.
-  // Ao passar o mouse → pausa. Ao sair → continua.
-  // Ao clicar → abre o modal do projeto.
-  // A técnica de loop: duplicamos os filhos no DOM e
-  // quando o scroll passa da metade, voltamos ao início
-  // (imperceptível para o usuário).
+  /* ==========================================
+     8. GALERIA ARRASTÁVEL
+     Arraste com mouse ou toque para rolar
+  ========================================== */
   function galeriaArrastavel() {
-    const trilha = document.getElementById("galeria-trilha");
-    if (!trilha) return;
+    const galeriaTrilha = document.getElementById("galeria-trilha");
+    if (!galeriaTrilha) return;
 
-    // Duplica os cards para criar o efeito de loop infinito
-    const fotosOriginais = Array.from(trilha.querySelectorAll(".galeria-foto"));
-    fotosOriginais.forEach((foto) => {
-      const clone = foto.cloneNode(true);
-      clone.setAttribute("aria-hidden", "true");
-      clone.dataset.clone = "true";
-      trilha.appendChild(clone);
+    let estaArrastando = false;
+    let posInicioArrasto = 0;
+    let scrollInicioArrasto = 0;
+
+    // Mouse
+    galeriaTrilha.addEventListener("mousedown", (e) => {
+      estaArrastando = true;
+      galeriaTrilha.style.cursor = "grabbing";
+      posInicioArrasto = e.pageX - galeriaTrilha.offsetLeft;
+      scrollInicioArrasto = galeriaTrilha.scrollLeft;
     });
 
-    let pausado = false;
-    let velocidade = 0.8; // px por frame
-    let posicaoAtual = 0;
-
-    // Calcula a largura de um conjunto de cards (metade do total)
-    function larguraMetade() {
-      return trilha.scrollWidth / 2;
-    }
-
-    // Loop de animação principal
-    function scrollAutomatico() {
-      if (!pausado) {
-        posicaoAtual += velocidade;
-        // Quando passa da metade (fim dos originais), volta ao início suavemente
-        if (posicaoAtual >= larguraMetade()) {
-          posicaoAtual = 0;
-        }
-        trilha.scrollLeft = posicaoAtual;
-      }
-      requestAnimationFrame(scrollAutomatico);
-    }
-    scrollAutomatico();
-
-    // Pausa ao hover e retoma ao sair
-    trilha.addEventListener("mouseenter", () => {
-      pausado = true;
-      trilha.classList.add("pausado");
-    });
-    trilha.addEventListener("mouseleave", () => {
-      pausado = false;
-      trilha.classList.remove("pausado");
+    galeriaTrilha.addEventListener("mouseleave", () => {
+      estaArrastando = false;
+      galeriaTrilha.style.cursor = "grab";
     });
 
-    // Mobile: toque pausa o scroll automático temporariamente
-    trilha.addEventListener(
+    galeriaTrilha.addEventListener("mouseup", () => {
+      estaArrastando = false;
+      galeriaTrilha.style.cursor = "grab";
+    });
+
+    galeriaTrilha.addEventListener("mousemove", (e) => {
+      if (!estaArrastando) return;
+      e.preventDefault();
+      const posAtual = e.pageX - galeriaTrilha.offsetLeft;
+      const distanciaArrastada = (posAtual - posInicioArrasto) * 1.8;
+      galeriaTrilha.scrollLeft = scrollInicioArrasto - distanciaArrastada;
+    });
+
+    // Toque (mobile)
+    let toqueInicioX = 0;
+    let scrollInicioToque = 0;
+
+    galeriaTrilha.addEventListener(
       "touchstart",
-      () => {
-        pausado = true;
+      (e) => {
+        toqueInicioX = e.touches[0].pageX;
+        scrollInicioToque = galeriaTrilha.scrollLeft;
       },
       { passive: true },
     );
-    trilha.addEventListener("touchend", () => {
-      setTimeout(() => {
-        pausado = false;
-      }, 1500);
-    });
-  }
 
-  // 8b. MODAL DE PROJETO
-  // Dados de cada projeto da galeria.
-  // Quando o usuário clica em uma foto, o modal abre
-  // com as informações do projeto correspondente.
-  // Os campos no HTML (#modal-imagem, #modal-titulo...) são preenchidos via JS.
-  function iniciarModalGaleria() {
-    const dadosGaleria = [
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=90",
-        categoria: "Design de Interiores · Salvador, BA",
-        titulo: "Matéria\ne Luz",
-        ano: "2024",
-        descricao:
-          "Projeto de interiores residencial com foco na interação entre materiais naturais e a luz natural. Cada ambiente foi projetado para receber a luz em diferentes momentos do dia, criando uma experiência sensorial única ao longo das horas.",
-        area: "180 m²",
-        servico: "Design de Interiores",
-        local: "Salvador, BA",
+    galeriaTrilha.addEventListener(
+      "touchmove",
+      (e) => {
+        const diferenca = toqueInicioX - e.touches[0].pageX;
+        galeriaTrilha.scrollLeft = scrollInicioToque + diferenca;
       },
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=90",
-        categoria: "Arquitetura Residencial · Bahia",
-        titulo: "Volumes\nSerenos",
-        ano: "2024",
-        descricao:
-          "Residência unifamiliar projetada para criar sensação de calma e equilíbrio. Os volumes sólidos dialogam com aberturas estratégicas que enquadram a paisagem e trazem a natureza para dentro dos ambientes.",
-        area: "320 m²",
-        servico: "Projeto Arquitetônico",
-        local: "Bahia",
-      },
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=90",
-        categoria: "Interiores Minimalistas · São Paulo, SP",
-        titulo: "Silêncio\nConstruído",
-        ano: "2023",
-        descricao:
-          "Apartamento de alto padrão com linguagem minimalista. A paleta monocromática e os materiais cuidadosamente selecionados constroem um silêncio visual que convida à contemplação e ao descanso.",
-        area: "220 m²",
-        servico: "Design de Interiores",
-        local: "São Paulo, SP",
-      },
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1200&q=90",
-        categoria: "Interiores · Salvador, BA",
-        titulo: "Textura\nViva",
-        ano: "2023",
-        descricao:
-          "Projeto que celebra o uso de materiais naturais em sua forma mais autêntica — pedras brutas, madeiras não tratadas e fibras naturais compõem um espaço cheio de vida e personalidade.",
-        area: "140 m²",
-        servico: "Design de Interiores",
-        local: "Salvador, BA",
-      },
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1200&q=90",
-        categoria: "Arquitetura & Paisagismo · Recife, PE",
-        titulo: "Equilíbrio\nOrgânico",
-        ano: "2022",
-        descricao:
-          "Casa projetada em integração total com a vegetação existente no terreno. Jardins internos, telhados verdes e fachadas com trepadeiras criam um diálogo contínuo entre arquitetura e natureza.",
-        area: "400 m²",
-        servico: "Projeto Arquitetônico + Paisagismo",
-        local: "Recife, PE",
-      },
-      {
-        imagem:
-          "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=90",
-        categoria: "Projetos de Iluminação · Bahia",
-        titulo: "Névoa\nde Design",
-        ano: "2022",
-        descricao:
-          "Projeto de iluminação residencial com foco em criar ambiências distintas em cada cômodo. Temperaturas de cor cuidadosamente escolhidas e pontos de luz indireta transformam o espaço ao longo do dia e da noite.",
-        area: "260 m²",
-        servico: "Projeto de Iluminação",
-        local: "Salvador, BA",
-      },
-    ];
+      { passive: true },
+    );
 
-    const modal = document.getElementById("modal-projeto");
-    const btnFechar = document.getElementById("modal-fechar");
-    const modalImagem = document.getElementById("modal-imagem");
-    const modalCateg = document.getElementById("modal-categoria");
-    const modalTitulo = document.getElementById("modal-titulo");
-    const modalAno = document.getElementById("modal-ano");
-    const modalDescr = document.getElementById("modal-descricao");
-    const modalArea = document.getElementById("modal-area");
-    const modalServico = document.getElementById("modal-servico");
-    const modalLocal = document.getElementById("modal-local");
-    const modalAnoFicha = document.getElementById("modal-ano-ficha");
-
-    if (!modal) return;
-
-    // Abre o modal com os dados do projeto clicado
-    function abrirModal(indice) {
-      const projeto = dadosGaleria[indice];
-      if (!projeto) return;
-
-      modalImagem.src = projeto.imagem;
-      modalImagem.alt = projeto.titulo;
-      modalCateg.textContent = projeto.categoria;
-      modalTitulo.textContent = projeto.titulo.replace("\n", "\n");
-      modalAno.textContent = projeto.ano;
-      modalDescr.textContent = projeto.descricao;
-      modalArea.textContent = projeto.area;
-      modalServico.textContent = projeto.servico;
-      modalLocal.textContent = projeto.local;
-      modalAnoFicha.textContent = projeto.ano;
-
-      // Quebra de linha no título
-      modalTitulo.innerHTML = projeto.titulo.replace("\n", "<br>");
-
-      modal.classList.add("aberto");
-      document.body.style.overflow = "hidden";
-    }
-
-    // Fecha o modal
-    function fecharModal() {
-      modal.classList.remove("aberto");
-      document.body.style.overflow = "";
-    }
-
-    // Evento de clique nas fotos da galeria (originais e clones)
-    document.getElementById("galeria-trilha").addEventListener("click", (e) => {
-      const foto = e.target.closest(".galeria-foto");
-      if (!foto || foto.dataset.clone) return; // ignora clones
-      const indice = parseInt(foto.dataset.projeto);
-      if (!isNaN(indice)) abrirModal(indice);
-    });
-
-    btnFechar.addEventListener("click", fecharModal);
-
-    // ESC fecha o modal
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") fecharModal();
-    });
-
-    // Clique fora do conteúdo fecha o modal
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) fecharModal();
-    });
+    galeriaTrilha.style.cursor = "grab";
+    galeriaTrilha.style.overflowX = "scroll";
+    galeriaTrilha.style.scrollbarWidth = "none";
   }
 
   /* ==========================================
@@ -1182,38 +965,12 @@
   }
 
   /* ==========================================
-     12. CLIQUE NAS CARTAS DE PROJETO
-     A carta clicada vai para o centro e as 
-     outras se reorganizam ao redor
+     12. CARDS DE PROJETO — layout accordion
+     O comportamento de expansão é gerenciado
+     via CSS (:hover flex), sem JS necessário.
   ========================================== */
   function cliqueDasCartas() {
-    const todasAsCartas = document.querySelectorAll(".carta-projeto");
-
-    todasAsCartas.forEach((cartaClicada, indiceDaClicada) => {
-      cartaClicada.addEventListener("click", () => {
-        todasAsCartas.forEach((carta, indiceDaCarta) => {
-          carta.style.transition =
-            "transform 0.7s cubic-bezier(0.76,0,0.24,1), opacity 0.5s ease, box-shadow 0.5s ease";
-
-          if (indiceDaCarta === indiceDaClicada) {
-            // Carta clicada: vai para o centro e fica maior
-            carta.style.transform =
-              "translateX(-50%) translateY(-70%) rotate(0deg) scale(1.05)";
-            carta.style.zIndex = "20";
-            carta.style.opacity = "1";
-            carta.style.boxShadow = "0 40px 100px rgba(42,31,26,0.45)";
-          } else {
-            // Outras cartas: se afastam proporcionalmente
-            const distancia = indiceDaCarta - indiceDaClicada;
-            const rotacao = distancia * 6;
-            const deslocamento = distancia * 160;
-            carta.style.transform = `translateX(calc(-50% + ${deslocamento}px)) translateY(-50%) rotate(${rotacao}deg)`;
-            carta.style.zIndex = `${5 - Math.abs(distancia)}`;
-            carta.style.opacity = `${0.6 + Math.min(Math.abs(distancia) * 0.1, 0.3)}`;
-          }
-        });
-      });
-    });
+    // Nenhuma ação necessária — efeito gerenciado por CSS
   }
 
   /* ==========================================
@@ -1241,85 +998,20 @@
     itensServico.forEach((item) => observadorServicos.observe(item));
   }
 
-  // INICIALIZAR TUDO
-  // O preloader roda primeiro e isolado.
-  // As funções pesadas (galeria loop, 3D) só iniciam
-  // depois que o preloader termina, evitando competição
-  // por recursos com a animação GSAP.
-
-  function iniciarTudo() {
-    try {
-      iniciarCursor();
-    } catch (e) {
-      console.warn("iniciarCursor:", e);
-    }
-    try {
-      menuAoRolar();
-    } catch (e) {
-      console.warn("menuAoRolar:", e);
-    }
-    try {
-      animarAoEntrarNaTela();
-    } catch (e) {
-      console.warn("animarAoEntrarNaTela:", e);
-    }
-    try {
-      animarTextoPalavras();
-    } catch (e) {
-      console.warn("animarTextoPalavras:", e);
-    }
-    try {
-      paralaxeAoRolar();
-    } catch (e) {
-      console.warn("paralaxeAoRolar:", e);
-    }
-    try {
-      contarNumeros();
-    } catch (e) {
-      console.warn("contarNumeros:", e);
-    }
-    try {
-      galeriaArrastavel();
-    } catch (e) {
-      console.warn("galeriaArrastavel:", e);
-    }
-    try {
-      iniciarModalGaleria();
-    } catch (e) {
-      console.warn("iniciarModalGaleria:", e);
-    }
-    try {
-      iniciar3D();
-    } catch (e) {
-      console.warn("iniciar3D:", e);
-    }
-    try {
-      scrollSuaveDosLinks();
-    } catch (e) {
-      console.warn("scrollSuaveDosLinks:", e);
-    }
-    try {
-      desfoqueEntreSecoes();
-    } catch (e) {
-      console.warn("desfoqueEntreSecoes:", e);
-    }
-    try {
-      cliqueDasCartas();
-    } catch (e) {
-      console.warn("cliqueDasCartas:", e);
-    }
-    try {
-      animarServicosEmCascata();
-    } catch (e) {
-      console.warn("animarServicosEmCascata:", e);
-    }
-  }
-
-  // Preloader sempre primeiro, e só dispara o resto quando terminar
-  try {
-    animarPreloader(iniciarTudo);
-  } catch (e) {
-    console.warn("animarPreloader:", e);
-    iniciarTudo();
-  }
+  /* ==========================================
+     INICIALIZAR TUDO
+  ========================================== */
+  animarPreloader();
+  iniciarCursor();
+  menuAoRolar();
+  animarAoEntrarNaTela();
+  animarTextoPalavras();
+  paralaxeAoRolar();
+  contarNumeros();
+  galeriaArrastavel();
+  iniciar3D();
+  scrollSuaveDosLinks();
+  desfoqueEntreSecoes();
+  cliqueDasCartas();
+  animarServicosEmCascata();
 })();
