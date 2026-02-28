@@ -1,694 +1,562 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Milena Reis - Arquiteta e Designer de Interiores. Projetos completos de arquitetura, interiores, iluminação e móveis sob medida. Transformando ideias em espaços únicos." />
-    <meta name="keywords" content="arquitetura, design de interiores, projetos arquitetônicos, móveis sob medida, iluminação, reforma, Milena Reis" />
-    <title>Milena Reis | Arquitetura e Design de Interiores</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- CURSOR CAD
-       #cursor-cad     → wrapper que segue o mouse
-       .cursor-linha-h → linha horizontal
-       .cursor-linha-v → linha vertical
-       .cursor-centro  → ponto central minúsculo -->
-    <div id="cursor-cad">
-      <div class="cursor-linha-h"></div>
-      <div class="cursor-linha-v"></div>
-      <div class="cursor-centro"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Milena Reis - Arquiteta e Designer de Interiores. Projetos completos de arquitetura, interiores, iluminação e móveis sob medida. Transformando ideias em espaços únicos." />
+  <meta name="keywords"
+    content="arquitetura, design de interiores, projetos arquitetônicos, móveis sob medida, iluminação, reforma, Milena Reis" />
+  <title>Milena Reis | Arquitetura e Design de Interiores</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Cursor personalizado: mouse follower -->
+  <div id="cursor-cad">
+    <div class="cursor-linha-h"></div>
+    <div class="cursor-linha-v"></div>
+    <div class="cursor-centro"></div>
+  </div>
+
+  <!-- TELA DE CARREGAMENTO -->
+  <div id="tela-carregamento">
+    <div class="preloader-grade"></div>
+
+    <svg class="preloader-planta" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+      <rect class="planta-parede-externa" x="80" y="80" width="400" height="260" fill="none" />
+      <line class="planta-parede-interna" x1="280" y1="80" x2="280" y2="290" />
+      <line class="planta-parede-interna" x1="280" y1="195" x2="480" y2="195" />
+      <line class="planta-parede-interna" x1="80" y1="195" x2="200" y2="195" />
+      <line class="planta-linha-porta" x1="80" y1="215" x2="80" y2="255" />
+      <path class="planta-arco-porta" d="M 80 215 Q 120 215 120 255" fill="none" />
+      <line class="planta-linha-porta" x1="280" y1="235" x2="280" y2="270" />
+      <path class="planta-arco-porta" d="M 280 235 Q 315 235 315 270" fill="none" />
+      <line class="planta-janela-a" x1="130" y1="80" x2="210" y2="80" />
+      <line class="planta-janela-b" x1="130" y1="73" x2="210" y2="73" />
+      <line class="planta-janela-a" x1="330" y1="80" x2="430" y2="80" />
+      <line class="planta-janela-b" x1="330" y1="73" x2="430" y2="73" />
+      <line class="planta-janela-a" x1="480" y1="100" x2="480" y2="170" />
+      <line class="planta-janela-b" x1="487" y1="100" x2="487" y2="170" />
+      <line class="planta-degrau" x1="95" y1="120" x2="160" y2="120" />
+      <line class="planta-degrau" x1="95" y1="132" x2="160" y2="132" />
+      <line class="planta-degrau" x1="95" y1="144" x2="160" y2="144" />
+      <line class="planta-degrau" x1="95" y1="156" x2="160" y2="156" />
+      <line class="planta-degrau" x1="95" y1="168" x2="160" y2="168" />
+      <line class="planta-borda-escada" x1="95" y1="116" x2="95" y2="180" />
+      <line class="planta-borda-escada" x1="160" y1="116" x2="160" y2="180" />
+      <line class="planta-cota-linha" x1="80" y1="48" x2="480" y2="48" />
+      <line class="planta-cota-tick" x1="80" y1="42" x2="80" y2="54" />
+      <line class="planta-cota-tick" x1="480" y1="42" x2="480" y2="54" />
+      <line class="planta-cota-linha" x1="516" y1="80" x2="516" y2="340" />
+      <line class="planta-cota-tick" x1="510" y1="80" x2="522" y2="80" />
+      <line class="planta-cota-tick" x1="510" y1="340" x2="522" y2="340" />
+      <circle class="planta-norte-circulo" cx="535" cy="38" r="18" fill="none" />
+      <line class="planta-norte-linha" x1="535" y1="20" x2="535" y2="56" />
+      <line class="planta-norte-linha" x1="517" y1="38" x2="553" y2="38" />
+      <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">
+        N
+      </text>
+      <line class="planta-escala-linha" x1="95" y1="375" x2="255" y2="375" />
+      <line class="planta-escala-tick" x1="95" y1="369" x2="95" y2="381" />
+      <line class="planta-escala-tick" x1="175" y1="369" x2="175" y2="381" />
+      <line class="planta-escala-tick" x1="255" y1="369" x2="255" y2="381" />
+      <text class="planta-escala-texto" x="130" y="366" text-anchor="middle">
+        0
+      </text>
+      <text class="planta-escala-texto" x="215" y="366" text-anchor="middle">
+        5m
+      </text>
+    </svg>
+
+    <!-- Logo final da animação de entrada -->
+    <img class="preloader-logo-img" src="assets/Logo Milena Reis (Comp) (3).png" alt="Milena Reis" />
+
+    <div class="preloader-contador">
+      <span id="contador-numero">0</span><span class="contador-simbolo">%</span>
     </div>
+  </div>
 
-    <!-- =============================================
-       TELA DE CARREGAMENTO (PRELOADER GSAP)
-       .preloader-planta   → SVG da planta baixa animada
-       .preloader-logo-img → logo que aparece no final
-       #contador-numero    → número de 0 a 100
-    ============================================= -->
-    <div id="tela-carregamento">
-      <div class="preloader-grade"></div>
+  <!-- MENU PRINCIPAL -->
+  <nav id="menu-topo">
+    <!-- Logo: claro e escuro -->
+    <a href="#" class="menu-logo">
+      <img src="assets/Logo Milena (Alt) (2).png" alt="Milena Reis" class="menu-logo-claro" />
+      <img src="assets/Logo Milena (Alt) (3).png" alt="Milena Reis" class="menu-logo-escuro" />
+    </a>
+    <ul class="menu-links">
+      <li><a href="#secao-sobre">Sobre</a></li>
+      <li><a href="#secao-projetos">Projetos</a></li>
+      <li><a href="#secao-servicos">Serviços</a></li>
+      <li><a href="#secao-galeria">Galeria</a></li>
+      <li><a href="#secao-contato">Contato</a></li>
+    </ul>
+  </nav>
 
-      <svg
-        class="preloader-planta"
-        viewBox="0 0 560 400"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          class="planta-parede-externa"
-          x="80"
-          y="80"
-          width="400"
-          height="260"
-          fill="none"
-        />
-        <line
-          class="planta-parede-interna"
-          x1="280"
-          y1="80"
-          x2="280"
-          y2="290"
-        />
-        <line
-          class="planta-parede-interna"
-          x1="280"
-          y1="195"
-          x2="480"
-          y2="195"
-        />
-        <line
-          class="planta-parede-interna"
-          x1="80"
-          y1="195"
-          x2="200"
-          y2="195"
-        />
-        <line class="planta-linha-porta" x1="80" y1="215" x2="80" y2="255" />
-        <path
-          class="planta-arco-porta"
-          d="M 80 215 Q 120 215 120 255"
-          fill="none"
-        />
-        <line class="planta-linha-porta" x1="280" y1="235" x2="280" y2="270" />
-        <path
-          class="planta-arco-porta"
-          d="M 280 235 Q 315 235 315 270"
-          fill="none"
-        />
-        <line class="planta-janela-a" x1="130" y1="80" x2="210" y2="80" />
-        <line class="planta-janela-b" x1="130" y1="73" x2="210" y2="73" />
-        <line class="planta-janela-a" x1="330" y1="80" x2="430" y2="80" />
-        <line class="planta-janela-b" x1="330" y1="73" x2="430" y2="73" />
-        <line class="planta-janela-a" x1="480" y1="100" x2="480" y2="170" />
-        <line class="planta-janela-b" x1="487" y1="100" x2="487" y2="170" />
-        <line class="planta-degrau" x1="95" y1="120" x2="160" y2="120" />
-        <line class="planta-degrau" x1="95" y1="132" x2="160" y2="132" />
-        <line class="planta-degrau" x1="95" y1="144" x2="160" y2="144" />
-        <line class="planta-degrau" x1="95" y1="156" x2="160" y2="156" />
-        <line class="planta-degrau" x1="95" y1="168" x2="160" y2="168" />
-        <line class="planta-borda-escada" x1="95" y1="116" x2="95" y2="180" />
-        <line class="planta-borda-escada" x1="160" y1="116" x2="160" y2="180" />
-        <line class="planta-cota-linha" x1="80" y1="48" x2="480" y2="48" />
-        <line class="planta-cota-tick" x1="80" y1="42" x2="80" y2="54" />
-        <line class="planta-cota-tick" x1="480" y1="42" x2="480" y2="54" />
-        <line class="planta-cota-linha" x1="516" y1="80" x2="516" y2="340" />
-        <line class="planta-cota-tick" x1="510" y1="80" x2="522" y2="80" />
-        <line class="planta-cota-tick" x1="510" y1="340" x2="522" y2="340" />
-        <circle
-          class="planta-norte-circulo"
-          cx="535"
-          cy="38"
-          r="18"
-          fill="none"
-        />
-        <line class="planta-norte-linha" x1="535" y1="20" x2="535" y2="56" />
-        <line class="planta-norte-linha" x1="517" y1="38" x2="553" y2="38" />
-        <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">
-          N
-        </text>
-        <line class="planta-escala-linha" x1="95" y1="375" x2="255" y2="375" />
-        <line class="planta-escala-tick" x1="95" y1="369" x2="95" y2="381" />
-        <line class="planta-escala-tick" x1="175" y1="369" x2="175" y2="381" />
-        <line class="planta-escala-tick" x1="255" y1="369" x2="255" y2="381" />
-        <text class="planta-escala-texto" x="130" y="366" text-anchor="middle">
-          0
-        </text>
-        <text class="planta-escala-texto" x="215" y="366" text-anchor="middle">
-          5m
-        </text>
-      </svg>
-
-      <!-- REFERÊNCIA: Imagem da logo (aparece na animação inicial) -->
-      <img
-        class="preloader-logo-img"
-        src="assets/Logo Milena Reis (Comp) (3).png"
-        alt="Milena Reis"
-      />
-
-      <div class="preloader-contador">
-        <span id="contador-numero">0</span
-        ><span class="contador-simbolo">%</span>
+  <!-- HERO / CAPA PRINCIPAL -->
+  <section id="secao-hero">
+    <div class="hero-coluna-esquerda">
+      <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
+      <h1 class="hero-titulo">
+        Transformando<br />
+        <em>ideias</em> em<br />
+        realidade
+      </h1>
+      <p class="hero-descricao">
+        Olá! Sou a Milena. Meu trabalho é transformar espaços em experiências únicas e funcionais. Vamos criar algo
+        extraordinário juntos!
+      </p>
+      <div class="hero-botoes">
+        <a href="#secao-projetos" class="botao-primario"><span>Ver Projetos</span></a>
+        <a href="#secao-contato" class="botao-secundario">Iniciar Projeto</a>
       </div>
     </div>
 
-    <!-- =============================================
-       MENU DE NAVEGAÇÃO
-       .menu-logo   → logotipo "MR" no canto
-       .menu-links  → links para cada seção
-    ============================================= -->
-    <nav id="menu-topo">
-      <!-- REFERÊNCIA: Imagens da logo no menu (clara e escura) -->
-      <a href="#" class="menu-logo">
-        <img src="assets/Logo Milena (Alt) (2).png" alt="Milena Reis" class="menu-logo-claro" />
-        <img src="assets/Logo Milena (Alt) (3).png" alt="Milena Reis" class="menu-logo-escuro" />
-      </a>
-      <ul class="menu-links">
-        <li><a href="#secao-sobre">Sobre</a></li>
-        <li><a href="#secao-projetos">Projetos</a></li>
-        <li><a href="#secao-servicos">Serviços</a></li>
-        <li><a href="#secao-galeria">Galeria</a></li>
-        <li><a href="#secao-contato">Contato</a></li>
-      </ul>
-    </nav>
-
-    <!-- =============================================
-       SEÇÃO HERO (CAPA PRINCIPAL)
-       .hero-coluna-esquerda   → texto e botões
-       .hero-coluna-direita    → foto de capa
-       .hero-indicador-scroll  → seta animada embaixo
-    ============================================= -->
-    <section id="secao-hero">
-      <div class="hero-coluna-esquerda">
-        <p class="hero-etiqueta">Arquitetura & Design de Interiores</p>
-        <h1 class="hero-titulo">
-          Transformando<br />
-          <em>ideias</em> em<br />
-          realidade
-        </h1>
-        <p class="hero-descricao">
-          Olá! Sou a Milena. Meu trabalho é transformar espaços em experiências únicas e funcionais. Vamos criar algo extraordinário juntos!
-        </p>
-        <div class="hero-botoes">
-          <a href="#secao-projetos" class="botao-primario"
-            ><span>Ver Projetos</span></a
-          >
-          <a href="#secao-contato" class="botao-secundario">Iniciar Projeto</a>
-        </div>
+    <div class="hero-coluna-direita">
+      <div class="hero-foto-wrap">
+        <!-- Imagem de capa principal -->
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" alt="Arquitetura Milena Reis" />
       </div>
-
-      <div class="hero-coluna-direita">
-        <div class="hero-foto-wrap">
-          <!-- REFERÊNCIA: Foto grande da capa de entrada -->
-          <img
-            src="assets/hero-capa.jpg"
-            alt="Arquitetura Milena Reis"
-          />
-        </div>
-        <div class="hero-foto-gradiente"></div>
-      </div>
-
-      <div class="hero-indicador-scroll">
-        <div class="scroll-linha"></div>
-        <span class="scroll-texto">Scroll</span>
-      </div>
-    </section>
-
-    <!-- =============================================
-       FAIXA DE TEXTO ROLANTE (MARQUEE)
-       Rola automaticamente com os serviços
-    ============================================= -->
-    <div class="faixa-rolante">
-      <div class="faixa-rolante-conteudo">
-        <span>Arquitetura Residencial</span><span class="separador">·</span>
-        <span>Design de Interiores</span><span class="separador">·</span>
-        <span>Projeto Corporativo</span><span class="separador">·</span>
-        <span>Reforma & Restauro</span><span class="separador">·</span>
-        <span>Paisagismo</span><span class="separador">·</span>
-        <span>Consultoria de Materiais</span><span class="separador">·</span>
-        <!-- Repetido para o loop ser contínuo -->
-        <span>Arquitetura Residencial</span><span class="separador">·</span>
-        <span>Design de Interiores</span><span class="separador">·</span>
-        <span>Projeto Corporativo</span><span class="separador">·</span>
-        <span>Reforma & Restauro</span><span class="separador">·</span>
-        <span>Paisagismo</span><span class="separador">·</span>
-        <span>Consultoria de Materiais</span><span class="separador">·</span>
-      </div>
+      <div class="hero-foto-gradiente"></div>
     </div>
 
-    <!-- =============================================
-       SEÇÃO SOBRE
-       .sobre-foto-container   → área das fotos + badge
-       .sobre-foto-principal   → foto grande à esquerda
-       .sobre-foto-destaque    → foto menor sobreposta
-       .sobre-badge-anos       → círculo giratório "12+"
-       .sobre-texto-container  → área de texto e stats
-       .sobre-paragrafo        → cada parágrafo de bio
-       .sobre-estatisticas     → grade com os 3 números
-       .estatistica-numero     → o número grande (87, 04...)
-       .estatistica-label      → o texto abaixo do número
-    ============================================= -->
-    <section id="secao-sobre">
-      <div class="sobre-foto-container animar-da-esquerda">
-        <!-- REFERÊNCIA: Foto principal sobre a arquiteta (retrato) -->
-        <img
-          class="sobre-foto-principal"
-          src="assets/sobre-perfil.jpg"
-          alt="Milena Reis Arquiteta"
-        />
-        <!-- REFERÊNCIA: Foto secundária de detalhe que fica por cima do retrato -->
-        <img
-          class="sobre-foto-destaque"
-          src="assets/sobre-detalhe.jpg"
-          alt="Detalhe de projeto"
-        />
-      </div>
+    <div class="hero-indicador-scroll">
+      <div class="scroll-linha"></div>
+      <span class="scroll-texto">Scroll</span>
+    </div>
+  </section>
 
-      <div class="sobre-texto-container animar-da-direita">
-        <p class="etiqueta-secao">Sobre mim</p>
-        <h2 class="titulo-secao texto-merge">
-          <span class="palavra">Excelência,</span>
-          <span class="palavra">criatividade</span>
-          <span class="palavra">e</span>
-          <span class="palavra"><em>ética</em></span>
-        </h2>
+  <!-- MARQUEE (Faixa rotativa de serviços) -->
+  <div class="faixa-rolante">
+    <div class="faixa-rolante-conteudo">
+      <span>Arquitetura Residencial</span><span class="separador">·</span>
+      <span>Design de Interiores</span><span class="separador">·</span>
+      <span>Projeto Corporativo</span><span class="separador">·</span>
+      <span>Reforma & Restauro</span><span class="separador">·</span>
+      <span>Paisagismo</span><span class="separador">·</span>
+      <span>Consultoria de Materiais</span><span class="separador">·</span>
+      <!-- Texto duplicado para loop contínuo -->
+      <span>Arquitetura Residencial</span><span class="separador">·</span>
+      <span>Design de Interiores</span><span class="separador">·</span>
+      <span>Projeto Corporativo</span><span class="separador">·</span>
+      <span>Reforma & Restauro</span><span class="separador">·</span>
+      <span>Paisagismo</span><span class="separador">·</span>
+      <span>Consultoria de Materiais</span><span class="separador">·</span>
+    </div>
+  </div>
 
-        <p class="sobre-paragrafo">
-          Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores, reformas e construções do zero.
-        </p>
-        <p class="sobre-paragrafo">
-          Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
-        </p>
-        <p class="sobre-paragrafo">
-          Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e sustentáveis, proporcionando uma experiência memorável que supera expectativas.
-        </p>
+  <!-- SEÇÃO SOBRE -->
+  <section id="secao-sobre">
+    <div class="sobre-foto-container animar-da-esquerda">
+      <!-- Foto de perfil principal -->
+      <img class="sobre-foto-principal" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600" alt="Milena Reis Arquiteta" />
+      <!-- Foto de detalhe sobreposta -->
+      <img class="sobre-foto-destaque" src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=600" alt="Detalhe de projeto" />
+    </div>
 
-        <div class="sobre-estatisticas">
-          <div class="estatistica animar-subindo">
-            <p class="estatistica-numero" data-valor="100" data-sufixo="+">100+</p>
-            <p class="estatistica-label">Projetos Realizados</p>
-          </div>
-          <div class="estatistica animar-subindo">
-            <p class="estatistica-numero">10</p>
-            <p class="estatistica-label">Anos de Carreira</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =============================================
-       SEÇÃO 3D (THREE.JS)
-       #canvas-3d     → onde o Three.js renderiza
-       .texto-sobre-3d → título flutuante sobre o 3D
-       .titulo-3d      → título grande
-       .subtitulo-3d   → linha pequena abaixo
-    ============================================= -->
-    <section id="secao-modelo-3d">
-      <canvas id="canvas-3d"></canvas>
-      <div class="texto-sobre-3d">
-        <h2 class="titulo-3d entrada-blur">
-          Geometria<br /><em>como linguagem</em>
-        </h2>
-        <p class="subtitulo-3d entrada-blur">Cada volume conta uma história</p>
-      </div>
-    </section>
-
-    <!-- =============================================
-       SEÇÃO PROJETOS — DEQUE DE CARTAS
-       .projetos-cabecalho  → título + link "ver todos"
-       .baralho-container   → área total do deque
-       .baralho-cartas      → wrapper posicionador
-       .carta-projeto       → cada carta individual
-         .carta-info        → info na base da carta
-         .carta-categoria   → ex: "Residencial · Salvador"
-         .carta-titulo      → nome do projeto
-         .carta-ano         → ex: "2024"
-    ============================================= -->
-    <section id="secao-projetos">
-      <div class="projetos-cabecalho animar-subindo">
-        <div>
-          <p class="etiqueta-secao">Portfólio Selecionado</p>
-          <h2 class="titulo-secao">Criações em <em>destaque</em></h2>
-        </div>
-        <a href="#" class="link-ver-todos">Todos os projetos</a>
-      </div>
-
-      <div class="baralho-container">
-        <div class="baralho-cartas">
-          <!-- REFERÊNCIA: Imagem Projeto 1 -->
-          <div class="carta-projeto" data-titulo="Casa Litoral">
-            <img
-              src="assets/projeto-casa-litoral.jpg"
-              alt="Casa Litoral"
-            />
-            <div class="carta-info">
-              <p class="carta-categoria">Residencial · Salvador, BA</p>
-              <h3 class="carta-titulo">Casa Litoral<br />Transparente</h3>
-              <p class="carta-ano">2024</p>
-            </div>
-          </div>
-
-          <!-- REFERÊNCIA: Imagem Projeto 2 -->
-          <div class="carta-projeto" data-titulo="Apartamento Sereno">
-            <img
-              src="assets/projeto-apt-sereno.jpg"
-              alt="Apartamento Sereno"
-            />
-            <div class="carta-info">
-              <p class="carta-categoria">Interiores · São Paulo, SP</p>
-              <h3 class="carta-titulo">Apartamento<br />Sereno</h3>
-              <p class="carta-ano">2023</p>
-            </div>
-          </div>
-
-          <!-- REFERÊNCIA: Imagem Projeto 3 -->
-          <div class="carta-projeto" data-titulo="Villa Núcleo">
-            <img
-              src="assets/projeto-villa-nucleo.jpg"
-              alt="Villa Núcleo"
-            />
-            <div class="carta-info">
-              <p class="carta-categoria">Residencial · Bahia</p>
-              <h3 class="carta-titulo">Villa<br />Núcleo</h3>
-              <p class="carta-ano">2023</p>
-            </div>
-          </div>
-
-          <!-- REFERÊNCIA: Imagem Projeto 4 -->
-          <div class="carta-projeto" data-titulo="Escritório Vértice">
-            <img
-              src="assets/projeto-escritorio.jpg"
-              alt="Escritório Vértice"
-            />
-            <div class="carta-info">
-              <p class="carta-categoria">Comercial · Brasília, DF</p>
-              <h3 class="carta-titulo">Escritório<br />Vértice</h3>
-              <p class="carta-ano">2022</p>
-            </div>
-          </div>
-
-          <!-- REFERÊNCIA: Imagem Projeto 5 -->
-          <div class="carta-projeto" data-titulo="Residência Aura">
-            <img
-              src="assets/projeto-residencia-aura.jpg"
-              alt="Residência Aura"
-            />
-            <div class="carta-info">
-              <p class="carta-categoria">Residencial · Recife, PE</p>
-              <h3 class="carta-titulo">Residência<br />Aura</h3>
-              <p class="carta-ano">2022</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =============================================
-       SEÇÃO SERVIÇOS
-       .servicos-grade      → grid com os 6 serviços
-       .servico-item        → cada bloco de serviço
-         .servico-numero    → "01", "02"...
-         .servico-titulo    → nome do serviço
-         .servico-descricao → texto explicativo
-    ============================================= -->
-    <section id="secao-servicos">
-      <p class="etiqueta-secao animar-subindo">O que fazemos</p>
-      <h2 class="titulo-secao animar-subindo">
-        Meus<br /><em>serviços</em>
+    <div class="sobre-texto-container animar-da-direita">
+      <p class="etiqueta-secao">Sobre mim</p>
+      <h2 class="titulo-secao texto-merge">
+        <span class="palavra">Excelência,</span>
+        <span class="palavra">criatividade</span>
+        <span class="palavra">e</span>
+        <span class="palavra"><em>ética</em></span>
       </h2>
 
-      <div class="servicos-grade">
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">01</p>
-          <h3 class="servico-titulo">Projetos de Arquitetura</h3>
-          <p class="servico-descricao">
-            Elaboração de plantas e espaços arquitetônicos completos, incluindo residências, escritórios, lojas e clínicas com identidade própria.
-          </p>
+      <p class="sobre-paragrafo">
+        Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores, reformas
+        e construções do zero.
+      </p>
+      <p class="sobre-paragrafo">
+        Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja
+        personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
+      </p>
+      <p class="sobre-paragrafo">
+        Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e sustentáveis,
+        proporcionando uma experiência memorável que supera expectativas.
+      </p>
+
+      <div class="sobre-estatisticas">
+        <div class="estatistica animar-subindo">
+          <p class="estatistica-numero" data-valor="100" data-sufixo="+">100+</p>
+          <p class="estatistica-label">Projetos Realizados</p>
         </div>
-
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">02</p>
-          <h3 class="servico-titulo">Design de Interiores</h3>
-          <p class="servico-descricao">
-            Planejamento detalhado da disposição de móveis, cores, materiais e decoração, garantindo funcionalidade e estética sob medida.
-          </p>
-        </div>
-
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">03</p>
-          <h3 class="servico-titulo">Projetos de Iluminação</h3>
-          <p class="servico-descricao">
-            Plano técnico focado no layout de luminárias, temperatura de cor e normas locais para valorizar cada detalhe do ambiente.
-          </p>
-        </div>
-
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">04</p>
-          <h3 class="servico-titulo">Mobiliário Sob Medida</h3>
-          <p class="servico-descricao">
-            Criação de móveis específicos e exclusivos desenhados para que cada detalhe se ajuste perfeitamente à sua necessidade.
-          </p>
-        </div>
-
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">05</p>
-          <h3 class="servico-titulo">Aprovações Legais</h3>
-          <p class="servico-descricao">
-            Adequação de projetos visando aprovação garantida e segura, atendendo a todos os critérios e normas de condomínios e prefeituras.
-          </p>
-        </div>
-
-        <div class="servico-item animar-subindo">
-          <p class="servico-numero">06</p>
-          <h3 class="servico-titulo">Relatórios e Cadastros</h3>
-          <p class="servico-descricao">
-            Elaboração de laudos, cadastros de imóveis e verificação de conclusão de obra em conformidade com o planejamento técnico.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =============================================
-       SEÇÃO GALERIA (arraste para os lados)
-       .galeria-cabecalho     → título da seção
-       .galeria-trilha        → faixa horizontal arrastável
-       .galeria-foto          → cada foto na trilha
-         .galeria-legenda-wrap → overlay escuro ao hover
-         .galeria-legenda      → nome da foto
-    ============================================= -->
-    <section id="secao-galeria">
-      <div class="galeria-cabecalho">
-        <p class="etiqueta-secao animar-subindo">Galeria</p>
-        <h2 class="titulo-secao animar-subindo">
-          Detalhes que <em>importam</em>
-        </h2>
-      </div>
-
-      <div class="galeria-marquee-container">
-        <!-- O container possui a trilha duplicada para o scroll infinito rodar sem falhas -->
-        <div class="galeria-trilha" id="galeria-trilha">
-          
-          <!-- PRIMEIRO SET DE IMAGENS -->
-          <div class="galeria-foto" data-titulo="Matéria e Luz" data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
-            <!-- REFERÊNCIA: Imagem Galeria 1 -->
-            <img src="assets/galeria-1.jpg" alt="Matéria e Luz" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Matéria e Luz</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Volumes Serenos" data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
-            <!-- REFERÊNCIA: Imagem Galeria 2 -->
-            <img src="assets/galeria-2.jpg" alt="Volumes Serenos" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Volumes Serenos</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Silêncio Construído" data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
-            <!-- REFERÊNCIA: Imagem Galeria 3 -->
-            <img src="assets/galeria-3.jpg" alt="Silêncio Construído" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Silêncio Construído</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Textura Viva" data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
-            <!-- REFERÊNCIA: Imagem Galeria 4 -->
-            <img src="assets/galeria-4.jpg" alt="Textura Viva" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Textura Viva</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Equilíbrio Orgânico" data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
-            <!-- REFERÊNCIA: Imagem Galeria 5 -->
-            <img src="assets/galeria-5.jpg" alt="Equilíbrio Orgânico" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Equilíbrio Orgânico</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Névoa de Design" data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
-            <!-- REFERÊNCIA: Imagem Galeria 6 -->
-            <img src="assets/galeria-6.jpg" alt="Névoa de Design" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Névoa de Design</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <!-- SEGUNDO SET DE IMAGENS (Idêntico, essencial para o loop ser contínuo e perfeito) -->
-          <div class="galeria-foto" data-titulo="Matéria e Luz" data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
-            <img src="assets/galeria-1.jpg" alt="Matéria e Luz" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Matéria e Luz</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Volumes Serenos" data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
-            <img src="assets/galeria-2.jpg" alt="Volumes Serenos" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Volumes Serenos</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Silêncio Construído" data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
-            <img src="assets/galeria-3.jpg" alt="Silêncio Construído" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Silêncio Construído</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Textura Viva" data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
-            <img src="assets/galeria-4.jpg" alt="Textura Viva" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Textura Viva</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Equilíbrio Orgânico" data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
-            <img src="assets/galeria-5.jpg" alt="Equilíbrio Orgânico" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Equilíbrio Orgânico</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-
-          <div class="galeria-foto" data-titulo="Névoa de Design" data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
-            <img src="assets/galeria-6.jpg" alt="Névoa de Design" />
-            <div class="galeria-legenda-wrap">
-              <p class="galeria-legenda">Névoa de Design</p>
-              <div class="galeria-icone-expandir">+</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modal da Galeria -->
-    <div id="modal-galeria">
-      <div class="modal-overlay"></div>
-      <div class="modal-conteudo">
-        <button class="modal-fechar">&times;</button>
-        <div class="modal-imagem">
-          <img src="" alt="Imagem do Projeto" />
-        </div>
-        <div class="modal-info">
-          <p class="modal-etiqueta">Análise de Detalhe</p>
-          <h3 class="modal-titulo">Título</h3>
-          <p class="modal-descricao">Descrição do projeto...</p>
-          <a href="#secao-contato" class="botao-secundario" id="btn-modal-contato">Quero um espaço assim</a>
+        <div class="estatistica animar-subindo">
+          <p class="estatistica-numero">10</p>
+          <p class="estatistica-label">Anos de Carreira</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- =============================================
-       SEÇÃO CONTATO
-       .contato-grade          → layout 2 colunas
-       .contato-coluna-info    → esquerda: texto + dados
-       .contato-item           → cada linha (email, tel...)
-         .contato-icone        → símbolo do item
-         .contato-texto        → conteúdo do item
-       .contato-formulario     → direita: campos do form
-         .campo-grupo          → cada campo (label + input)
-    ============================================= -->
-    <section id="secao-contato">
-      <div class="contato-grade">
-        <div class="contato-coluna-info animar-da-esquerda">
-          <p class="etiqueta-secao">Vamos Conversar</p>
-          <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
-          <p class="contato-apresentacao">
-            Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
-            espaço, seus sonhos e vamos construir juntos.
-          </p>
+  <!-- MÓDULO 3D (Three.js) -->
+  <section id="secao-modelo-3d">
+    <canvas id="canvas-3d"></canvas>
+    <div class="texto-sobre-3d">
+      <h2 class="titulo-3d entrada-blur">
+        Geometria<br /><em>como linguagem</em>
+      </h2>
+      <p class="subtitulo-3d entrada-blur">Cada volume conta uma história</p>
+    </div>
+  </section>
 
-          <div class="contato-item">
-            <div class="contato-icone">✉</div>
-            <div class="contato-texto">
-              <strong>Email</strong>
-              contato@milenareis.arq.br
-            </div>
-          </div>
+  <!-- PORTFÓLIO DE PROJETOS -->
+  <section id="secao-projetos">
+    <div class="projetos-cabecalho animar-subindo">
+      <div>
+        <p class="etiqueta-secao">Portfólio Selecionado</p>
+        <h2 class="titulo-secao">Criações em <em>destaque</em></h2>
+      </div>
+      <a href="#" class="link-ver-todos">Todos os projetos</a>
+    </div>
 
-          <div class="contato-item">
-            <div class="contato-icone">✆</div>
-            <div class="contato-texto">
-              <strong>Telefone</strong>
-              +55 71 99999-0000
-            </div>
-          </div>
-
-          <div class="contato-item">
-            <div class="contato-icone">◈</div>
-            <div class="contato-texto">
-              <strong>Atelier</strong>
-              Salvador, Bahia — Brasil
-            </div>
+    <div class="baralho-container">
+      <div class="baralho-cartas">
+        <!-- Projeto 1: Casa Litoral -->
+        <div class="carta-projeto" data-titulo="Casa Litoral">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800" alt="Casa Litoral" />
+          <div class="carta-info">
+            <p class="carta-categoria">Residencial · Salvador, BA</p>
+            <h3 class="carta-titulo">Casa Litoral<br />Transparente</h3>
+            <p class="carta-ano">2024</p>
           </div>
         </div>
 
-        <div class="contato-formulario animar-da-direita">
-          <div class="campo-grupo">
-            <input type="text" id="campo-nome" placeholder=" " />
-            <label for="campo-nome">Seu nome</label>
+        <!-- Projeto 2: Apartamento Sereno -->
+        <div class="carta-projeto" data-titulo="Apartamento Sereno">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09be1587?q=80&w=800" alt="Apartamento Sereno" />
+          <div class="carta-info">
+            <p class="carta-categoria">Interiores · São Paulo, SP</p>
+            <h3 class="carta-titulo">Apartamento<br />Sereno</h3>
+            <p class="carta-ano">2023</p>
           </div>
-          <div class="campo-grupo">
-            <input type="email" id="campo-email" placeholder=" " />
-            <label for="campo-email">Email</label>
+        </div>
+
+        <!-- Projeto 3: Villa Núcleo -->
+        <div class="carta-projeto" data-titulo="Villa Núcleo">
+          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800" alt="Villa Núcleo" />
+          <div class="carta-info">
+            <p class="carta-categoria">Residencial · Bahia</p>
+            <h3 class="carta-titulo">Villa<br />Núcleo</h3>
+            <p class="carta-ano">2023</p>
           </div>
-          <div class="campo-grupo">
-            <input type="text" id="campo-assunto" placeholder=" " />
-            <label for="campo-assunto">Tipo de projeto</label>
+        </div>
+
+        <!-- Projeto 4: Escritório Vértice -->
+        <div class="carta-projeto" data-titulo="Escritório Vértice">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" alt="Escritório Vértice" />
+          <div class="carta-info">
+            <p class="carta-categoria">Comercial · Brasília, DF</p>
+            <h3 class="carta-titulo">Escritório<br />Vértice</h3>
+            <p class="carta-ano">2022</p>
           </div>
-          <div class="campo-grupo">
-            <textarea id="campo-mensagem" placeholder=" "></textarea>
-            <label for="campo-mensagem">Sua mensagem</label>
+        </div>
+
+        <!-- Projeto 5: Residência Aura -->
+        <div class="carta-projeto" data-titulo="Residência Aura">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800" alt="Residência Aura" />
+          <div class="carta-info">
+            <p class="carta-categoria">Residencial · Recife, PE</p>
+            <h3 class="carta-titulo">Residência<br />Aura</h3>
+            <p class="carta-ano">2022</p>
           </div>
-          <a
-            href="#"
-            class="botao-primario"
-          >
-            <span>Enviar Mensagem</span>
-          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- =============================================
-       RODAPÉ
-       .rodape-logo   → nome da arquiteta
-       .rodape-links  → links de redes sociais
-       .rodape-copy   → texto de copyright
-    ============================================= -->
-    <footer id="rodape">
-      <!-- REFERÊNCIA: Imagem da logo final no rodapé -->
-      <img
-        class="rodape-logo"
-        src="assets/Logo Milena Reis (Comp) (3).png"
-        alt="Milena Reis"
-      />
-      <div class="rodape-links">
-        <a href="#">Instagram</a>
-        <a href="#">Behance</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Pinterest</a>
+  <!-- SERVIÇOS -->
+  <section id="secao-servicos">
+    <p class="etiqueta-secao animar-subindo">O que fazemos</p>
+    <h2 class="titulo-secao animar-subindo">
+      Meus<br /><em>serviços</em>
+    </h2>
+
+    <div class="servicos-grade">
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">01</p>
+        <h3 class="servico-titulo">Projetos de Arquitetura</h3>
+        <p class="servico-descricao">
+          Elaboração de plantas e espaços arquitetônicos completos, incluindo residências, escritórios, lojas e clínicas
+          com identidade própria.
+        </p>
       </div>
-      <p class="rodape-copy">
-        © 2025 Milena Reis Arquitetura. Todos os direitos reservados.
-      </p>
-    </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">02</p>
+        <h3 class="servico-titulo">Design de Interiores</h3>
+        <p class="servico-descricao">
+          Planejamento detalhado da disposição de móveis, cores, materiais e decoração, garantindo funcionalidade e
+          estética sob medida.
+        </p>
+      </div>
+
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">03</p>
+        <h3 class="servico-titulo">Projetos de Iluminação</h3>
+        <p class="servico-descricao">
+          Plano técnico focado no layout de luminárias, temperatura de cor e normas locais para valorizar cada detalhe
+          do ambiente.
+        </p>
+      </div>
+
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">04</p>
+        <h3 class="servico-titulo">Mobiliário Sob Medida</h3>
+        <p class="servico-descricao">
+          Criação de móveis específicos e exclusivos desenhados para que cada detalhe se ajuste perfeitamente à sua
+          necessidade.
+        </p>
+      </div>
+
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">05</p>
+        <h3 class="servico-titulo">Aprovações Legais</h3>
+        <p class="servico-descricao">
+          Adequação de projetos visando aprovação garantida e segura, atendendo a todos os critérios e normas de
+          condomínios e prefeituras.
+        </p>
+      </div>
+
+      <div class="servico-item animar-subindo">
+        <p class="servico-numero">06</p>
+        <h3 class="servico-titulo">Relatórios e Cadastros</h3>
+        <p class="servico-descricao">
+          Elaboração de laudos, cadastros de imóveis e verificação de conclusão de obra em conformidade com o
+          planejamento técnico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA (Carrossel Horizontal) -->
+  <section id="secao-galeria">
+    <div class="galeria-cabecalho">
+      <p class="etiqueta-secao animar-subindo">Galeria</p>
+      <h2 class="titulo-secao animar-subindo">
+        Detalhes que <em>importam</em>
+      </h2>
+    </div>
+
+    <div class="galeria-marquee-container">
+      <!-- Trilha duplicada para rolagem contínua via JS/CSS -->
+      <div class="galeria-trilha" id="galeria-trilha">
+
+        <!-- Primeiro grupo de imagens para galeria -->
+        <div class="galeria-foto" data-titulo="Matéria e Luz"
+          data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
+          <!-- Imagem Galeria 1 -->
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=600" alt="Matéria e Luz" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Matéria e Luz</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Volumes Serenos"
+          data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
+          <!-- Imagem Galeria 2 -->
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=600" alt="Volumes Serenos" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Volumes Serenos</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Silêncio Construído"
+          data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
+          <!-- Imagem Galeria 3 -->
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=600" alt="Silêncio Construído" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Silêncio Construído</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Textura Viva"
+          data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
+          <!-- Imagem Galeria 4 -->
+          <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=600" alt="Textura Viva" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Textura Viva</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Equilíbrio Orgânico"
+          data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
+          <!-- Imagem Galeria 5 -->
+          <img src="https://images.unsplash.com/photo-1600121848592-3db31109a130?q=80&w=600" alt="Equilíbrio Orgânico" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Equilíbrio Orgânico</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Névoa de Design"
+          data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
+          <!-- Imagem Galeria 6 -->
+          <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=600" alt="Névoa de Design" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Névoa de Design</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <!-- Segundo grupo de imagens (Cópia exata para loop) -->
+        <div class="galeria-foto" data-titulo="Matéria e Luz"
+          data-desc="Neste projeto, o foco principal foi o estudo meticuloso da incidência solar, valorizando as texturas naturais dos revestimentos. A fusão entre a arquitetura e a iluminação cria um ambiente acolhedor e poético, onde cada detalhe foi pensado para respirar elegância.">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=600" alt="Matéria e Luz" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Matéria e Luz</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Volumes Serenos"
+          data-desc="Uma composição minimalista que prioriza formas puras e o silêncio visual. O uso de paletas neutras e materiais de toque suave permite que o espaço sirva como um refúgio da agitação externa, traduzindo paz através da geometria geométrica.">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=600" alt="Volumes Serenos" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Volumes Serenos</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Silêncio Construído"
+          data-desc="Este design explora a ausência como elemento de projeto. Menos mobília, porém peças sob medida extremamente intencionais, que dialogam com o piso de madeira natural e a iluminação periférica para um descanso absoluto da visão.">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=600" alt="Silêncio Construído" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Silêncio Construído</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Textura Viva"
+          data-desc="A curadoria de tecidos, tapetes e acabamentos texturizados traz uma camada de conforto palpável para o ambiente. Cada superfície convida ao toque, contrastando as linhas retas contemporâneas com a vivacidade orgânica das matérias.">
+          <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=600" alt="Textura Viva" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Textura Viva</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Equilíbrio Orgânico"
+          data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
+          <img src="https://images.unsplash.com/photo-1600121848592-3db31109a130?q=80&w=600" alt="Equilíbrio Orgânico" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Equilíbrio Orgânico</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+
+        <div class="galeria-foto" data-titulo="Névoa de Design"
+          data-desc="Utilizando superfícies translúcidas e vidros tratados, este conceito quebra a barreira entre os cômodos mantendo a intimidade necessária. A luz perpassa suavemente, criando um dinamismo que se altera ao longo das horas do dia.">
+          <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=600" alt="Névoa de Design" />
+          <div class="galeria-legenda-wrap">
+            <p class="galeria-legenda">Névoa de Design</p>
+            <div class="galeria-icone-expandir">+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal da Galeria -->
+  <div id="modal-galeria">
+    <div class="modal-overlay"></div>
+    <div class="modal-conteudo">
+      <button class="modal-fechar">&times;</button>
+      <div class="modal-imagem">
+        <img src="" alt="Imagem do Projeto" />
+      </div>
+      <div class="modal-info">
+        <p class="modal-etiqueta">Análise de Detalhe</p>
+        <h3 class="modal-titulo">Título</h3>
+        <p class="modal-descricao">Descrição do projeto...</p>
+        <a href="#secao-contato" class="botao-secundario" id="btn-modal-contato">Quero um espaço assim</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTATO -->
+  <section id="secao-contato">
+    <div class="contato-grade">
+      <div class="contato-coluna-info animar-da-esquerda">
+        <p class="etiqueta-secao">Vamos Conversar</p>
+        <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
+        <p class="contato-apresentacao">
+          Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
+          espaço, seus sonhos e vamos construir juntos.
+        </p>
+
+        <div class="contato-item">
+          <div class="contato-icone">✉</div>
+          <div class="contato-texto">
+            <strong>Email</strong>
+            contato@milenareis.arq.br
+          </div>
+        </div>
+
+        <div class="contato-item">
+          <div class="contato-icone">✆</div>
+          <div class="contato-texto">
+            <strong>Telefone</strong>
+            +55 71 99999-0000
+          </div>
+        </div>
+
+        <div class="contato-item">
+          <div class="contato-icone">◈</div>
+          <div class="contato-texto">
+            <strong>Atelier</strong>
+            Salvador, Bahia — Brasil
+          </div>
+        </div>
+      </div>
+
+      <div class="contato-formulario animar-da-direita">
+        <div class="campo-grupo">
+          <input type="text" id="campo-nome" placeholder=" " />
+          <label for="campo-nome">Seu nome</label>
+        </div>
+        <div class="campo-grupo">
+          <input type="email" id="campo-email" placeholder=" " />
+          <label for="campo-email">Email</label>
+        </div>
+        <div class="campo-grupo">
+          <input type="text" id="campo-assunto" placeholder=" " />
+          <label for="campo-assunto">Tipo de projeto</label>
+        </div>
+        <div class="campo-grupo">
+          <textarea id="campo-mensagem" placeholder=" "></textarea>
+          <label for="campo-mensagem">Sua mensagem</label>
+        </div>
+        <a href="#" class="botao-primario">
+          <span>Enviar Mensagem</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ (Footer) -->
+  <footer id="rodape">
+    <!-- Topo/Logo principal repetido -->
+    <img class="rodape-logo" src="assets/Logo Milena Reis (Comp) (3).png" alt="Milena Reis" />
+    <div class="rodape-links">
+      <a href="#">Instagram</a>
+      <a href="#">Behance</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Pinterest</a>
+    </div>
+    <p class="rodape-copy">
+      © 2025 Milena Reis Arquitetura. Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
