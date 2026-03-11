@@ -1592,6 +1592,52 @@ body {
   color: var(--cor-marrom);
 }
 
+/* --- Destaque de atendimento presencial/distância --- */
+.contato-destaque-atendimento {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--cor-marrom), #3d2a1e);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contato-destaque-atendimento::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.destaque-icone {
+  font-size: 1.2rem;
+  color: #e8d9cc;
+  flex-shrink: 0;
+  animation: pulsar-icone 2s ease-in-out infinite;
+}
+
+@keyframes pulsar-icone {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.contato-destaque-atendimento p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #f5ede3;
+  letter-spacing: 0.02em;
+}
+
+.contato-destaque-atendimento strong {
+  color: #ffffff;
+  font-weight: 500;
+}
+
 /* / */
 #rodape {
   padding: 60px;

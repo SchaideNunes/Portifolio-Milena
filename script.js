@@ -401,6 +401,14 @@
   /* / */
   function desfoqueEntreSecoes() {
     function aplicarDesfoque() {
+      if (window.innerWidth <= 900) {
+        document.querySelectorAll("section").forEach((secao) => {
+          secao.style.filter = "none";
+          secao.style.opacity = "1";
+        });
+        return;
+      }
+
       const todasSecoes = document.querySelectorAll("section");
       todasSecoes.forEach((secao) => {
         const posicao = secao.getBoundingClientRect();
