@@ -491,8 +491,8 @@
         scrollTrigger: {
           trigger: moduloSecao,
           start: "top top",
-          end: "+=4500", // Scroll mais longo para caber a animação e leitura com calma
-          scrub: 0.15,
+          end: "+=5000", // Aumentamos um pouco para manter a folga
+          scrub: 1.2, // Um scrub>1 dá aquela sensação de amortecimento no scroll perfeito da Apple
           pin: true,
           pinSpacing: true,
           onUpdate: (self) => {
@@ -503,23 +503,36 @@
         }
       });
 
-      // Tween principal que gera o progresso do video (duration virtual de 1)
+      // Tween principal do vídeo
       tlScrub.to(videoObj, { progress: 1, ease: "none", duration: 1 }, 0);
 
-      // 1ª Frase (20%)
-      tlScrub.to("#texto-engaja-1", { opacity: 1, y: -20, duration: 0.05 }, 0.10)
-             .to("#texto-engaja-1", { opacity: 0, y: -40, duration: 0.05 }, 0.25);
+      // --- TEXTOS COM ANIMAÇÃO ULTRA SUAVE ---
+      
+      // 1ª Frase
+      tlScrub.fromTo("#texto-engaja-1", 
+             { opacity: 0, y: 40, filter: "blur(12px)" },
+             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.05)
+             .to("#texto-engaja-1", 
+             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.25);
 
-      // 2ª Frase (50%)
-      tlScrub.to("#texto-engaja-2", { opacity: 1, y: -20, duration: 0.05 }, 0.40)
-             .to("#texto-engaja-2", { opacity: 0, y: -40, duration: 0.05 }, 0.55);
+      // 2ª Frase
+      tlScrub.fromTo("#texto-engaja-2", 
+             { opacity: 0, y: 40, filter: "blur(12px)" },
+             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.40)
+             .to("#texto-engaja-2", 
+             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.58);
 
-      // 3ª Frase (80%)
-      tlScrub.to("#texto-engaja-3", { opacity: 1, y: -20, duration: 0.05 }, 0.70)
-             .to("#texto-engaja-3", { opacity: 0, y: -40, duration: 0.05 }, 0.85);
+      // 3ª Frase
+      tlScrub.fromTo("#texto-engaja-3", 
+             { opacity: 0, y: 40, filter: "blur(12px)" },
+             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.72)
+             .to("#texto-engaja-3", 
+             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.88);
 
-      // Botão Call To Action no desfecho
-      tlScrub.to("#cta-engaja", { opacity: 1, y: -20, duration: 0.08, ease: "power2.out" }, 0.92);
+      // Botão Call To Action - Entra mas não sai
+      tlScrub.fromTo("#cta-engaja", 
+             { opacity: 0, y: 50, filter: "blur(8px)" },
+             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.15, ease: "power3.out" }, 0.95);
     }
 
     if (videoModulo.readyState >= 1) { // 1 = HAVE_METADATA
