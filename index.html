@@ -14,11 +14,14 @@
 
 <body>
   <!-- Cursor personalizado: mouse follower -->
+  <!-- Cursor personalizado primário -->
   <div id="cursor-cad">
     <div class="cursor-linha-h"></div>
     <div class="cursor-linha-v"></div>
     <div class="cursor-centro"></div>
   </div>
+
+
 
   <!-- TELA DE CARREGAMENTO -->
   <div id="tela-carregamento">
@@ -209,7 +212,7 @@
 
     <!-- CTA Final -->
     <div class="cta-scroll-final" id="cta-engaja">
-      <a href="#secao-contato" class="botao-primario"><span>Quero um projeto assim!</span></a>
+      <button onclick="abrirWizardOrcamento()" class="botao-primario" style="cursor:none;border:none;"><span>Quero um projeto assim!</span></button>
     </div>
   </section>
 
@@ -553,12 +556,109 @@
           <textarea id="campo-mensagem" placeholder=" "></textarea>
           <label for="campo-mensagem">Sua mensagem</label>
         </div>
-        <a href="#" class="botao-primario">
-          <span>Enviar Mensagem</span>
-        </a>
+        <button type="button" onclick="abrirWizardOrcamento()" class="botao-primario" style="cursor:none;">
+          <span>Solicitação Direta</span>
+        </button>
       </div>
     </div>
   </section>
+
+  <!-- POPUP WIZARD ORÇAMENTO -->
+  <div id="wizard-orcamento">
+    <div class="wizard-overlay" onclick="fecharWizardOrcamento()"></div>
+    <div class="wizard-conteudo">
+      <button class="wizard-fechar" onclick="fecharWizardOrcamento()">&times;</button>
+      
+      <!-- Cabeçalho (Barra de Progresso) -->
+      <div class="wizard-cabecalho">
+        <div class="wizard-passos-trilha">
+          <div class="passo-trilha ativo" id="trilha-1"></div>
+          <div class="passo-trilha" id="trilha-2"></div>
+          <div class="passo-trilha" id="trilha-3"></div>
+        </div>
+        <div class="wizard-passos-labels">
+          <span class="ativo" id="label-trilha-1">Projeto</span>
+          <span id="label-trilha-2">Detalhes</span>
+          <span id="label-trilha-3">Contato</span>
+        </div>
+      </div>
+
+      <!-- Passo 1: Res/Comercial -->
+      <div class="wizard-passo ativo" id="passo-1">
+        <h2 class="wizard-titulo">O que vamos <em>renovar</em>?</h2>
+        <p class="wizard-subtitulo">Escolha o tipo de serviço que precisa</p>
+        
+        <div class="wizard-opcoes-cards">
+          <label class="wizard-card-label">
+            <input type="radio" name="tipoProjeto" value="Residencial" onchange="irParaPasso(2)" />
+            <div class="wizard-card">
+              <span class="wizard-icone">⌂</span>
+              <h3>Residencial</h3>
+              <p>Casas, apartamentos ou interiores</p>
+            </div>
+          </label>
+          <label class="wizard-card-label">
+            <input type="radio" name="tipoProjeto" value="Comercial" onchange="irParaPasso(2)" />
+            <div class="wizard-card">
+              <span class="wizard-icone">🏢</span>
+              <h3>Comercial</h3>
+              <p>Lojas, clínicas e ambientes de trabalho</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Passo 2: Detalhes -->
+      <div class="wizard-passo" id="passo-2">
+        <h2 class="wizard-titulo">Sobre o seu <em>espaço</em></h2>
+        <p class="wizard-subtitulo">Para um orçamento preciso, nos conte brevemente os detalhes.</p>
+        
+        <div class="wizard-form-grupo mt-4">
+          <label class="wizard-label"><span class="icone">📏</span> Metragem estimada (opcional)</label>
+          <div class="wizard-input-container">
+            <input type="number" id="orcamento-m2" placeholder="Ex: 80" />
+            <span class="input-sufixo">m²</span>
+          </div>
+        </div>
+        
+        <div class="wizard-form-grupo mt-3">
+          <label class="wizard-label"><span class="icone">✎</span> Quais ambientes quer transformar?</label>
+          <input type="text" id="orcamento-ambientes" class="wizard-input" placeholder="Ex: Toda a sala e um quarto infantil" />
+        </div>
+
+        <div class="wizard-botoes-rodape">
+          <button type="button" class="wizard-voltar" onclick="irParaPasso(1)">&#8592; Voltar</button>
+          <button type="button" class="wizard-avancar botao-primario" style="cursor:none;border:none;" onclick="irParaPasso(3)"><span>Continuar &rarr;</span></button>
+        </div>
+      </div>
+
+      <!-- Passo 3: Contato -->
+      <div class="wizard-passo" id="passo-3">
+        <h2 class="wizard-titulo">Quase lá!</h2>
+        <p class="wizard-subtitulo">Onde você quer receber a nossa proposta e papo inicial?</p>
+
+        <div class="wizard-form-grupo mt-4">
+          <label class="wizard-label"><span class="icone">👤</span> Como gosta de ser chamado?</label>
+          <input type="text" id="orcamento-nome" class="wizard-input" placeholder="Seu Nome completo" />
+        </div>
+
+        <div class="wizard-form-grupo mt-3">
+          <label class="wizard-label"><span class="icone">💬</span> Seu número de WhatsApp</label>
+          <input type="tel" id="orcamento-telefone" class="wizard-input" placeholder="(00) 00000-0000" />
+        </div>
+
+        <div class="wizard-botoes-rodape">
+          <button type="button" class="wizard-voltar" onclick="irParaPasso(2)">&#8592; Voltar</button>
+          <button type="button" class="wizard-avancar botao-wpp" style="cursor:none;" onclick="enviarOrcamentoWpp()">
+            <svg class="icone-wpp" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.662-2.062-.173-.298-.018-.461.13-.611.134-.135.298-.348.446-.521.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.571-.012c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+            </svg>
+            <span>Orçamento via WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- RODAPÉ (Footer) -->
   <footer id="rodape">
