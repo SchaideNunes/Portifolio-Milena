@@ -459,57 +459,73 @@
   }
 
   /* / */
-  function animarVideoHeroScroll() {
+  function animarVideoModuloScroll() {
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const heroSecao = document.getElementById("secao-hero");
-    const videoHero = document.getElementById("hero-video");
+    const moduloSecao = document.getElementById("secao-modelo-3d");
+    const videoModulo = document.getElementById("video-3d");
 
-    if (!heroSecao || !videoHero) return;
+    if (!moduloSecao || !videoModulo) return;
 
     // Força o mobile (especialmente iOS) a baixar e renderizar o primeiro frame
-    videoHero.muted = true;
-    videoHero.setAttribute("playsinline", "");
-    videoHero.load(); // Carrega ativamente a metadata
+    videoModulo.muted = true;
+    videoModulo.setAttribute("playsinline", "");
+    videoModulo.load(); // Carrega ativamente a metadata
 
     // Hack para Safari iOS liberar reprodução interativa
-    const playPromise = videoHero.play();
+    const playPromise = videoModulo.play();
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        videoHero.pause(); // Pausa o autoplay logo depois de tocar um décimo de segundo
+        videoModulo.pause(); // Pausa o autoplay logo depois de tocar um décimo de segundo
       }).catch(() => {
-        videoHero.pause();
+        videoModulo.pause();
       });
     }
 
     let videoObj = { progress: 0 };
 
     function initVideoScrub() {
-      gsap.to(videoObj, {
-        progress: 1,
-        ease: "none",
+      const tlScrub = gsap.timeline({
         scrollTrigger: {
-          trigger: heroSecao,
+          trigger: moduloSecao,
           start: "top top",
-          end: "+=3000",
+          end: "+=4500", // Scroll mais longo para caber a animação e leitura com calma
           scrub: 0.15,
           pin: true,
           pinSpacing: true,
           onUpdate: (self) => {
-            if (!isNaN(videoHero.duration) && videoHero.duration > 0) {
-              videoHero.currentTime = self.progress * videoHero.duration;
+            if (!isNaN(videoModulo.duration) && videoModulo.duration > 0) {
+              videoModulo.currentTime = self.progress * videoModulo.duration;
             }
           }
         }
       });
+
+      // Tween principal que gera o progresso do video (duration virtual de 1)
+      tlScrub.to(videoObj, { progress: 1, ease: "none", duration: 1 }, 0);
+
+      // 1ª Frase (20%)
+      tlScrub.to("#texto-engaja-1", { opacity: 1, y: -20, duration: 0.05 }, 0.10)
+             .to("#texto-engaja-1", { opacity: 0, y: -40, duration: 0.05 }, 0.25);
+
+      // 2ª Frase (50%)
+      tlScrub.to("#texto-engaja-2", { opacity: 1, y: -20, duration: 0.05 }, 0.40)
+             .to("#texto-engaja-2", { opacity: 0, y: -40, duration: 0.05 }, 0.55);
+
+      // 3ª Frase (80%)
+      tlScrub.to("#texto-engaja-3", { opacity: 1, y: -20, duration: 0.05 }, 0.70)
+             .to("#texto-engaja-3", { opacity: 0, y: -40, duration: 0.05 }, 0.85);
+
+      // Botão Call To Action no desfecho
+      tlScrub.to("#cta-engaja", { opacity: 1, y: -20, duration: 0.08, ease: "power2.out" }, 0.92);
     }
 
-    if (videoHero.readyState >= 1) { // 1 = HAVE_METADATA
+    if (videoModulo.readyState >= 1) { // 1 = HAVE_METADATA
       initVideoScrub();
     } else {
-      videoHero.addEventListener("loadedmetadata", initVideoScrub, { once: true });
+      videoModulo.addEventListener("loadedmetadata", initVideoScrub, { once: true });
     }
   }
 
@@ -528,6 +544,6 @@
     desfoqueEntreSecoes();
     cliqueDasCartas();
     animarServicosEmCascata();
-    animarVideoHeroScroll();
+    animarVideoModuloScroll();
   };
 })();

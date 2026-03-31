@@ -679,12 +679,13 @@ body {
   }
 }
 
-.hero-foto-wrap video {
+.hero-foto-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.95);
-  transform: scale(1);
+  filter: brightness(0.9) saturate(0.8);
+  transform: scale(1.08);
+  animation: zoom-suave 8s ease 1.6s both;
 }
 
 @keyframes zoom-suave {
@@ -924,13 +925,50 @@ body {
   background: var(--cor-escuro);
 }
 
-#canvas-3d {
+#video-3d {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
+/* Textos engajamento scroll */
+.engajamento-scroll {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  padding: 0 10%;
+  text-align: center;
+}
+
+#texto-engaja-1 { top: 40%; text-align: left; }
+#texto-engaja-2 { top: 50%; text-align: right; }
+#texto-engaja-3 { top: 45%; text-align: center; }
+
+.engajamento-scroll h3 {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cor-nude-suave);
+  text-shadow: 0 4px 25px rgba(0,0,0,0.7);
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+.cta-scroll-final {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  opacity: 0;
+  pointer-events: auto; /* O botão precisa ser clicável */
+}
+
+/* Antigo overlay removido */
 .texto-sobre-3d {
   position: absolute;
   inset: 0;
