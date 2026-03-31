@@ -41,13 +41,14 @@
 
     // Timeline principal
     const tl = gsap.timeline({ onComplete: sairDoPreloader });
+    tl.timeScale(2.5); // Acelera toda a animação da planta baixa em 2.5x
 
     // Contador de porcentagem sobe junto com a animação
     const contadorEl = document.getElementById("contador-numero");
     const objContador = { valor: 0 };
     gsap.to(objContador, {
       valor: 100,
-      duration: 3.8,
+      duration: 1.5, // Bem mais rápido (de 3.8s para 1.5s)
       ease: "power2.inOut",
       onStart: () => {
         gsap.to(".preloader-contador", { opacity: 1, duration: 0.4 });

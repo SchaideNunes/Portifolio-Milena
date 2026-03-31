@@ -1865,3 +1865,44 @@ body {
     height: 380px;
   }
 }
+
+/* Ajustes Mobile do Hero com Vídeo */
+@media (max-width: 900px) {
+  #secao-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .hero-coluna-esquerda {
+    padding: 0 30px 60px;
+    z-index: 2;
+    background: linear-gradient(to top, var(--cor-fundo-claro) 40%, transparent);
+    /* Sombra nos textos para não sumir no fundo claro do vídeo */
+    text-shadow: 0 2px 15px rgba(253, 248, 244, 1);
+  }
+  
+  .hero-titulo {
+    font-size: 3.5rem;
+  }
+  
+  .hero-botoes {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .hero-botoes .botao-primario {
+    text-align: center;
+  }
+  
+  .hero-coluna-direita {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  
+  .hero-foto-gradiente {
+    display: none;
+  }
+}
