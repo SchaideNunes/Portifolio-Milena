@@ -155,7 +155,7 @@ body {
 #tela-carregamento {
   position: fixed;
   inset: 0;
-  background: #0e0907;
+  background: var(--cor-escuro);
   z-index: 9000;
   display: flex;
   align-items: center;
@@ -569,7 +569,7 @@ body {
   font-size: clamp(3.5rem, 7vw, 7rem);
   font-weight: 300;
   line-height: 0.95;
-  color: var(--cor-escuro);
+  color: var(--cor-marrom-texto);
   opacity: 0;
   animation: subir-aparecer 0.9s ease 2.4s forwards;
 }
@@ -583,7 +583,7 @@ body {
   margin-top: 32px;
   font-size: 0.88rem;
   line-height: 1.85;
-  color: #4a3326;
+  color: var(--cor-marrom-texto);
   max-width: 340px;
   opacity: 0;
   animation: subir-aparecer 0.8s ease 2.6s forwards;
@@ -613,13 +613,18 @@ body {
   position: relative;
   overflow: hidden;
   display: inline-block;
+  box-shadow: 0 4px 15px rgba(90, 61, 43, 0.15); /* Sombra marrom super difusa */
+}
+
+.botao-primario:hover {
+  box-shadow: 0 6px 20px rgba(90, 61, 43, 0.25);
 }
 
 .botao-primario::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--cor-escuro);
+  background: linear-gradient(135deg, var(--cor-marrom-texto), var(--cor-marrom));
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.4s var(--curva-animacao);
@@ -875,7 +880,7 @@ body {
   font-size: clamp(2.5rem, 4vw, 4rem);
   font-weight: 300;
   line-height: 1.1;
-  color: var(--cor-escuro);
+  color: var(--cor-marrom-texto);
   margin-bottom: 32px;
 }
 
@@ -887,7 +892,7 @@ body {
 .sobre-paragrafo {
   font-size: 0.92rem;
   line-height: 1.9;
-  color: #3d2a1e;
+  color: var(--cor-marrom-texto);
   margin-bottom: 16px;
 }
 
@@ -1212,9 +1217,9 @@ body {
 
 .servico-item {
   padding: 50px 40px;
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(26, 15, 10, 0.3); /* rgb da cor-escuro para manter a harmonia quente */
   /* Fundo ligeiramente escurecido para contraste */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 191, 175, 0.2); /* Usa cor-nude-borda transparente */
   transition:
     background 0.4s ease,
     transform 0.4s var(--curva-animacao);
