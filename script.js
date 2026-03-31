@@ -458,6 +458,53 @@
   }
 
   /* / */
+  function animarVideoHeroScroll() {
+    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroSecao = document.getElementById("secao-hero");
+    const videoHero = document.getElementById("hero-video");
+
+    if (!heroSecao || !videoHero) return;
+
+    // Garante que o vídeo fique mudo internamente no JS
+    videoHero.muted = true;
+    videoHero.pause();
+    
+    // Se o safari tentar parar o video inline
+    videoHero.setAttribute("playsinline", "");
+
+    let videoObj = { progress: 0 };
+
+    function initVideoScrub() {
+      gsap.to(videoObj, {
+        progress: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroSecao,
+          start: "top top",
+          end: "+=3000", // Trava a tela por 3000px de scroll (aumente para rolar mais devagar)
+          scrub: 0.15, // Suaviza minimamente o movimento do video, evitando muito stutter
+          pin: true,
+          pinSpacing: true, // Empurra o conteúdo restante para baixo
+          onUpdate: (self) => {
+            if (videoHero.duration) {
+              videoHero.currentTime = self.progress * videoHero.duration;
+            }
+          }
+        }
+      });
+    }
+
+    if (videoHero.readyState >= 1) {
+      initVideoScrub();
+    } else {
+      videoHero.addEventListener("loadedmetadata", initVideoScrub, { once: true });
+    }
+  }
+
+  /* / */
   // Espera a janela carregar para iniciar as animações com segurança
   window.onload = function () {
     animarPreloader();
@@ -472,5 +519,6 @@
     desfoqueEntreSecoes();
     cliqueDasCartas();
     animarServicosEmCascata();
+    animarVideoHeroScroll();
   };
 })();
