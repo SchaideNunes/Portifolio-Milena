@@ -469,12 +469,20 @@
 
     if (!heroSecao || !videoHero) return;
 
-    // Garante que o vídeo fique mudo internamente no JS
+    // Força o mobile (especialmente iOS) a baixar e renderizar o primeiro frame
     videoHero.muted = true;
-    videoHero.pause();
-    
-    // Se o safari tentar parar o video inline
     videoHero.setAttribute("playsinline", "");
+    videoHero.load(); // Carrega ativamente a metadata
+
+    // Hack para Safari iOS liberar reprodução interativa
+    const playPromise = videoHero.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        videoHero.pause(); // Pausa o autoplay logo depois de tocar um décimo de segundo
+      }).catch(() => {
+        videoHero.pause();
+      });
+    }
 
     let videoObj = { progress: 0 };
 
@@ -485,12 +493,12 @@
         scrollTrigger: {
           trigger: heroSecao,
           start: "top top",
-          end: "+=3000", // Trava a tela por 3000px de scroll (aumente para rolar mais devagar)
-          scrub: 0.15, // Suaviza minimamente o movimento do video, evitando muito stutter
+          end: "+=3000",
+          scrub: 0.15,
           pin: true,
-          pinSpacing: true, // Empurra o conteúdo restante para baixo
+          pinSpacing: true,
           onUpdate: (self) => {
-            if (videoHero.duration) {
+            if (!isNaN(videoHero.duration) && videoHero.duration > 0) {
               videoHero.currentTime = self.progress * videoHero.duration;
             }
           }
@@ -498,7 +506,7 @@
       });
     }
 
-    if (videoHero.readyState >= 1) {
+    if (videoHero.readyState >= 1) { // 1 = HAVE_METADATA
       initVideoScrub();
     } else {
       videoHero.addEventListener("loadedmetadata", initVideoScrub, { once: true });
