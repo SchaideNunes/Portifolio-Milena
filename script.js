@@ -4,6 +4,11 @@
   // 1. PRELOADER — PLANTA BAIXA ANIMADA COM GSAP
   function animarPreloader() {
     const tela = document.getElementById("tela-carregamento");
+    
+    // ANIMAÇÃO DESABILITADA TEMPORARIAMENTE (Para reativar, remova as próximas duas linhas)
+    if (tela) tela.remove();
+    return;
+
     if (!tela || typeof gsap === "undefined") {
       // Fallback sem GSAP
       setTimeout(() => {
