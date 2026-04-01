@@ -14,11 +14,11 @@
   /* nude médio */
   --cor-nude-borda: #d4bfaf;
   /* bordas e detalhes nude */
-  --cor-nude-texto: #9a7d6a;
+  --cor-nude-texto: #735a4d;
   /* texto secundário sobre fundo claro */
-  --cor-marrom-texto: #6b4f3a;
+  --cor-marrom-texto: #4a3426;
   /* texto de tags, labels */
-  --cor-marrom: #5a3d2b;
+  --cor-marrom: #3d291d;
   /* botões, destaques, itálicos */
   --cor-escuro: #1a0f0a;
   /* fundo escuro (serviços, rodapé) */
@@ -303,7 +303,7 @@ body {
   font-family: var(--fonte-titulo);
   font-size: 1rem;
   font-style: italic;
-  color: #6b4f3a;
+  color: #d4bfaf;
   letter-spacing: 0.1em;
   opacity: 0;
   z-index: 3;
@@ -747,7 +747,7 @@ body {
   font-size: 0.62rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #6b4f3a;
+  color: #4a3426;
   writing-mode: vertical-rl;
 }
 
@@ -1196,16 +1196,23 @@ body {
 }
 
 #secao-servicos .etiqueta-secao {
-  color: var(--cor-nude-suave);
+  color: var(--cor-nude-borda);
+  font-size: 0.75rem;
+  letter-spacing: 0.45em;
 }
 
 #secao-servicos .titulo-secao {
   color: var(--cor-branco);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  margin-bottom: 24px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 /* Correção para tornar o itálico "serviços" legível no fundo marrom */
 #secao-servicos .titulo-secao em {
   color: var(--cor-nude-borda);
+  display: block; /* Ensures "serviços" breaks nicely taking up visual weight */
 }
 
 .servicos-grade {
@@ -1249,22 +1256,32 @@ body {
 }
 
 .servico-numero {
+  position: absolute;
+  top: 30px;
+  right: 30px;
   font-family: var(--fonte-titulo);
-  font-size: 3.5rem;
+  font-size: 2.8rem;
   font-weight: 300;
-  color: var(--cor-branco);
-  opacity: 0.9;
+  color: var(--cor-nude-borda);
+  opacity: 0.4;
   line-height: 1;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  transition: opacity 0.4s ease;
+}
+
+.servico-item:hover .servico-numero {
+  opacity: 0.8;
 }
 
 .servico-titulo {
   font-family: var(--fonte-titulo);
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 2.4rem;
+  font-weight: 400;
+  font-style: italic;
   color: var(--cor-branco);
-  margin-bottom: 16px;
-  line-height: 1.3;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  margin-top: 10px;
 }
 
 .servico-descricao {
@@ -1479,7 +1496,7 @@ body {
 .modal-descricao {
   font-size: 0.9rem;
   line-height: 1.9;
-  color: #4a3326;
+  color: #36251b;
   margin-bottom: 40px;
 }
 
@@ -1795,7 +1812,7 @@ body {
 .contato-apresentacao {
   font-size: 0.92rem;
   line-height: 1.9;
-  color: #3d2a1e;
+  color: #2b1d14;
   margin-bottom: 48px;
   max-width: 420px;
 }
@@ -1823,7 +1840,7 @@ body {
 
 .contato-texto {
   font-size: 0.88rem;
-  color: #3d2a1e;
+  color: #2b1d14;
   line-height: 1.5;
 }
 
@@ -1865,7 +1882,7 @@ body {
 
 .campo-grupo input::placeholder,
 .campo-grupo textarea::placeholder {
-  color: #7a5c4a;
+  color: #594234;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1884,7 +1901,7 @@ body {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #6b4f3a;
+  color: #4a3426;
   transition: all 0.3s ease;
   pointer-events: none;
 }
