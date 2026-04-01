@@ -619,7 +619,17 @@ body {
 }
 
 .hero-rodape-esq {
-  max-width: 480px;
+  max-width: 540px;
+  padding: 45px 50px;
+  background: rgba(26, 18, 14, 0.88); /* Escuro, substancial e elegante */
+  border-left: 4px solid var(--cor-nude); /* Linha de sotaque arquitetônica */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0; /* Quinas vivas para visual mais estrutural/arquitetônico */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); /* Sombra suave para o card flutuar */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .hero-etiqueta-nova {
@@ -662,7 +672,12 @@ body {
 .botao-hero {
   background: #ffffff !important;
   color: var(--cor-escuro) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.botao-hero:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+  transform: translateY(-2px);
 }
 .botao-hero::before {
   background: linear-gradient(135deg, var(--cor-nude), #e8dac9) !important;
@@ -670,10 +685,12 @@ body {
 
 .botao-hero-sec {
   color: #ffffff !important;
+  transition: all 0.3s ease;
 }
 .botao-hero-sec:hover {
   gap: 18px;
   color: var(--cor-nude) !important;
+  transform: translateX(5px);
 }
 
 .hero-rodape-dir {
