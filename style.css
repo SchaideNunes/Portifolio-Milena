@@ -1058,8 +1058,22 @@ body {
   margin-bottom: 80px;
 }
 
+#secao-projetos .etiqueta-secao {
+  color: var(--cor-marrom-texto);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.35em;
+}
+
 .projetos-cabecalho .titulo-secao {
   margin-bottom: 0;
+  color: var(--cor-escuro);
+  font-weight: 400;
+}
+
+.projetos-cabecalho .titulo-secao em {
+  color: var(--cor-marrom);
+  font-weight: 500;
 }
 
 .link-ver-todos {
@@ -1244,9 +1258,9 @@ body {
   text-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* Correção para tornar o itálico "serviços" legível no fundo marrom */
+/* Correção para tornar o itálico "serviços" branco conforme solicitado */
 #secao-servicos .titulo-secao em {
-  color: var(--cor-nude-borda);
+  color: var(--cor-branco);
 }
 
 .servicos-grade {
@@ -1339,6 +1353,24 @@ body {
   margin-bottom: 60px;
 }
 
+/* Melhorar a legibilidade do cabeçalho da galeria no fundo creme */
+#secao-galeria .etiqueta-secao {
+  color: var(--cor-marrom-texto);
+  font-weight: 600;
+  font-size: 1.1rem; /* Aumentado conforme solicitado */
+  letter-spacing: 0.35em;
+}
+
+#secao-galeria .titulo-secao {
+  color: var(--cor-escuro);
+  font-weight: 400; /* Mais encorpado para facilitar leitura */
+}
+
+#secao-galeria .titulo-secao em {
+  color: var(--cor-marrom);
+  font-weight: 500;
+}
+
 /* Container para arrasto JS */
 .galeria-marquee-container {
   width: 100%;
@@ -1372,12 +1404,46 @@ body {
   cursor: pointer;
 }
 
+/* Indicador de clique (overlay) */
+.galeria-foto::after {
+  content: "Ver Detalhes";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  background: var(--cor-branco);
+  color: var(--cor-escuro);
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-family: var(--fonte-corpo);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: all 0.4s var(--curva-animacao);
+  pointer-events: none; /* Deixa o clique passar pro card */
+  z-index: 10;
+}
+
+.galeria-foto:hover::after {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
 .galeria-foto img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: saturate(0.8) brightness(0.95);
-  pointer-events: none; /* Previne bug do cursor nativo no drag da imagem */
+  pointer-events: none;
+  transition: transform 0.6s var(--curva-animacao), filter 0.6s ease;
+}
+
+.galeria-foto:hover img {
+  transform: scale(1.06);
+  filter: saturate(0.6) brightness(0.6); /* Escurece a imagem para focar no botão */
 }
 
 .galeria-legenda-wrap {
