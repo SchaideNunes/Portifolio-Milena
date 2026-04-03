@@ -695,13 +695,9 @@
   function animarTituloHero() {
     const titulo = document.querySelector('.hero-titulo-gigante');
     if (!titulo) return;
-
-    const elements = titulo.querySelectorAll('.hero-letra, .hero-espaco');
     
-    elements.forEach((el) => {
-      // Remove o delay para que surjam todas juntas no centro
-      el.style.transitionDelay = `0ms`;
-    });
+    // As letras já estão visíveis via CSS, apenas garantimos o estado final
+    titulo.classList.add('animado');
   }
 
   // Função chamada pelo preloader quando termina
@@ -709,13 +705,9 @@
     const titulo = document.querySelector('.hero-titulo-gigante');
     if (!titulo) return;
 
-    // 1. Dispara a animação de entrada (letras sobem)
+    // Ativa o shimmer em loop imediatamente
+    titulo.classList.add('shimmer-ativo');
     titulo.classList.add('animado');
-
-    // 2. Após as letras terminarem de subir (~1.2s), ativa o shimmer em loop
-    setTimeout(() => {
-      titulo.classList.add('shimmer-ativo');
-    }, 1200);
   }
 
   /* / */
