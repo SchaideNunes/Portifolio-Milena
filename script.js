@@ -696,18 +696,12 @@
     const titulo = document.querySelector('.hero-titulo-gigante');
     if (!titulo) return;
 
-    const letras = titulo.querySelectorAll('.hero-letra');
-    const espaco = titulo.querySelector('.hero-espaco');
-
-    // Aplica delay stagger em cada letra
-    letras.forEach((letra, i) => {
-      letra.style.transitionDelay = `${i * 70}ms`;
+    const elements = titulo.querySelectorAll('.hero-letra, .hero-espaco');
+    
+    elements.forEach((el) => {
+      // Remove o delay para que surjam todas juntas no centro
+      el.style.transitionDelay = `0ms`;
     });
-
-    // Espaço no meio aparece junto com a 7ª letra
-    if (espaco) {
-      espaco.style.transitionDelay = `${6 * 70}ms`;
-    }
   }
 
   // Função chamada pelo preloader quando termina
