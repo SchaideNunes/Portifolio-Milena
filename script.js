@@ -243,6 +243,35 @@
   }
 
   /* / */
+  function menuHamburguer() {
+    const btn = document.getElementById("btn-hamburguer");
+    const overlay = document.getElementById("menu-mobile-overlay");
+    if (!btn || !overlay) return;
+
+    function fecharMenu() {
+      btn.classList.remove("ativo");
+      overlay.classList.remove("ativo");
+      document.body.style.overflow = "";
+    }
+
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("ativo");
+      overlay.classList.toggle("ativo");
+      document.body.style.overflow = overlay.classList.contains("ativo") ? "hidden" : "";
+    });
+
+    // Fecha ao clicar no backdrop (fora dos links)
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) fecharMenu();
+    });
+
+    // Fecha ao clicar em qualquer link
+    overlay.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => fecharMenu());
+    });
+  }
+
+  /* / */
   function animarAoEntrarNaTela() {
     const observadorEntrada = new IntersectionObserver(
       (entradas) => {
@@ -508,32 +537,32 @@
       tlScrub.to(videoObj, { progress: 1, ease: "none", duration: 1 }, 0);
 
       // --- TEXTOS COM ANIMAÇÃO ULTRA SUAVE ---
-      
+
       // 1ª Frase
-      tlScrub.fromTo("#texto-engaja-1", 
-             { opacity: 0, y: 40, filter: "blur(12px)" },
-             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.05)
-             .to("#texto-engaja-1", 
-             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.25);
+      tlScrub.fromTo("#texto-engaja-1",
+        { opacity: 0, y: 40, filter: "blur(12px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.05)
+        .to("#texto-engaja-1",
+          { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.25);
 
       // 2ª Frase
-      tlScrub.fromTo("#texto-engaja-2", 
-             { opacity: 0, y: 40, filter: "blur(12px)" },
-             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.40)
-             .to("#texto-engaja-2", 
-             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.58);
+      tlScrub.fromTo("#texto-engaja-2",
+        { opacity: 0, y: 40, filter: "blur(12px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.40)
+        .to("#texto-engaja-2",
+          { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.58);
 
       // 3ª Frase
-      tlScrub.fromTo("#texto-engaja-3", 
-             { opacity: 0, y: 40, filter: "blur(12px)" },
-             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.72)
-             .to("#texto-engaja-3", 
-             { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.88);
+      tlScrub.fromTo("#texto-engaja-3",
+        { opacity: 0, y: 40, filter: "blur(12px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.72)
+        .to("#texto-engaja-3",
+          { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.12, ease: "power2.in" }, 0.88);
 
       // Botão Call To Action - Entra mas não sai
-      tlScrub.fromTo("#cta-engaja", 
-             { opacity: 0, y: 50, filter: "blur(8px)" },
-             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.15, ease: "power3.out" }, 0.95);
+      tlScrub.fromTo("#cta-engaja",
+        { opacity: 0, y: 50, filter: "blur(8px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.15, ease: "power3.out" }, 0.95);
     }
 
     if (videoModulo.readyState >= 1) { // 1 = HAVE_METADATA
@@ -548,7 +577,7 @@
     const container = document.querySelector('.galeria-marquee-container');
     const trilha = document.querySelector('.galeria-trilha');
     const cursorCad = document.getElementById('cursor-cad');
-    
+
     if (!container || !trilha) return;
 
     let isDown = false;
@@ -556,9 +585,9 @@
     let scrollLeft;
     let requestId;
     let scrollSpeed = 0.5; // Velocidade do auto scroll
-    
+
     function autoScroll() {
-      if(!isDown) {
+      if (!isDown) {
         container.scrollLeft += scrollSpeed;
         if (container.scrollLeft >= (trilha.scrollWidth / 2)) {
           container.scrollLeft = 0;
@@ -566,23 +595,23 @@
       }
       requestId = requestAnimationFrame(autoScroll);
     }
-    
-    requestId = requestAnimationFrame(autoScroll); 
+
+    requestId = requestAnimationFrame(autoScroll);
 
     container.addEventListener('mouseenter', () => {
-      if(cursorCad) cursorCad.style.opacity = '0'; // Oculta o CAD pra mostrar a mão nativa (grab)
+      if (cursorCad) cursorCad.style.opacity = '0'; // Oculta o CAD pra mostrar a mão nativa (grab)
     });
 
     container.addEventListener('mouseleave', () => {
       isDown = false;
-      if(cursorCad) cursorCad.style.opacity = '1';
+      if (cursorCad) cursorCad.style.opacity = '1';
     });
 
     container.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 2.5; 
+      const walk = (x - startX) * 2.5;
       container.scrollLeft = scrollLeft - walk;
     });
 
@@ -598,63 +627,63 @@
   }
 
   /* --- LÓGICA DO WIZARD ORÇAMENTO --- */
-  window.abrirWizardOrcamento = function() {
+  window.abrirWizardOrcamento = function () {
     const w = document.getElementById('wizard-orcamento');
-    if(w) w.classList.add('ativo');
+    if (w) w.classList.add('ativo');
     irParaPasso(1);
-    
+
     const r = document.querySelector('input[name="tipoProjeto"]:checked');
     if (r) r.checked = false;
-    
-    if(document.getElementById('orcamento-m2')) document.getElementById('orcamento-m2').value = '';
-    if(document.getElementById('orcamento-ambientes')) document.getElementById('orcamento-ambientes').value = '';
-    if(document.getElementById('orcamento-nome')) document.getElementById('orcamento-nome').value = '';
-    if(document.getElementById('orcamento-telefone')) document.getElementById('orcamento-telefone').value = '';
+
+    if (document.getElementById('orcamento-m2')) document.getElementById('orcamento-m2').value = '';
+    if (document.getElementById('orcamento-ambientes')) document.getElementById('orcamento-ambientes').value = '';
+    if (document.getElementById('orcamento-nome')) document.getElementById('orcamento-nome').value = '';
+    if (document.getElementById('orcamento-telefone')) document.getElementById('orcamento-telefone').value = '';
   }
 
-  window.fecharWizardOrcamento = function() {
+  window.fecharWizardOrcamento = function () {
     const w = document.getElementById('wizard-orcamento');
-    if(w) w.classList.remove('ativo');
+    if (w) w.classList.remove('ativo');
   }
 
-  window.irParaPasso = function(passo) {
+  window.irParaPasso = function (passo) {
     document.querySelectorAll('.wizard-passo').forEach(el => el.classList.remove('ativo'));
     const p = document.getElementById('passo-' + passo);
-    if(p) p.classList.add('ativo');
+    if (p) p.classList.add('ativo');
 
     for (let i = 1; i <= 3; i++) {
-        const barra = document.getElementById('trilha-' + i);
-        const label = document.getElementById('label-trilha-' + i);
-        if(!barra || !label) continue;
-        if (i <= passo) {
-            barra.classList.add('ativo');
-            label.classList.add('ativo');
-        } else {
-            barra.classList.remove('ativo');
-            label.classList.remove('ativo');
-        }
+      const barra = document.getElementById('trilha-' + i);
+      const label = document.getElementById('label-trilha-' + i);
+      if (!barra || !label) continue;
+      if (i <= passo) {
+        barra.classList.add('ativo');
+        label.classList.add('ativo');
+      } else {
+        barra.classList.remove('ativo');
+        label.classList.remove('ativo');
+      }
     }
   }
 
-  window.enviarOrcamentoWpp = function() {
+  window.enviarOrcamentoWpp = function () {
     const inputTipo = document.querySelector('input[name="tipoProjeto"]:checked');
     const tipoProjeto = inputTipo ? inputTipo.value : 'Arquitetura';
-    
+
     const m2 = document.getElementById('orcamento-m2').value || 'Não informado';
     const ambientes = document.getElementById('orcamento-ambientes').value || 'Não detalhado';
     const nome = document.getElementById('orcamento-nome').value || '';
-    
-    if(!nome || nome.trim() === '') {
-        alert("Por favor, preencha o seu nome no passo Contato!");
-        return;
+
+    if (!nome || nome.trim() === '') {
+      alert("Por favor, preencha o seu nome no passo Contato!");
+      return;
     }
 
     const textoApp = `*Novo Pedido de Projeto!*\n\nOlá Milena! Me chamo ${nome} e gostaria de consultar um orçamento.\n\n*Detalhes da Proposta:*\n- *Tipo:* Projeto ${tipoProjeto}\n- *Metragem Est.:* ${m2} m²\n- *Ambientes:* ${ambientes}\n\nAguardamos o retorno!`;
     const mensagemCodificada = encodeURIComponent(textoApp);
-    
+
     // O número final onde cai a msg
-    const telWhats = "5571999990000"; 
-    
+    const telWhats = "5571999990000";
+
     window.open(`https://wa.me/${telWhats}?text=${mensagemCodificada}`, '_blank');
   }
 
@@ -664,6 +693,7 @@
     animarPreloader();
     iniciarCursor();
     menuAoRolar();
+    menuHamburguer();
     animarAoEntrarNaTela();
     animarTextoPalavras();
     paralaxeAoRolar();

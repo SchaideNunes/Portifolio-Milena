@@ -9,6 +9,7 @@
   <meta name="keywords"
     content="arquitetura, design de interiores, projetos arquitetônicos, móveis sob medida, iluminação, reforma, Milena Reis" />
   <title>Milena Reis | Arquitetura e Design de Interiores</title>
+  <link rel="stylesheet" href="fonts.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -95,7 +96,22 @@
       <li><a href="#secao-galeria">Galeria</a></li>
       <li><a href="#secao-contato">Contato</a></li>
     </ul>
+    <!-- Hamburger mobile -->
+    <button class="menu-hamburguer" id="btn-hamburguer" aria-label="Menu">
+      <span class="hamburguer-linha"></span>
+      <span class="hamburguer-linha"></span>
+      <span class="hamburguer-linha"></span>
+    </button>
   </nav>
+
+  <!-- Menu mobile overlay -->
+  <div class="menu-mobile-overlay" id="menu-mobile-overlay">
+    <a href="#secao-sobre">Sobre</a>
+    <a href="#secao-projetos">Projetos</a>
+    <a href="#secao-servicos">Serviços</a>
+    <a href="#secao-galeria">Galeria</a>
+    <a href="#secao-contato">Contato</a>
+  </div>
 
   <!-- HERO / CAPA PRINCIPAL -->
   <section id="secao-hero">
@@ -114,17 +130,19 @@
       <!-- Informações no rodapé inferior do hero -->
       <div class="hero-rodape">
         <div class="hero-rodape-esq">
-          <p class="hero-etiqueta-nova">Arquitetura & Design de Interiores</p>
+          <p class="hero-etiqueta-nova">Arquitetura · Design · Interiores</p>
           <h2 class="hero-subtitulo-novo">
-            Transformando <em>ideias</em> em realidade.
+            Espaços que <em>inspiram.</em><br />Projetos que duram.
           </h2>
           <p class="hero-descricao-nova">
-            Meu trabalho é transformar espaços em experiências únicas e funcionais. Vamos criar algo extraordinário
-            juntos!
+            Cada projeto nasce de uma escuta cuidadosa e se constrói com precisão técnica e sensibilidade estética — do
+            conceito à entrega final.
           </p>
           <div class="hero-botoes">
-            <a href="#secao-projetos" class="botao-primario botao-hero"><span>Ver Projetos</span></a>
-            <a href="#secao-contato" class="botao-secundario botao-hero-sec">Iniciar Projeto</a>
+            <a href="#secao-projetos" class="botao-primario botao-hero" id="btn-ver-projetos"><span>Ver
+                Projetos</span></a>
+            <a href="#secao-contato" class="botao-secundario botao-hero-sec" id="btn-iniciar-projeto">Iniciar
+              Projeto</a>
           </div>
         </div>
         <div class="hero-rodape-dir">
@@ -158,8 +176,7 @@
   <section id="secao-sobre">
     <div class="sobre-foto-container animar-da-esquerda">
       <!-- Foto de perfil principal -->
-      <img class="sobre-foto-principal" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600"
-        alt="Milena Reis Arquiteta" />
+      <img class="sobre-foto-principal" src="assets/Profile 1.jpeg" alt="Milena Reis Arquiteta" />
       <!-- Foto de detalhe sobreposta -->
       <img class="sobre-foto-destaque" src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=600"
         alt="Detalhe de projeto" />
@@ -174,15 +191,15 @@
         <span class="palavra"><em>ética</em></span>
       </h2>
 
-      <p class="sobre-paragrafo">
+      <p class="sobre-paragrafo entrada-blur sobre-texto-1">
         Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores, reformas
         e construções do zero.
       </p>
-      <p class="sobre-paragrafo">
+      <p class="sobre-paragrafo entrada-blur sobre-texto-2">
         Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja
         personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
       </p>
-      <p class="sobre-paragrafo">
+      <p class="sobre-paragrafo entrada-blur sobre-texto-3">
         Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e sustentáveis,
         proporcionando uma experiência memorável que supera expectativas.
       </p>
@@ -226,8 +243,7 @@
   <section id="secao-projetos">
     <div class="projetos-cabecalho animar-subindo">
       <div>
-        <p class="etiqueta-secao">Portfólio Selecionado</p>
-        <h2 class="titulo-secao">Criações em <em>destaque</em></h2>
+        <h2 class="titulo-secao">Criações em destaque</h2>
       </div>
       <a href="#" class="link-ver-todos">Todos os projetos</a>
     </div>
@@ -353,9 +369,8 @@
   <!-- GALERIA (Carrossel Horizontal) -->
   <section id="secao-galeria">
     <div class="galeria-cabecalho">
-      <p class="etiqueta-secao animar-subindo">Galeria</p>
       <h2 class="titulo-secao animar-subindo">
-        Detalhes que <em>importam</em>
+        Detalhes que importam
       </h2>
     </div>
 
