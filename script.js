@@ -189,7 +189,11 @@
         opacity: 0,
         duration: 0.7,
         ease: "power2.inOut",
-        onComplete: () => tela.remove(),
+        onComplete: () => {
+          tela.remove();
+          // Dispara a animação das letras do hero assim que o preloader sai
+          dispararAnimacaoHero();
+        },
       });
     }
   }
@@ -687,6 +691,39 @@
     window.open(`https://wa.me/${telWhats}?text=${mensagemCodificada}`, '_blank');
   }
 
+  /* --- ANIMAÇÃO LETRAS DO HERO --- */
+  function animarTituloHero() {
+    const titulo = document.querySelector('.hero-titulo-gigante');
+    if (!titulo) return;
+
+    const letras = titulo.querySelectorAll('.hero-letra');
+    const espaco = titulo.querySelector('.hero-espaco');
+
+    // Aplica delay stagger em cada letra
+    letras.forEach((letra, i) => {
+      letra.style.transitionDelay = `${i * 70}ms`;
+    });
+
+    // Espaço no meio aparece junto com a 7ª letra
+    if (espaco) {
+      espaco.style.transitionDelay = `${6 * 70}ms`;
+    }
+  }
+
+  // Função chamada pelo preloader quando termina
+  function dispararAnimacaoHero() {
+    const titulo = document.querySelector('.hero-titulo-gigante');
+    if (!titulo) return;
+
+    // 1. Dispara a animação de entrada (letras sobem)
+    titulo.classList.add('animado');
+
+    // 2. Após as letras terminarem de subir (~1.2s), ativa o shimmer em loop
+    setTimeout(() => {
+      titulo.classList.add('shimmer-ativo');
+    }, 1200);
+  }
+
   /* / */
   // Espera a janela carregar para iniciar as animações com segurança
   window.onload = function () {
@@ -705,5 +742,6 @@
     animarServicosEmCascata();
     animarVideoModuloScroll();
     iniciarGaleriaArrastavel();
+    animarTituloHero();
   };
 })();
