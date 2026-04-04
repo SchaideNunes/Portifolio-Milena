@@ -222,7 +222,7 @@
       });
 
     // Troca cor da mira dependendo da seção (clara/escura)
-    const secoesEscuras = ["secao-servicos"];
+    const secoesEscuras = ["secao-hero", "secao-servicos", "rodape"];
     window.addEventListener("scroll", () => {
       const meioTela = window.innerHeight / 2;
       let emSecaoEscura = false;
@@ -402,11 +402,17 @@
       // Exibe modal e previne scroll da página ao fundo
       modal.classList.add('ativo');
       document.body.style.overflow = 'hidden';
+
+      // Pausa o carrossel da galeria
+      if (window.pausarCarrosselGaleria) window.pausarCarrosselGaleria();
     }
 
     function fecharModal() {
       modal.classList.remove('ativo');
       document.body.style.overflow = '';
+
+      // Retoma o carrossel da galeria
+      if (window.retomarCarrosselGaleria) window.retomarCarrosselGaleria();
     }
 
     // Adiciona os eventos
@@ -521,17 +527,31 @@
     let videoObj = { progress: 0 };
 
     function initVideoScrub() {
+      const isMobile = window.innerWidth <= 768;
+      const scrollEnd = isMobile ? "+=3000" : "+=5000";
+      const scrubValue = isMobile ? 0.6 : 1.2;
+
       const tlScrub = gsap.timeline({
         scrollTrigger: {
           trigger: moduloSecao,
           start: "top top",
-          end: "+=5000", // Aumentamos um pouco para manter a folga
-          scrub: 1.2, // Um scrub>1 dá aquela sensação de amortecimento no scroll perfeito da Apple
+          end: scrollEnd,
+          scrub: scrubValue, 
           pin: true,
           pinSpacing: true,
           onUpdate: (self) => {
             if (!isNaN(videoModulo.duration) && videoModulo.duration > 0) {
-              videoModulo.currentTime = self.progress * videoModulo.duration;
+              const targetTime = self.progress * videoModulo.duration;
+              
+              if (isMobile) {
+                // Throttle: no mobile só atualizamos se a diferença for maior que 0.04s
+                // Isso evita que o hardware do celular trave tentando processar cada pixel de scroll
+                if (Math.abs(videoModulo.currentTime - targetTime) > 0.04) {
+                  videoModulo.currentTime = targetTime;
+                }
+              } else {
+                videoModulo.currentTime = targetTime;
+              }
             }
           }
         }
@@ -589,9 +609,18 @@
     let scrollLeft;
     let requestId;
     let scrollSpeed = 0.5; // Velocidade do auto scroll
+    let isPaused = false;
+
+    // Funções globais para pausar/retomar o auto-scroll (usadas pelo modal)
+    window.pausarCarrosselGaleria = function() {
+      isPaused = true;
+    };
+    window.retomarCarrosselGaleria = function() {
+      isPaused = false;
+    };
 
     function autoScroll() {
-      if (!isDown) {
+      if (!isDown && !isPaused) {
         container.scrollLeft += scrollSpeed;
         if (container.scrollLeft >= (trilha.scrollWidth / 2)) {
           container.scrollLeft = 0;
@@ -602,21 +631,14 @@
 
     requestId = requestAnimationFrame(autoScroll);
 
+    // Desktop Events
     container.addEventListener('mouseenter', () => {
-      if (cursorCad) cursorCad.style.opacity = '0'; // Oculta o CAD pra mostrar a mão nativa (grab)
+      if (cursorCad) cursorCad.style.opacity = '0';
     });
 
     container.addEventListener('mouseleave', () => {
       isDown = false;
       if (cursorCad) cursorCad.style.opacity = '1';
-    });
-
-    container.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 2.5;
-      container.scrollLeft = scrollLeft - walk;
     });
 
     container.addEventListener('mousedown', (e) => {
@@ -625,9 +647,33 @@
       scrollLeft = container.scrollLeft;
     });
 
-    container.addEventListener('mouseup', () => {
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    });
+
+    container.addEventListener('mouseup', () => isDown = false);
+
+    // Mobile (Touch) Events
+    container.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    }, { passive: true });
+
+    container.addEventListener('touchend', () => {
       isDown = false;
     });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.scrollLeft = scrollLeft - walk;
+    }, { passive: true });
   }
 
   /* --- LÓGICA DO WIZARD ORÇAMENTO --- */
@@ -639,9 +685,10 @@
     const r = document.querySelector('input[name="tipoProjeto"]:checked');
     if (r) r.checked = false;
 
-    if (document.getElementById('orcamento-m2')) document.getElementById('orcamento-m2').value = '';
+    if (document.getElementById('orcamento-local')) document.getElementById('orcamento-local').value = '';
     if (document.getElementById('orcamento-ambientes')) document.getElementById('orcamento-ambientes').value = '';
     if (document.getElementById('orcamento-nome')) document.getElementById('orcamento-nome').value = '';
+    if (document.getElementById('orcamento-email')) document.getElementById('orcamento-email').value = '';
     if (document.getElementById('orcamento-telefone')) document.getElementById('orcamento-telefone').value = '';
   }
 
@@ -673,16 +720,17 @@
     const inputTipo = document.querySelector('input[name="tipoProjeto"]:checked');
     const tipoProjeto = inputTipo ? inputTipo.value : 'Arquitetura';
 
-    const m2 = document.getElementById('orcamento-m2').value || 'Não informado';
+    const local = document.getElementById('orcamento-local').value || 'Não informado';
     const ambientes = document.getElementById('orcamento-ambientes').value || 'Não detalhado';
     const nome = document.getElementById('orcamento-nome').value || '';
+    const email = document.getElementById('orcamento-email').value || 'Não informado';
 
     if (!nome || nome.trim() === '') {
       alert("Por favor, preencha o seu nome no passo Contato!");
       return;
     }
 
-    const textoApp = `*Novo Pedido de Projeto!*\n\nOlá Milena! Me chamo ${nome} e gostaria de consultar um orçamento.\n\n*Detalhes da Proposta:*\n- *Tipo:* Projeto ${tipoProjeto}\n- *Metragem Est.:* ${m2} m²\n- *Ambientes:* ${ambientes}\n\nAguardamos o retorno!`;
+    const textoApp = `*Nova Solicitação de Projeto*\n\nOlá Milena! Me chamo *${nome}*.\n\n*Detalhes:* \n- *Tipo:* ${tipoProjeto}\n- *Local:* ${local}\n- *Interesse:* ${ambientes}\n- *Email:* ${email}\n\nAguardo seu contato para conversarmos mais sobre!`;
     const mensagemCodificada = encodeURIComponent(textoApp);
 
     // O número final onde cai a msg
@@ -710,6 +758,34 @@
     titulo.classList.add('animado');
   }
 
+  /* --- MÁSCARA DE TELEFONE --- */
+  function aplicarMascaraTelefone(id) {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+      
+      if (value.length > 11) value = value.slice(0, 11);
+
+      if (value.length > 10) {
+        // Formato (XX) XXXXX-XXXX
+        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+      } else if (value.length > 6) {
+        // Formato (XX) XXXX-XXXX
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+      } else if (value.length > 2) {
+        // Formato (XX) XXXX
+        value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+      } else if (value.length > 0) {
+        // Formato (XX
+        value = value.replace(/^(\d{0,2})/, "($1");
+      }
+      
+      e.target.value = value;
+    });
+  }
+
   /* / */
   // Espera a janela carregar para iniciar as animações com segurança
   window.onload = function () {
@@ -729,5 +805,8 @@
     animarVideoModuloScroll();
     iniciarGaleriaArrastavel();
     animarTituloHero();
+
+    // Aplica a máscara no campo de telefone do Wizard
+    aplicarMascaraTelefone('orcamento-telefone');
   };
 })();
