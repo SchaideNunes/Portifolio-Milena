@@ -739,6 +739,29 @@
     window.open(`https://wa.me/${telWhats}?text=${mensagemCodificada}`, '_blank');
   }
 
+  window.enviarFormularioContato = function () {
+    const nome = document.getElementById('campo-nome').value || '';
+    const email = document.getElementById('campo-email').value || 'Não informado';
+    const assunto = document.getElementById('campo-assunto').value || 'Arquitetura';
+    const mensagem = document.getElementById('campo-mensagem').value || '';
+
+    if (!nome || nome.trim() === '') {
+      alert("Por favor, preencha o seu nome!");
+      return;
+    }
+
+    if (!mensagem || mensagem.trim() === '') {
+      alert("Por favor, escreva uma mensagem!");
+      return;
+    }
+
+    const textoApp = `*Nova Mensagem de Contato*\n\nOlá Milena! Me chamo *${nome}*.\n\n*Assunto:* ${assunto}\n*Email:* ${email}\n\n*Mensagem:*\n${mensagem}\n\nAguardo seu retorno!`;
+    const mensagemCodificada = encodeURIComponent(textoApp);
+
+    const telWhats = "5571999990000";
+    window.open(`https://wa.me/${telWhats}?text=${mensagemCodificada}`, '_blank');
+  }
+
   /* --- ANIMAÇÃO LETRAS DO HERO --- */
   function animarTituloHero() {
     const titulo = document.querySelector('.hero-titulo-gigante');

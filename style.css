@@ -2296,6 +2296,58 @@ body {
   border-color: var(--cor-marrom);
 }
 
+.botao-outline-marrom {
+  font-family: var(--fonte-corpo);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-marrom);
+  background: transparent;
+  border: 1px solid var(--cor-marrom);
+  padding: 16px 40px;
+  transition: all 0.4s var(--curva-animacao);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  z-index: 1;
+}
+
+.botao-outline-marrom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cor-marrom);
+  transform: translateY(100%);
+  transition: transform 0.4s var(--curva-animacao);
+  z-index: -1;
+}
+
+.botao-outline-marrom span {
+  position: relative;
+  z-index: 1;
+}
+
+.botao-outline-marrom:hover {
+  color: var(--cor-branco);
+}
+
+.botao-outline-marrom:hover::before {
+  transform: translateY(0);
+}
+
+.contato-botoes {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .contato-botoes {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 /* Label flutuante que sobe ao digitar */
 .campo-grupo label {
   position: absolute;
@@ -3136,12 +3188,17 @@ body {
   }
 
   .wizard-conteudo {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 12px 12px 0 0;
-    padding: 28px 20px;
+    width: 92%;
+    max-width: 440px;
+    border-radius: 20px;
+    padding: 50px 24px 32px;
     max-height: 90vh;
     overflow-y: auto;
+  }
+
+  .wizard-cabecalho {
+    margin-top: 12px;
+    margin-bottom: 30px;
   }
 
   .wizard-titulo {
@@ -3182,12 +3239,12 @@ body {
 }
 
 /* ------ CURSOR: desabilitar em touch ------ */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
   #cursor-cad {
     display: none !important;
   }
 
-  body {
+  body, a, button, input, textarea, .botao-primario, .botao-outline-marrom, .wizard-fechar, .menu-hamburguer {
     cursor: auto !important;
   }
 
