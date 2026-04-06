@@ -536,13 +536,13 @@
           trigger: moduloSecao,
           start: "top top",
           end: scrollEnd,
-          scrub: scrubValue, 
+          scrub: scrubValue,
           pin: true,
           pinSpacing: true,
           onUpdate: (self) => {
             if (!isNaN(videoModulo.duration) && videoModulo.duration > 0) {
               const targetTime = self.progress * videoModulo.duration;
-              
+
               if (isMobile) {
                 // Throttle: no mobile só atualizamos se a diferença for maior que 0.04s
                 // Isso evita que o hardware do celular trave tentando processar cada pixel de scroll
@@ -612,10 +612,10 @@
     let isPaused = false;
 
     // Funções globais para pausar/retomar o auto-scroll (usadas pelo modal)
-    window.pausarCarrosselGaleria = function() {
+    window.pausarCarrosselGaleria = function () {
       isPaused = true;
     };
-    window.retomarCarrosselGaleria = function() {
+    window.retomarCarrosselGaleria = function () {
       isPaused = false;
     };
 
@@ -734,7 +734,7 @@
     const mensagemCodificada = encodeURIComponent(textoApp);
 
     // O número final onde cai a msg
-    const telWhats = "5571999990000";
+    const telWhats = "5571986773387";
 
     window.open(`https://wa.me/${telWhats}?text=${mensagemCodificada}`, '_blank');
   }
@@ -766,7 +766,7 @@
   function animarTituloHero() {
     const titulo = document.querySelector('.hero-titulo-gigante');
     if (!titulo) return;
-    
+
     // As letras já estão visíveis via CSS, apenas garantimos o estado final
     titulo.classList.add('animado');
   }
@@ -788,7 +788,7 @@
 
     input.addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não é dígito
-      
+
       if (value.length > 11) value = value.slice(0, 11);
 
       if (value.length > 10) {
@@ -804,7 +804,7 @@
         // Formato (XX
         value = value.replace(/^(\d{0,2})/, "($1");
       }
-      
+
       e.target.value = value;
     });
   }
