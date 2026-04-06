@@ -4,16 +4,14 @@
   // 1. PRELOADER — PLANTA BAIXA ANIMADA COM GSAP
   function animarPreloader() {
     const tela = document.getElementById("tela-carregamento");
+    const video3d = document.getElementById("video-3d");
 
     if (!tela || typeof gsap === "undefined") {
-      // Fallback sem GSAP
-      setTimeout(() => {
-        tela && tela.remove();
-      }, 3000);
+      setTimeout(() => { tela && tela.remove(); }, 3000);
       return;
     }
 
-    // Inicializa o dashoffset de cada elemento com seu comprimento real
+    // Inicializa o dashoffset de cada elemento
     function prepararLinha(seletor) {
       document.querySelectorAll(seletor).forEach((el) => {
         const len = el.getTotalLength ? el.getTotalLength() : 200;
@@ -23,33 +21,50 @@
     }
 
     const todasLinhas = [
-      ".planta-parede-externa",
-      ".planta-parede-interna",
-      ".planta-linha-porta",
-      ".planta-arco-porta",
-      ".planta-janela-a",
-      ".planta-janela-b",
-      ".planta-degrau",
-      ".planta-borda-escada",
-      ".planta-cota-linha",
-      ".planta-cota-tick",
-      ".planta-norte-circulo",
-      ".planta-norte-linha",
-      ".planta-escala-linha",
-      ".planta-escala-tick",
+      ".planta-parede-externa", ".planta-parede-interna", ".planta-linha-porta",
+      ".planta-arco-porta", ".planta-janela-a", ".planta-janela-b",
+      ".planta-degrau", ".planta-borda-escada", ".planta-cota-linha",
+      ".planta-cota-tick", ".planta-norte-circulo", ".planta-norte-linha",
+      ".planta-escala-linha", ".planta-escala-tick",
     ];
     todasLinhas.forEach(prepararLinha);
 
-    // Timeline principal
-    const tl = gsap.timeline({ onComplete: sairDoPreloader });
-    tl.timeScale(2.5); // Acelera toda a animação da planta baixa em 2.5x
+    // Variáveis de controle de carga
+    let animacaoCompleta = false;
+    let videoCarregado = false;
 
-    // Contador de porcentagem sobe junto com a animação
+    // Se não houver vídeo, considera carregado
+    if (!video3d) {
+      videoCarregado = true;
+    } else {
+      // Inicia o carregamento do vídeo imediatamente
+      video3d.load();
+      // O evento 'canplaythrough' indica que o vídeo pode ser reproduzido sem interrupções
+      video3d.addEventListener("canplaythrough", () => {
+        videoCarregado = true;
+        verificarFinalizacao();
+      }, { once: true });
+
+      // Fallback: se o vídeo demorar mais de 6 segundos, libera o site de qualquer forma
+      setTimeout(() => {
+        videoCarregado = true;
+        verificarFinalizacao();
+      }, 6000);
+    }
+
+    // Timeline principal da animação
+    const tl = gsap.timeline({ onComplete: () => {
+      animacaoCompleta = true;
+      verificarFinalizacao();
+    }});
+    tl.timeScale(2.5);
+
+    // Contador de porcentagem
     const contadorEl = document.getElementById("contador-numero");
     const objContador = { valor: 0 };
     gsap.to(objContador, {
       valor: 100,
-      duration: 1.5, // Bem mais rápido (de 3.8s para 1.5s)
+      duration: 1.8,
       ease: "power2.inOut",
       onStart: () => {
         gsap.to(".preloader-contador", { opacity: 1, duration: 0.4 });
@@ -59,128 +74,25 @@
       },
     });
 
-    // 1. Paredes externas — perímetro do edifício
-    tl.to(".planta-parede-externa", {
-      strokeDashoffset: 0,
-      duration: 1.2,
-      ease: "power2.inOut",
-    })
+    function verificarFinalizacao() {
+      // Só sai do preloader quando a animação acabar E o vídeo estiver pronto (ou der timeout)
+      if (animacaoCompleta && videoCarregado) {
+        sairDoPreloader();
+      }
+    }
 
-      // 2. Paredes internas — divisões dos cômodos
-      .to(
-        ".planta-parede-interna",
-        {
-          strokeDashoffset: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          stagger: 0.15,
-        },
-        "-=0.3",
-      )
-
-      // 3. Portas (linhas + arcos)
-      .to(
-        ".planta-linha-porta",
-        {
-          strokeDashoffset: 0,
-          duration: 0.3,
-          stagger: 0.1,
-          ease: "power1.out",
-        },
-        "-=0.2",
-      )
-      .to(
-        ".planta-arco-porta",
-        {
-          strokeDashoffset: 0,
-          duration: 0.45,
-          stagger: 0.12,
-          ease: "power1.inOut",
-        },
-        "-=0.2",
-      )
-
-      // 4. Janelas (dupla linha)
-      .to(
-        ".planta-janela-a, .planta-janela-b",
-        {
-          strokeDashoffset: 0,
-          duration: 0.35,
-          ease: "power1.out",
-          stagger: 0.06,
-        },
-        "-=0.1",
-      )
-
-      // 5. Escada (degraus em cascata rápida)
-      .to(
-        ".planta-borda-escada",
-        {
-          strokeDashoffset: 0,
-          duration: 0.3,
-          ease: "power1.out",
-        },
-        "-=0.1",
-      )
-      .to(
-        ".planta-degrau",
-        {
-          strokeDashoffset: 0,
-          duration: 0.12,
-          ease: "none",
-          stagger: 0.06,
-        },
-        "-=0.2",
-      )
-
-      // 6. Linhas de cota e indicadores técnicos
-      .to(
-        ".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick",
-        {
-          strokeDashoffset: 0,
-          duration: 0.4,
-          ease: "power1.out",
-          stagger: 0.04,
-        },
-        "-=0.1",
-      )
-      .to(
-        ".planta-norte-circulo, .planta-norte-linha",
-        {
-          strokeDashoffset: 0,
-          duration: 0.4,
-          ease: "power1.out",
-          stagger: 0.08,
-        },
-        "-=0.3",
-      )
-
-      // 7. Textos (N, escala)
-      .to(
-        ".planta-norte-texto, .planta-escala-texto",
-        {
-          opacity: 0.7,
-          duration: 0.4,
-          stagger: 0.1,
-        },
-        "-=0.1",
-      )
-
-      // 8. Logo aparece com blur saindo
-      .fromTo(
-        ".preloader-logo-img",
-        { opacity: 0, filter: "blur(12px)", y: 10 },
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          y: 0,
-          duration: 0.9,
-          ease: "power2.out",
-        },
-        "-=0.1",
-      )
-
-      // 9. Pausa para leitura
+    // 1. Paredes externas
+    tl.to(".planta-parede-externa", { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" })
+      .to(".planta-parede-interna", { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.15 }, "-=0.3")
+      .to(".planta-linha-porta", { strokeDashoffset: 0, duration: 0.3, stagger: 0.1, ease: "power1.out" }, "-=0.2")
+      .to(".planta-arco-porta", { strokeDashoffset: 0, duration: 0.45, stagger: 0.12, ease: "power1.inOut" }, "-=0.2")
+      .to(".planta-janela-a, .planta-janela-b", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out", stagger: 0.06 }, "-=0.1")
+      .to(".planta-borda-escada", { strokeDashoffset: 0, duration: 0.3, ease: "power1.out" }, "-=0.1")
+      .to(".planta-degrau", { strokeDashoffset: 0, duration: 0.12, ease: "none", stagger: 0.06 }, "-=0.2")
+      .to(".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick", { strokeDashoffset: 0, duration: 0.4, ease: "power1.out", stagger: 0.04 }, "-=0.1")
+      .to(".planta-norte-circulo, .planta-norte-linha", { strokeDashoffset: 0, duration: 0.4, ease: "power1.out", stagger: 0.08 }, "-=0.3")
+      .to(".planta-norte-texto, .planta-escala-texto", { opacity: 0.7, duration: 0.4, stagger: 0.1 }, "-=0.1")
+      .fromTo(".preloader-logo-img", { opacity: 0, filter: "blur(12px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.9, ease: "power2.out" }, "-=0.1")
       .to({}, { duration: 0.6 });
 
     // Saída da tela
@@ -191,52 +103,12 @@
         ease: "power2.inOut",
         onComplete: () => {
           tela.remove();
-          // Dispara a animação das letras do hero assim que o preloader sai
           dispararAnimacaoHero();
         },
       });
     }
   }
 
-  // 2. CURSOR CAD — mira estilo AutoCAD
-  function iniciarCursor() {
-    const cursorCad = document.getElementById("cursor-cad");
-    if (!cursorCad) return;
-
-    // Move a mira para a posição do mouse
-    document.addEventListener("mousemove", (e) => {
-      cursorCad.style.left = e.clientX + "px";
-      cursorCad.style.top = e.clientY + "px";
-    });
-
-    // Mira abre ao passar sobre elementos clicáveis
-    document
-      .querySelectorAll("a, button, .carta-projeto, .galeria-foto")
-      .forEach((el) => {
-        el.addEventListener("mouseenter", () =>
-          cursorCad.classList.add("ativo"),
-        );
-        el.addEventListener("mouseleave", () =>
-          cursorCad.classList.remove("ativo"),
-        );
-      });
-
-    // Troca cor da mira dependendo da seção (clara/escura)
-    const secoesEscuras = ["secao-hero", "secao-servicos", "rodape"];
-    window.addEventListener("scroll", () => {
-      const meioTela = window.innerHeight / 2;
-      let emSecaoEscura = false;
-
-      secoesEscuras.forEach((id) => {
-        const secao = document.getElementById(id);
-        if (!secao) return;
-        const rect = secao.getBoundingClientRect();
-        if (rect.top < meioTela && rect.bottom > meioTela) emSecaoEscura = true;
-      });
-
-      cursorCad.classList.toggle("claro", emSecaoEscura);
-    });
-  }
 
   /* / */
   function menuAoRolar() {
@@ -528,7 +400,7 @@
 
     function initVideoScrub() {
       const isMobile = window.innerWidth <= 768;
-      const scrollEnd = isMobile ? "+=3000" : "+=5000";
+      const scrollEnd = isMobile ? "+=2400" : "+=3000";
       const scrubValue = isMobile ? 0.6 : 1.2;
 
       const tlScrub = gsap.timeline({
@@ -600,7 +472,6 @@
   function iniciarGaleriaArrastavel() {
     const container = document.querySelector('.galeria-marquee-container');
     const trilha = document.querySelector('.galeria-trilha');
-    const cursorCad = document.getElementById('cursor-cad');
 
     if (!container || !trilha) return;
 
@@ -632,13 +503,8 @@
     requestId = requestAnimationFrame(autoScroll);
 
     // Desktop Events
-    container.addEventListener('mouseenter', () => {
-      if (cursorCad) cursorCad.style.opacity = '0';
-    });
-
     container.addEventListener('mouseleave', () => {
       isDown = false;
-      if (cursorCad) cursorCad.style.opacity = '1';
     });
 
     container.addEventListener('mousedown', (e) => {
@@ -813,7 +679,6 @@
   // Espera a janela carregar para iniciar as animações com segurança
   window.onload = function () {
     animarPreloader();
-    iniciarCursor();
     menuAoRolar();
     menuHamburguer();
     animarAoEntrarNaTela();
