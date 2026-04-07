@@ -4,11 +4,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Milena Reis - Arquiteta e Designer de Interiores. Projetos completos de arquitetura, interiores, iluminação e móveis sob medida. Transformando ideias em espaços únicos." />
-  <meta name="keywords"
-    content="arquitetura, design de interiores, projetos arquitetônicos, móveis sob medida, iluminação, reforma, Milena Reis" />
+  
+  <!-- SEO Primary -->
   <title>Milena Reis | Arquitetura e Design de Interiores</title>
+  <meta name="description" content="Milena Reis - Arquiteta e Designer de Interiores em Salvador, BA. Projetos residenciais, comerciais e interiores que unem estética, ética e funcionalidade." />
+  <meta name="keywords" content="arquiteta salvador, design de interiores bahia, reforma residencial, arquitetura comercial, móveis sob medida, iluminação, Milena Reis" />
+  <meta name="author" content="Milena Reis" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://milenareis.arq.br/" />
+
+  <!-- Open Graph / Facebook / Instagram / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://milenareis.arq.br/" />
+  <meta property="og:title" content="Milena Reis | Arquitetura e Design de Interiores" />
+  <meta property="og:description" content="Transformando ideias em espaços únicos através de excelência, criatividade e ética." />
+  <meta property="og:image" content="https://milenareis.arq.br/assets/Profile%201.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://milenareis.arq.br/" />
+  <meta property="twitter:title" content="Milena Reis | Arquitetura e Design de Interiores" />
+  <meta property="twitter:description" content="Transformando ideias em espaços únicos através de excelência, criatividade e ética." />
+  <meta property="twitter:image" content="https://milenareis.arq.br/assets/Profile%201.webp" />
+
+  <!-- Favicon & Theme -->
+  <meta name="theme-color" content="#3d291d" />
+  <link rel="icon" type="image/png" href="assets/Logo Milena (Alt) (3).webp" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Architect",
+      "name": "Milena Reis Arquitetura",
+      "description": "Arquiteta e Designer de Interiores especializada em projetos residenciais e comerciais de alto padrão.",
+      "image": "https://milenareis.arq.br/assets/Profile%201.webp",
+      "url": "https://milenareis.arq.br/",
+      "telephone": "+5571986773387",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Salvador",
+        "addressRegion": "BA",
+        "addressCountry": "BR"
+      },
+      "sameAs": [
+        "https://www.instagram.com/milena_reis_arq/",
+        "https://www.linkedin.com/in/milena-reis-arquitetura"
+      ]
+    }
+  </script>
+
   <link rel="stylesheet" href="fonts.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -103,8 +148,9 @@
     <a href="#secao-contato">Contato</a>
   </div>
 
-  <!-- HERO / CAPA PRINCIPAL -->
-  <section id="secao-hero">
+  <main>
+    <!-- HERO / CAPA PRINCIPAL -->
+    <section id="secao-hero">
     <!-- Imagem de Fundo Completa -->
     <div class="hero-fundo">
       <!-- Imagem de alta qualidade simulando a referência -->
@@ -260,7 +306,7 @@
 
         <!-- Projeto 2: Apartamento Sereno -->
         <div class="carta-projeto" data-titulo="Apartamento Sereno">
-          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09be1587?q=80&w=800" alt="Apartamento Sereno" />
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800" alt="Apartamento Sereno" />
           <div class="carta-info">
             <p class="carta-categoria">Interiores · São Paulo, SP</p>
             <h3 class="carta-titulo">Apartamento<br />Sereno</h3>
@@ -421,7 +467,7 @@
         <div class="galeria-foto" data-titulo="Equilíbrio Orgânico"
           data-desc="A presença marcante do paisagismo em sintonia com a arquitetura de interiores. As plantas não são meros adornos, mas peças fundamentais que dividem e purificam o espaço, gerando fluidez e bem-estar no habitar.">
           <!-- Imagem Galeria 5 -->
-          <img src="https://images.unsplash.com/photo-1600121848592-3db31109a130?q=80&w=600"
+          <img src="https://images.unsplash.com/photo-1585128719715-46776b56a0d1?q=80&w=600"
             alt="Equilíbrio Orgânico" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Equilíbrio Orgânico</p>
@@ -615,7 +661,7 @@
 
         <div class="wizard-opcoes-cards">
           <label class="wizard-card-label">
-            <input type="radio" name="tipoProjeto" value="Residencial" onchange="irParaPasso(2)" />
+            <input type="radio" name="tipoProjeto" value="Residencial" onclick="irParaPasso(2)" />
             <div class="wizard-card">
               <span class="wizard-icone">⌂</span>
               <h3>Residencial</h3>
@@ -623,7 +669,7 @@
             </div>
           </label>
           <label class="wizard-card-label">
-            <input type="radio" name="tipoProjeto" value="Comercial" onchange="irParaPasso(2)" />
+            <input type="radio" name="tipoProjeto" value="Comercial" onclick="irParaPasso(2)" />
             <div class="wizard-card">
               <span class="wizard-icone">🏢</span>
               <h3>Comercial</h3>
@@ -689,6 +735,8 @@
       </div>
     </div>
   </div>
+
+  </main>
 
   <!-- RODAPÉ (Footer) -->
   <footer id="rodape">

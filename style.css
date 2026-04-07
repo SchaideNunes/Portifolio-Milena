@@ -2120,6 +2120,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
+  gap: 15px;
 }
 
 .wizard-voltar {
@@ -2130,6 +2131,7 @@ body {
   color: var(--cor-marrom-texto);
   transition: opacity 0.3s ease;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .wizard-voltar:hover {
@@ -2150,10 +2152,29 @@ body {
   text-transform: uppercase;
   display: flex;
   align-items: center;
+  gap: 10px;
   padding: 14px 24px;
   border-radius: 8px;
   transition: background 0.3s ease;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .wizard-botoes-rodape {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 20px;
+  }
+  
+  .wizard-voltar {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .botao-wpp, .wizard-avancar {
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .botao-wpp:hover {
