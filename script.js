@@ -127,13 +127,38 @@
     function fecharMenu() {
       btn.classList.remove("ativo");
       overlay.classList.remove("ativo");
-      document.body.style.overflow = "";
+      
+      const wizardOrcamento = document.getElementById("wizard-orcamento");
+      const modalGaleria = document.getElementById("modal-galeria");
+      
+      const wizardAtivo = wizardOrcamento && wizardOrcamento.classList.contains("ativo");
+      const modalAtivo = modalGaleria && modalGaleria.classList.contains("ativo");
+
+      if (!wizardAtivo && !modalAtivo) {
+        document.body.classList.remove("no-scroll");
+        document.documentElement.classList.remove("no-scroll");
+      }
     }
 
     btn.addEventListener("click", () => {
       btn.classList.toggle("ativo");
       overlay.classList.toggle("ativo");
-      document.body.style.overflow = overlay.classList.contains("ativo") ? "hidden" : "";
+      
+      if (overlay.classList.contains("ativo")) {
+        document.body.classList.add("no-scroll");
+        document.documentElement.classList.add("no-scroll");
+      } else {
+        const wizardOrcamento = document.getElementById("wizard-orcamento");
+        const modalGaleria = document.getElementById("modal-galeria");
+        
+        const wizardAtivo = wizardOrcamento && wizardOrcamento.classList.contains("ativo");
+        const modalAtivo = modalGaleria && modalGaleria.classList.contains("ativo");
+
+        if (!wizardAtivo && !modalAtivo) {
+          document.body.classList.remove("no-scroll");
+          document.documentElement.classList.remove("no-scroll");
+        }
+      }
     });
 
     // Fecha ao clicar no backdrop (fora dos links)
@@ -273,7 +298,8 @@
 
       // Exibe modal e previne scroll da página ao fundo
       modal.classList.add('ativo');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll');
 
       // Pausa o carrossel da galeria
       if (window.pausarCarrosselGaleria) window.pausarCarrosselGaleria();
@@ -281,7 +307,17 @@
 
     function fecharModal() {
       modal.classList.remove('ativo');
-      document.body.style.overflow = '';
+      
+      const overlayMenu = document.getElementById("menu-mobile-overlay");
+      const wizardOrcamento = document.getElementById("wizard-orcamento");
+      
+      const menuAtivo = overlayMenu && overlayMenu.classList.contains("ativo");
+      const wizardAtivo = wizardOrcamento && wizardOrcamento.classList.contains("ativo");
+
+      if (!menuAtivo && !wizardAtivo) {
+        document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
+      }
 
       // Retoma o carrossel da galeria
       if (window.retomarCarrosselGaleria) window.retomarCarrosselGaleria();
@@ -545,7 +581,11 @@
   /* --- LÓGICA DO WIZARD ORÇAMENTO --- */
   window.abrirWizardOrcamento = function () {
     const w = document.getElementById('wizard-orcamento');
-    if (w) w.classList.add('ativo');
+    if (w) {
+      w.classList.add('ativo');
+      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll');
+    }
     irParaPasso(1);
 
     const r = document.querySelector('input[name="tipoProjeto"]:checked');
@@ -560,7 +600,20 @@
 
   window.fecharWizardOrcamento = function () {
     const w = document.getElementById('wizard-orcamento');
-    if (w) w.classList.remove('ativo');
+    if (w) {
+      w.classList.remove('ativo');
+      
+      const overlayMenu = document.getElementById("menu-mobile-overlay");
+      const modalGaleria = document.getElementById("modal-galeria");
+      
+      const menuAtivo = overlayMenu && overlayMenu.classList.contains("ativo");
+      const modalAtivo = modalGaleria && modalGaleria.classList.contains("ativo");
+
+      if (!menuAtivo && !modalAtivo) {
+        document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
+      }
+    }
   }
 
   window.irParaPasso = function (passo) {
