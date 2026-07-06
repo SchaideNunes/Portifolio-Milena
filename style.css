@@ -1,12 +1,12 @@
 /* Arquivo de Estilos Principal */
 :root {
-  --cor-fundo-claro: #fdf8f4;
+  --cor-fundo-claro: #f0e9e0;
   /* fundo geral das seções claras */
-  --cor-fundo-creme: #faf6f1;
+  --cor-fundo-creme: #e6ded3;
   /* fundo alternativo (seção sobre, galeria) */
-  --cor-nude-suave: #f5ede3;
+  --cor-nude-suave: #dbcfc2;
   /* nude muito claro */
-  --cor-nude-medio: #e8d9cc;
+  --cor-nude-medio: #cec0b0;
   /* nude médio */
   --cor-nude-borda: #d4bfaf;
   /* bordas e detalhes nude */
@@ -18,7 +18,7 @@
   /* botões, destaques, itálicos */
   --cor-escuro: #1a0f0a;
   /* fundo escuro (serviços, rodapé) */
-  --cor-branco: #ffffff;
+  --cor-branco: #f0e9e0;
 
   --fonte-titulo: "Cormorant Garamond", serif;
   /* títulos grandes e elegantes */
@@ -410,7 +410,7 @@ body {
 
 #menu-topo.rolou {
   padding: 18px 60px;
-  background: rgba(253, 248, 244, 0.85);
+  background: rgba(240, 233, 224, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--cor-nude-medio);
@@ -713,7 +713,7 @@ body {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--cor-branco);
   text-align: center;
   line-height: 0.9;
   text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -777,11 +777,11 @@ body {
 .hero-titulo-gigante.shimmer-ativo .hero-letra {
   color: transparent;
   background: linear-gradient(90deg,
-      #ffffff 0%,
-      #ffffff 35%,
+      #f0e9e0 0%,
+      #f0e9e0 35%,
       rgba(212, 191, 175, 0.9) 50%,
-      #ffffff 65%,
-      #ffffff 100%);
+      #f0e9e0 65%,
+      #f0e9e0 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -837,7 +837,7 @@ body {
   font-size: clamp(1.4rem, 2.2vw, 2.4rem);
   font-weight: 300;
   line-height: 1.05;
-  color: #ffffff;
+  color: var(--cor-branco);
   margin-bottom: clamp(10px, 1vw, 16px);
 }
 
@@ -862,7 +862,7 @@ body {
 
 /* Botão primário do hero — fundo branco que desliza para nude no hover */
 .botao-hero {
-  background: #ffffff !important;
+  background: var(--cor-branco) !important;
   color: var(--cor-escuro) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
   transition: transform 0.35s ease, box-shadow 0.35s ease, letter-spacing 0.35s ease !important;
@@ -887,7 +887,7 @@ body {
 
 /* Botão secundário do hero — seta desliza para frente */
 .botao-hero-sec {
-  color: #ffffff !important;
+  color: var(--cor-branco) !important;
   transition: gap 0.35s ease, opacity 0.3s ease !important;
   position: relative;
 }
@@ -2055,7 +2055,7 @@ body {
 
 .wizard-card-label input:checked+.wizard-card {
   border-color: var(--cor-marrom);
-  background: rgba(253, 248, 244, 1);
+  background: var(--cor-fundo-claro);
   box-shadow: 0 8px 25px rgba(90, 61, 43, 0.1);
 }
 
@@ -2175,7 +2175,7 @@ body {
 
 .botao-wpp {
   background: #2a3c30;
-  color: white;
+  color: var(--cor-branco);
   border: none;
   font-family: var(--fonte-corpo);
   font-size: 0.85rem;
@@ -2437,7 +2437,7 @@ body {
 }
 
 .contato-destaque-atendimento strong {
-  color: #ffffff;
+  color: var(--cor-branco);
   font-weight: 500;
 }
 
