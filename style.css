@@ -1522,7 +1522,8 @@ body {
 .carta-projeto:nth-child(2),
 .carta-projeto:nth-child(3),
 .carta-projeto:nth-child(4),
-.carta-projeto:nth-child(5) {
+.carta-projeto:nth-child(5),
+.carta-projeto:nth-child(6) {
   opacity: 1;
 }
 
