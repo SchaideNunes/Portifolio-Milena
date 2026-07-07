@@ -31,25 +31,10 @@
 
     // Variáveis de controle de carga
     let animacaoCompleta = false;
-    let videoCarregado = false;
 
-    // Se não houver vídeo, considera carregado
-    if (!video3d) {
-      videoCarregado = true;
-    } else {
-      // Inicia o carregamento do vídeo imediatamente
+    // Se houver vídeo, apenas solicita o carregamento de metadados sem travar a tela inicial
+    if (video3d) {
       video3d.load();
-      // O evento 'canplaythrough' indica que o vídeo pode ser reproduzido sem interrupções
-      video3d.addEventListener("canplaythrough", () => {
-        videoCarregado = true;
-        verificarFinalizacao();
-      }, { once: true });
-
-      // Fallback: se o vídeo demorar mais de 6 segundos, libera o site de qualquer forma
-      setTimeout(() => {
-        videoCarregado = true;
-        verificarFinalizacao();
-      }, 6000);
     }
 
     // Timeline principal da animação
@@ -75,8 +60,8 @@
     });
 
     function verificarFinalizacao() {
-      // Só sai do preloader quando a animação acabar E o vídeo estiver pronto (ou der timeout)
-      if (animacaoCompleta && videoCarregado) {
+      // Sai do preloader assim que a animação visual inicial terminar (não bloqueia pelo vídeo pesado)
+      if (animacaoCompleta) {
         sairDoPreloader();
       }
     }
@@ -439,6 +424,34 @@
       const scrollEnd = isMobile ? "+=2400" : "+=3000";
       const scrubValue = isMobile ? 0.6 : 1.2;
 
+      let targetTime = 0;
+
+      // Pré-carrega o vídeo discretamente em background 2 telas antes de chegar na seção
+      ScrollTrigger.create({
+        trigger: moduloSecao,
+        start: "top 200%",
+        onEnter: () => {
+          if (videoModulo.paused) {
+            videoModulo.load();
+          }
+        },
+        once: true
+      });
+
+      // Loop suave de renderização que evita engasgos e travamentos no decoder (seeking)
+      function updateVideoTime() {
+        if (!isNaN(videoModulo.duration) && videoModulo.duration > 0) {
+          if (!videoModulo.seeking) {
+            const diff = Math.abs(videoModulo.currentTime - targetTime);
+            if (diff > 0.03) {
+              videoModulo.currentTime = targetTime;
+            }
+          }
+        }
+        requestAnimationFrame(updateVideoTime);
+      }
+      requestAnimationFrame(updateVideoTime);
+
       const tlScrub = gsap.timeline({
         scrollTrigger: {
           trigger: moduloSecao,
@@ -449,17 +462,7 @@
           pinSpacing: true,
           onUpdate: (self) => {
             if (!isNaN(videoModulo.duration) && videoModulo.duration > 0) {
-              const targetTime = self.progress * videoModulo.duration;
-
-              if (isMobile) {
-                // Throttle: no mobile só atualizamos se a diferença for maior que 0.04s
-                // Isso evita que o hardware do celular trave tentando processar cada pixel de scroll
-                if (Math.abs(videoModulo.currentTime - targetTime) > 0.04) {
-                  videoModulo.currentTime = targetTime;
-                }
-              } else {
-                videoModulo.currentTime = targetTime;
-              }
+              targetTime = self.progress * videoModulo.duration;
             }
           }
         }

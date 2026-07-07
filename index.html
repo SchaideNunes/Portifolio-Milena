@@ -154,7 +154,7 @@
     <!-- Imagem de Fundo Completa -->
     <div class="hero-fundo">
       <!-- Imagem de alta qualidade simulando a referência -->
-      <img src="assets/hero/background_hero.webp"
+      <img src="assets/hero/background_hero.webp" loading="eager" fetchpriority="high" decoding="async"
         alt="Arquitetura Residencial Milena" />
       <div class="hero-overlay-nude"></div>
     </div>
@@ -163,7 +163,7 @@
       <!-- Título Central Gigante (Agora como Imagem) -->
       <h1 class="hero-titulo-gigante">
         <div class="hero-logo-wrapper">
-          <img src="assets/logo/Logo Milena (Alt) (3).webp" alt="Milena Reis" class="hero-logo-img">
+          <img src="assets/logo/Logo Milena (Alt) (3).webp" loading="eager" decoding="async" alt="Milena Reis" class="hero-logo-img">
         </div>
       </h1>
 
@@ -217,9 +217,9 @@
   <section id="secao-sobre">
     <div class="sobre-foto-container animar-da-esquerda">
       <!-- Foto de perfil principal -->
-      <img class="sobre-foto-principal" src="assets/sobre/Profile 1.webp" alt="Milena Reis Arquiteta" />
+      <img class="sobre-foto-principal" src="assets/sobre/Profile 1.webp" loading="lazy" decoding="async" alt="Milena Reis Arquiteta" />
       <!-- Foto de detalhe sobreposta -->
-      <img class="sobre-foto-destaque" src="assets/sobre/detalhe.webp"
+      <img class="sobre-foto-destaque" src="assets/sobre/detalhe.webp" loading="lazy" decoding="async"
         alt="Detalhe de projeto" />
     </div>
 
@@ -260,7 +260,8 @@
 
   <!-- MÓDULO ANIMAÇÃO 3D -->
   <section id="secao-modelo-3d">
-    <video id="video-3d" muted playsinline loop preload="auto">
+    <video id="video-3d" muted playsinline loop preload="metadata">
+      <source src="assets/video/Animation_1080_kf.webm" type="video/webm">
       <source src="assets/video/Animation_1080_kf.mp4" type="video/mp4">
     </video>
 
@@ -295,7 +296,7 @@
       <div class="baralho-cartas">
         <!-- Projeto 1: Residência Feira de Santana -->
         <div class="carta-projeto" data-titulo="Residência Feira de Santana">
-          <img src="Fotos%20Milena/Fachada%20casa.webp" alt="Residência Feira de Santana" />
+          <img src="Fotos%20Milena/Fachada%20casa.webp" loading="lazy" decoding="async" alt="Residência Feira de Santana" />
           <div class="carta-info">
             <p class="carta-categoria">Residencial · Feira de Santana, BA</p>
             <h3 class="carta-titulo">Residência<br />Feira de Santana</h3>
@@ -305,7 +306,7 @@
 
         <!-- Projeto 2: Villa Serrinha -->
         <div class="carta-projeto" data-titulo="Villa Serrinha">
-          <img src="Fotos%20Milena/Casa%203%20andares.webp" alt="Villa Serrinha" />
+          <img src="Fotos%20Milena/Casa%203%20andares.webp" loading="lazy" decoding="async" alt="Villa Serrinha" />
           <div class="carta-info">
             <p class="carta-categoria">Residencial · Serrinha, BA</p>
             <h3 class="carta-titulo">Villa<br />Serrinha</h3>
@@ -315,7 +316,7 @@
 
         <!-- Projeto 3: Casa Barrocas -->
         <div class="carta-projeto" data-titulo="Casa Barrocas">
-          <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" alt="Casa Barrocas" />
+          <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" loading="lazy" decoding="async" alt="Casa Barrocas" />
           <div class="carta-info">
             <p class="carta-categoria">Residencial · Barrocas, BA</p>
             <h3 class="carta-titulo">Casa<br />Barrocas</h3>
@@ -325,7 +326,7 @@
 
         <!-- Projeto 4: Refúgio Salvador -->
         <div class="carta-projeto" data-titulo="Refúgio Salvador">
-          <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" alt="Refúgio Salvador" />
+          <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" loading="lazy" decoding="async" alt="Refúgio Salvador" />
           <div class="carta-info">
             <p class="carta-categoria">Residencial · Salvador, BA</p>
             <h3 class="carta-titulo">Refúgio<br />Salvador</h3>
@@ -335,7 +336,7 @@
 
         <!-- Projeto 5: Residência Sertão -->
         <div class="carta-projeto" data-titulo="Residência Sertão">
-          <img src="Fotos%20Milena/Quintal%20de%20casa.webp" alt="Residência Sertão" />
+          <img src="Fotos%20Milena/Quintal%20de%20casa.webp" loading="lazy" decoding="async" alt="Residência Sertão" />
           <div class="carta-info">
             <p class="carta-categoria">Residencial · Serrinha, BA</p>
             <h3 class="carta-titulo">Residência<br />Sertão</h3>
@@ -345,7 +346,7 @@
 
         <!-- Projeto 6: Área de Lazer Bahia -->
         <div class="carta-projeto" data-titulo="Área de Lazer Bahia">
-          <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" alt="Área de Lazer Bahia" />
+          <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" loading="lazy" decoding="async" alt="Área de Lazer Bahia" />
           <div class="carta-info">
             <p class="carta-categoria">Lazer · Feira de Santana, BA</p>
             <h3 class="carta-titulo">Área de<br />Lazer Bahia</h3>
@@ -435,7 +436,7 @@
         <div class="galeria-foto" data-titulo="Integração Sala e Cozinha"
           data-desc="Um conceito aberto e moderno onde a sala de estar e a cozinha se fundem com harmonia. O uso de marcenaria inteligente e paleta de cores equilibrada cria um ambiente receptivo, funcional e perfeito para o convívio diário.">
           <!-- Imagem Galeria 1 -->
-          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" alt="Integração Sala e Cozinha" />
+          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" loading="lazy" decoding="async" alt="Integração Sala e Cozinha" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Integração Sala e Cozinha</p>
             <div class="galeria-icone-expandir">+</div>
@@ -445,7 +446,7 @@
         <div class="galeria-foto" data-titulo="Aconchego e Elegância"
           data-desc="Projeto de dormitório que prioriza o descanso sem abrir mão da sofisticação. A iluminação indireta e os detalhes nos acabamentos e revestimentos trazem uma atmosfera intimista, serena e profundamente relaxante.">
           <!-- Imagem Galeria 2 -->
-          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" alt="Aconchego e Elegância" />
+          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" loading="lazy" decoding="async" alt="Aconchego e Elegância" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Aconchego e Elegância</p>
             <div class="galeria-icone-expandir">+</div>
@@ -455,7 +456,7 @@
         <div class="galeria-foto" data-titulo="Sofisticação no Banho"
           data-desc="Uma proposta limpa e elegante, valorizando cada centímetro através de escolhas de louças, metais refinados e revestimentos que ampliam a sensação de bem-estar. Um verdadeiro refúgio de autocuidado e tranquilidade.">
           <!-- Imagem Galeria 3 -->
-          <img src="Fotos%20Milena/Banheiro.webp"
+          <img src="Fotos%20Milena/Banheiro.webp" loading="lazy" decoding="async"
             alt="Sofisticação no Banho" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Sofisticação no Banho</p>
@@ -466,7 +467,7 @@
         <div class="galeria-foto" data-titulo="Detalhes Gourmet"
           data-desc="A precisão nos detalhes de marcenaria e acabamentos transforma esta cozinha em uma verdadeira obra funcional. Ergonomia e estética caminham lado a lado, facilitando a rotina com muito charme e praticidade.">
           <!-- Imagem Galeria 4 -->
-          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" alt="Detalhes Gourmet" />
+          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" loading="lazy" decoding="async" alt="Detalhes Gourmet" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Detalhes Gourmet</p>
             <div class="galeria-icone-expandir">+</div>
@@ -476,7 +477,7 @@
         <div class="galeria-foto" data-titulo="Organização e Estilo"
           data-desc="Cada espaço foi pensado sob medida para otimizar a organização e a acessibilidade do vestuário. Linhas retas, iluminação cenográfica nos nichos e acabamentos de alta qualidade proporcionam uma experiência digna de boutique.">
           <!-- Imagem Galeria 5 -->
-          <img src="Fotos%20Milena/Closet.webp"
+          <img src="Fotos%20Milena/Closet.webp" loading="lazy" decoding="async"
             alt="Organização e Estilo" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Organização e Estilo</p>
@@ -487,7 +488,7 @@
         <div class="galeria-foto" data-titulo="Cozinha Contemporânea"
           data-desc="Um layout interno limpo e inteligente, focado em aproveitamento de espaço e circulação fluida. A escolha de materiais duráveis e tons atemporais garante uma beleza que se mantém atual ao longo dos anos.">
           <!-- Imagem Galeria 6 -->
-          <img src="Fotos%20Milena/Interna%20Cozinha.webp" alt="Cozinha Contemporânea" />
+          <img src="Fotos%20Milena/Interna%20Cozinha.webp" loading="lazy" decoding="async" alt="Cozinha Contemporânea" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Cozinha Contemporânea</p>
             <div class="galeria-icone-expandir">+</div>
@@ -497,7 +498,7 @@
         <!-- Segundo grupo de imagens (Cópia exata para loop) -->
         <div class="galeria-foto" data-titulo="Integração Sala e Cozinha"
           data-desc="Um conceito aberto e moderno onde a sala de estar e a cozinha se fundem com harmonia. O uso de marcenaria inteligente e paleta de cores equilibrada cria um ambiente receptivo, funcional e perfeito para o convívio diário.">
-          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" alt="Integração Sala e Cozinha" />
+          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" loading="lazy" decoding="async" alt="Integração Sala e Cozinha" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Integração Sala e Cozinha</p>
             <div class="galeria-icone-expandir">+</div>
@@ -506,7 +507,7 @@
 
         <div class="galeria-foto" data-titulo="Aconchego e Elegância"
           data-desc="Projeto de dormitório que prioriza o descanso sem abrir mão da sofisticação. A iluminação indireta e os detalhes nos acabamentos e revestimentos trazem uma atmosfera intimista, serena e profundamente relaxante.">
-          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" alt="Aconchego e Elegância" />
+          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" loading="lazy" decoding="async" alt="Aconchego e Elegância" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Aconchego e Elegância</p>
             <div class="galeria-icone-expandir">+</div>
@@ -515,7 +516,7 @@
 
         <div class="galeria-foto" data-titulo="Sofisticação no Banho"
           data-desc="Uma proposta limpa e elegante, valorizando cada centímetro através de escolhas de louças, metais refinados e revestimentos que ampliam a sensação de bem-estar. Um verdadeiro refúgio de autocuidado e tranquilidade.">
-          <img src="Fotos%20Milena/Banheiro.webp"
+          <img src="Fotos%20Milena/Banheiro.webp" loading="lazy" decoding="async"
             alt="Sofisticação no Banho" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Sofisticação no Banho</p>
@@ -525,7 +526,7 @@
 
         <div class="galeria-foto" data-titulo="Detalhes Gourmet"
           data-desc="A precisão nos detalhes de marcenaria e acabamentos transforma esta cozinha em uma verdadeira obra funcional. Ergonomia e estética caminham lado a lado, facilitando a rotina com muito charme e praticidade.">
-          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" alt="Detalhes Gourmet" />
+          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" loading="lazy" decoding="async" alt="Detalhes Gourmet" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Detalhes Gourmet</p>
             <div class="galeria-icone-expandir">+</div>
@@ -534,7 +535,7 @@
 
         <div class="galeria-foto" data-titulo="Organização e Estilo"
           data-desc="Cada espaço foi pensado sob medida para otimizar a organização e a acessibilidade do vestuário. Linhas retas, iluminação cenográfica nos nichos e acabamentos de alta qualidade proporcionam uma experiência digna de boutique.">
-          <img src="Fotos%20Milena/Closet.webp"
+          <img src="Fotos%20Milena/Closet.webp" loading="lazy" decoding="async"
             alt="Organização e Estilo" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Organização e Estilo</p>
@@ -544,7 +545,7 @@
 
         <div class="galeria-foto" data-titulo="Cozinha Contemporânea"
           data-desc="Um layout interno limpo e inteligente, focado em aproveitamento de espaço e circulação fluida. A escolha de materiais duráveis e tons atemporais garante uma beleza que se mantém atual ao longo dos anos.">
-          <img src="Fotos%20Milena/Interna%20Cozinha.webp" alt="Cozinha Contemporânea" />
+          <img src="Fotos%20Milena/Interna%20Cozinha.webp" loading="lazy" decoding="async" alt="Cozinha Contemporânea" />
           <div class="galeria-legenda-wrap">
             <p class="galeria-legenda">Cozinha Contemporânea</p>
             <div class="galeria-icone-expandir">+</div>
@@ -750,7 +751,7 @@
   <!-- RODAPÉ (Footer) -->
   <footer id="rodape">
     <!-- Topo/Logo principal repetido -->
-    <img class="rodape-logo" src="assets/logo/Logo Milena Reis (Comp) (3).webp" alt="Milena Reis" />
+    <img class="rodape-logo" src="assets/logo/Logo Milena Reis (Comp) (3).webp" loading="lazy" decoding="async" alt="Milena Reis" />
     <div class="rodape-links">
       <a href="https://www.instagram.com/milena_reis_arq/">Instagram</a>
       <a href="#">Behance</a>
