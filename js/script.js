@@ -72,11 +72,16 @@
     const tela = document.getElementById("tela-carregamento");
     if (!tela) return;
 
-    // Sem GSAP (CDN fora do ar) ou com movimento reduzido: vai direto para o site
-    if (typeof gsap === "undefined" || menosMovimento) {
+    // Já visto nesta sessão (ex.: voltando da página de projetos), sem GSAP (CDN fora
+    // do ar) ou com movimento reduzido: vai direto para o site
+    const jaVisto = document.documentElement.classList.contains("sem-preloader");
+    if (jaVisto || typeof gsap === "undefined" || menosMovimento) {
       tela.remove();
       return;
     }
+    try {
+      sessionStorage.setItem("preloaderVisto", "1");
+    } catch (e) { /* sem sessionStorage o preloader toca de novo na próxima visita */ }
 
     // Cada traço começa "apagado": o dashoffset igual ao comprimento esconde a linha
     const todasLinhas = [

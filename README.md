@@ -168,6 +168,7 @@ Abaixo estão capturas reais de cada seção e módulo interativo construído na
 | **WebP Image Format** | Formato de última geração para todas as fotografias com compressão superior e carregamento instantâneo. |
 | **Google Fonts** | Fontes tipográficas de alta legibilidade e estilo editorial (`Cormorant Garamond`, `Jost`). |
 | **Schema.org / JSON-LD** | Marcação de dados estruturados para SEO profissional (entidade `ProfessionalService` no Google). |
+| **Vercel Functions + API do GitHub** | Painel de projetos sem banco de dados: publicar é criar um commit no repositório. |
 | **Vercel Web Analytics** | Contagem de visitantes e page views, sem cookies, via script `/_vercel/insights/script.js`. |
 
 ---
@@ -238,19 +239,27 @@ Portifolio-Milena/
 │   ├── sobre/               # Retratos e fotos de perfil da arquiteta
 │   ├── texturas/            # Textura sutil aplicada no fundo das seções
 │   └── video/               # Renders 3D (.webm e .mp4) para o scroll-scrub
+├── api/                     # Funções serverless da Vercel usadas pelo painel
+│   ├── login.js             # Troca a senha por um token de sessão
+│   ├── projetos.js          # Lê e publica a lista de projetos (commit no GitHub)
+│   ├── imagem.js            # Recebe cada foto nova
+│   └── _lib/                # Autenticação, API do GitHub e validação
 ├── css/
 │   ├── style.css            # Folha de estilos global e responsiva (seções numeradas)
-│   └── projetos.css         # Estilos exclusivos da página de projetos
+│   ├── projetos.css         # Estilos exclusivos da página de projetos
+│   └── admin.css            # Estilos do painel
 ├── dados/
 │   └── projetos.json        # Lista de projetos exibida em projetos.html
 ├── js/
 │   ├── script.js            # Orquestração de animações, GSAP e interações
-│   └── projetos.js          # Monta a grade, os filtros e o modal a partir do JSON
+│   ├── projetos.js          # Monta a grade, os filtros e o modal a partir do JSON
+│   └── admin.js             # Lógica do painel (login, editor, envio de fotos)
 ├── Fotos Milena/            # Fotos reais dos projetos (cards e galeria), em WebP
 ├── imagens-novas/           # Entrada de fotos originais (PNG/JPG) a converter — fora do git
 ├── scripts/
 │   └── converter-imagens.mjs  # Converte imagens-novas/ para WebP (usa ffmpeg)
 ├── 404.html                 # Página de erro personalizada
+├── admin.html               # Painel para gerenciar os projetos (com senha)
 ├── index.html               # Home: estrutura semântica completa e Schema.org
 ├── projetos.html            # Página com todos os projetos e seus detalhes
 ├── robots.txt               # Diretrizes para indexadores e crawlers
@@ -259,9 +268,22 @@ Portifolio-Milena/
 └── README.md                # Documentação técnica do projeto
 ```
 
-### 🏠 Adicionando ou retirando projetos
+### 🔐 Painel de projetos
 
-A página `projetos.html` é montada a partir de `dados/projetos.json`. Para incluir um projeto, adicione um item ao array (a ordem do arquivo é a ordem na tela):
+Em `/admin.html` a arquiteta adiciona, edita, reordena e exclui projetos sem tocar em código. As fotos são reduzidas e convertidas para WebP no próprio navegador. Ao clicar em **Publicar no site**, o painel grava as fotos e o `dados/projetos.json` em um único commit no GitHub, e a Vercel republica o site em cerca de um minuto.
+
+Configuração (uma vez só), em **Vercel → Settings → Environment Variables**:
+
+| Variável | Valor |
+| :--- | :--- |
+| `ADMIN_SENHA` | Senha do painel (mínimo de 10 caracteres; use uma senha longa e única). |
+| `GITHUB_TOKEN` | *Fine-grained personal access token* do GitHub com acesso **apenas a este repositório** e permissão **Contents: Read and write**. |
+
+Depois de salvar as variáveis, faça um novo deploy. O painel só funciona no site publicado (as funções `/api` não existem em um servidor local estático).
+
+### 🏠 Editando os projetos à mão
+
+A página `projetos.html` é montada a partir de `dados/projetos.json`, o mesmo arquivo que o painel edita. Para incluir um projeto manualmente, adicione um item ao array (a ordem do arquivo é a ordem na tela):
 
 ```json
 {

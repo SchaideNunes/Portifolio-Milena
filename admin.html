@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de projetos | Milena Reis Arquitetura</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#3d291d" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icones/favicon-32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<!-- Painel para a Milena adicionar, editar e retirar projetos de projetos.html.
+     Tudo é feito por js/admin.js conversando com as funções em /api (ver CLAUDE.md). -->
+
+<body class="pagina-admin">
+  <main>
+    <!-- 1. LOGIN -->
+    <section class="admin-login" id="tela-login" hidden>
+      <img class="admin-login-logo" src="assets/logo/Logo%20Milena%20(Alt)%20(2).webp" alt="Milena Reis" />
+      <p class="etiqueta-secao">Área restrita</p>
+      <h1 class="titulo-secao">Painel de <em>projetos</em></h1>
+      <form id="form-login">
+        <div class="admin-campo">
+          <label for="login-senha">Senha</label>
+          <input type="password" id="login-senha" autocomplete="current-password" required />
+        </div>
+        <p class="admin-erro" id="login-erro" role="alert" hidden></p>
+        <button type="submit" class="botao-primario"><span>Entrar</span></button>
+      </form>
+    </section>
+
+    <!-- 2. LISTA DE PROJETOS -->
+    <section class="admin-tela" id="tela-lista" hidden>
+      <header class="admin-topo">
+        <div>
+          <p class="etiqueta-secao">Painel</p>
+          <h1 class="titulo-secao">Seus <em>projetos</em></h1>
+        </div>
+        <div class="admin-topo-acoes">
+          <a href="projetos.html" target="_blank" rel="noopener" class="admin-link">Ver página de projetos ↗</a>
+          <button type="button" class="admin-link" id="btn-sair">Sair</button>
+        </div>
+      </header>
+
+      <div class="admin-barra">
+        <button type="button" class="botao-primario" id="btn-novo"><span>+ Novo projeto</span></button>
+        <p class="admin-contagem" id="lista-contagem"></p>
+      </div>
+
+      <p class="admin-dica">A ordem desta lista é a ordem em que os projetos aparecem no site. Use as setas para reordenar.</p>
+      <ol class="admin-lista" id="lista-projetos"></ol>
+    </section>
+
+    <!-- 3. EDITOR DE UM PROJETO -->
+    <section class="admin-tela" id="tela-editor" hidden>
+      <button type="button" class="admin-link" id="btn-voltar">← Voltar para a lista</button>
+      <h1 class="titulo-secao" id="editor-titulo">Novo projeto</h1>
+
+      <form id="form-projeto" novalidate>
+        <div class="admin-campo">
+          <label for="campo-titulo">Título *</label>
+          <input type="text" id="campo-titulo" maxlength="120" placeholder="Ex.: Casa Jardim" required />
+        </div>
+
+        <div class="admin-campos-linha">
+          <div class="admin-campo">
+            <label for="campo-categoria">Categoria *</label>
+            <input type="text" id="campo-categoria" maxlength="40" list="lista-categorias" placeholder="Ex.: Residencial" required />
+            <datalist id="lista-categorias"></datalist>
+            <small>Vira um filtro na página. Escolha uma existente ou digite uma nova.</small>
+          </div>
+          <div class="admin-campo">
+            <label for="campo-local">Local</label>
+            <input type="text" id="campo-local" maxlength="80" placeholder="Ex.: Salvador, BA" />
+          </div>
+        </div>
+
+        <div class="admin-campos-linha">
+          <div class="admin-campo">
+            <label for="campo-ano">Ano</label>
+            <input type="number" id="campo-ano" min="1900" max="2100" inputmode="numeric" placeholder="Ex.: 2026" />
+          </div>
+          <div class="admin-campo">
+            <label for="campo-area">Área</label>
+            <input type="text" id="campo-area" maxlength="40" placeholder="Ex.: 180 m²" />
+          </div>
+        </div>
+
+        <div class="admin-campo">
+          <label for="campo-descricao">Descrição</label>
+          <textarea id="campo-descricao" maxlength="2000" rows="5" placeholder="Conte um pouco sobre o projeto."></textarea>
+        </div>
+
+        <fieldset class="admin-campo admin-fotos-grupo">
+          <legend>Fotos *</legend>
+          <small>A primeira foto é a capa. As fotos são reduzidas e otimizadas automaticamente.</small>
+          <div class="admin-fotos" id="editor-fotos"></div>
+          <label class="admin-enviar">
+            <input type="file" id="campo-fotos" accept="image/*" multiple hidden />
+            <span id="enviar-rotulo">+ Adicionar fotos</span>
+          </label>
+        </fieldset>
+
+        <p class="admin-erro" id="editor-erro" role="alert" hidden></p>
+        <div class="admin-botoes">
+          <button type="submit" class="botao-primario"><span>Salvar projeto</span></button>
+          <button type="button" class="botao-outline-marrom" id="btn-cancelar"><span>Cancelar</span></button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Barra fixa: aparece quando há mudanças que ainda não foram para o site -->
+  <div class="admin-publicar" id="barra-publicar" hidden>
+    <p id="publicar-texto">Você tem alterações que ainda não estão no site.</p>
+    <div class="admin-publicar-acoes">
+      <button type="button" class="admin-link" id="btn-descartar">Descartar</button>
+      <button type="button" class="botao-primario botao-hero" id="btn-publicar"><span>Publicar no site</span></button>
+    </div>
+  </div>
+
+  <p class="admin-aviso" id="admin-aviso" role="status" hidden></p>
+
+  <script src="js/admin.js" defer></script>
+</body>
+
+</html>

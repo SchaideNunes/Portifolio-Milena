@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Portfólio da arquiteta **Milena Reis** (Salvador, BA). Site estático em Vanilla Web — sem build, sem package manager, sem testes. Idioma do conteúdo, classes CSS, funções JS e comentários: **português (pt-BR)**. Mantenha esse padrão.
+Portfólio da arquiteta **Milena Reis** (Salvador, BA). Site estático em Vanilla Web — sem build, sem package manager, sem testes — mais três funções serverless da Vercel (`api/`) que servem só ao painel de projetos. Idioma do conteúdo, classes CSS, funções JS e comentários: **português (pt-BR)**. Mantenha esse padrão.
 
 Autor/dev: Schaide Nunes. Deploy: **Vercel**, em `https://portifolio-milena.vercel.app/` (integração com o GitHub: push na `main` publica).
 
@@ -19,6 +19,8 @@ Servir a pasta raiz com qualquer servidor estático (Live Server, `npx serve`, e
 | `css/projetos.css` | Só o que é exclusivo de `projetos.html` (inclui os próprios breakpoints). |
 | `js/script.js` | IIFE única, 10 seções numeradas; inicia no `load`. Carregado nas duas páginas (cada função sai cedo se o elemento não existe). Expõe `window.MilenaSite`. |
 | `js/projetos.js` | Lê o JSON e monta filtros, grade e modal. Depende de `window.MilenaSite`. |
+| `admin.html` + `css/admin.css` + `js/admin.js` | Painel com senha para a Milena gerenciar os projetos. Ver "Painel de projetos". |
+| `api/` | Funções da Vercel (CommonJS, sem dependências): `login.js`, `projetos.js`, `imagem.js` e `_lib/` (auth, github, validar). |
 | `404.html` | Página de erro independente (CSS inline, **caminhos absolutos** — é servida em qualquer URL). |
 | `vercel.json` | Cabeçalhos de segurança + cache de 7 dias em `/assets/`. |
 | `.vercelignore` | Tira do deploy: README, CLAUDE.md, screenshots, `imagens-novas/`, `scripts/`. |
@@ -50,9 +52,23 @@ Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **n
 - A lista usa `<section data-sem-desfoque>` para ficar fora do `desfoqueEntreSecoes`.
 - `fetch` do JSON não funciona abrindo o arquivo direto (`file://`): precisa de servidor local.
 
+## Painel de projetos (`/admin.html`)
+
+Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publicar no painel = um commit no repositório; a Vercel republica sozinha (~1 min).
+
+- **Fluxo**: login → lista → editor. As mudanças ficam no navegador até "Publicar no site". Aí o `admin.js` envia cada foto nova para `POST /api/imagem` (vira um blob git solto) e depois `POST /api/projetos` cria **um único commit** (Git Data API: tree + commit + ref) com o JSON novo, as fotos novas e a remoção das fotos do painel que ficaram sem uso.
+- **Fotos**: convertidas no navegador (canvas → WebP, ou JPEG onde não há suporte; máx. 1920px e 2,5 MB) e gravadas em `assets/projetos/<slug>-<sufixo>.webp`. Uma foto por chamada porque a Vercel limita o corpo a 4,5 MB. Fotos em `Fotos Milena/` nunca são apagadas pelo painel.
+- **Login**: senha única em `ADMIN_SENHA`; o token é `validade.HMAC`, vale 8h e fica no `sessionStorage`. Não há contagem de tentativas (sem estado) — só um atraso de 800ms por erro; por isso a senha precisa ser forte (mínimo de 10 caracteres, senão a API responde 503).
+- **Conflito**: o painel devolve a `versao` (sha do `projetos.json`) que carregou; se o arquivo mudou no GitHub, a API responde 409 em vez de sobrescrever. Quem editar o JSON à mão e der push enquanto o painel está aberto vai ver esse aviso.
+- **Validação no servidor** (`api/_lib/validar.js`): só grava campos conhecidos; `src` de foto só em `assets/projetos/*.webp|jpg` ou `Fotos Milena/*.webp`; toda foto citada precisa já existir ou estar no envio. Qualquer campo novo no JSON precisa entrar em `validar.js`, `admin.js` (editor) e `projetos.js` (exibição).
+- **Variáveis na Vercel**: `ADMIN_SENHA` e `GITHUB_TOKEN` (fine-grained, só este repositório, permissão *Contents: Read and write*). Opcionais: `GITHUB_REPO` (`dono/repo`) e `GITHUB_BRANCH`; sem elas usa as variáveis de sistema da Vercel, então **um deploy de preview grava na própria branch**, não na `main`.
+- **Local**: `/api` não existe em servidor estático — o painel abre mas avisa que só funciona na Vercel (`vercel dev` roda as funções, se a CLI estiver instalada).
+- O `id` do projeto nasce do título na criação e nunca muda (é o link `projetos.html#id`). Excluir um projeto que está nos destaques da home deixa a carta da home apontando para um id que não existe mais.
+- `api/` é CommonJS de propósito (não há `package.json`); arquivos em `api/_lib/` não viram rotas.
+
 ## Seções da home (ordem no HTML)
 
-`#tela-carregamento` (preloader) → `#menu-topo` + `#menu-mobile-overlay` → `<main id="conteudo">`: `#secao-hero` → `.faixa-rolante` → `#secao-sobre` → `#secao-modelo-3d` (vídeo scroll-scrub, pinned) → `#secao-projetos` (`.baralho-cartas`, sanfona por hover em CSS) → `#secao-servicos` → `#secao-galeria` → `#secao-contato` → `#rodape` → `#modal-galeria` → `#wizard-orcamento`.
+`#tela-carregamento` (preloader) → `#menu-topo` + `#menu-mobile-overlay` → `<main id="conteudo">`: `#secao-hero` → `.faixa-rolante` → `#secao-sobre` → `#secao-modelo-3d` (vídeo scroll-scrub, pinned) → `#secao-projetos` (`.baralho-cartas`, sanfona por hover em CSS) → `#secao-servicos` (título sticky à esquerda + `.servicos-lista` à direita) → `#secao-galeria` → `#secao-contato` → `#rodape` → `#modal-galeria` → `#wizard-orcamento`.
 
 ## Como as coisas funcionam (não óbvio)
 
@@ -61,8 +77,8 @@ Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **n
 - **Sobreposições** (menu mobile, modais, wizard): abrir/fechar sempre por `abrirSobreposicao(el, { focarEm, aoFechar })` / `fecharSobreposicao(el)`. Elas cuidam de `.ativo`, `inert`, devolução do foco, trava de scroll (`.no-scroll`, só sai quando nenhuma está aberta) e Esc (fecha a do topo da pilha chamando `aoFechar`). Sobreposição nova: começar com `inert` no HTML e passar a própria função de fechar em `aoFechar`. Fora do `script.js`, usar `window.MilenaSite`.
 - **Duplicação para loop é feita no JS**: galeria e faixa rolante têm o conteúdo **uma vez** no HTML; `iniciarGaleria()` e `duplicarFaixaRolante()` clonam os itens (clones com `aria-hidden`). Para adicionar foto na galeria, basta um `.galeria-foto` com `data-titulo`/`data-desc`.
 - **Galeria**: auto-scroll por `requestAnimationFrame` mexendo em `scrollLeft`; pausa durante arrasto e com o modal aberto. Um arrasto (>5px) não conta como clique.
-- **Animações de entrada**: `.animar-subindo`, `.animar-da-esquerda`, `.animar-da-direita`, `.entrada-blur` ganham `.visivel` via IntersectionObserver; o CSS faz a transição. `.texto-merge` alterna `.visivel` ao entrar/sair. `.servico-item` tem observador próprio (cascata de 100ms).
-- **Preloader**: SVG de planta baixa com `strokeDashoffset` via GSAP. Sem GSAP ou com `prefers-reduced-motion`, é removido na hora. Há `<noscript>` que esconde o preloader e revela o conteúdo animado.
+- **Animações de entrada**: `.animar-subindo`, `.animar-da-esquerda`, `.animar-da-direita`, `.entrada-blur` ganham `.visivel` via IntersectionObserver; o CSS faz a transição. `.texto-merge` alterna `.visivel` ao entrar/sair. `.servico-item` tem observador próprio (cascata de 100ms) — por isso o hover dos serviços anima os filhos e o `::after`, nunca o próprio `<li>` (o `transition`/atraso inline da entrada atrapalharia).
+- **Preloader**: SVG de planta baixa com `strokeDashoffset` via GSAP. Toca **uma vez por sessão**: um script inline no `<head>` lê `sessionStorage.preloaderVisto` e põe `.sem-preloader` no `<html>` antes de pintar (voltar de `projetos.html` não repete a animação). Sem GSAP ou com `prefers-reduced-motion`, é removido na hora. Há `<noscript>` que esconde o preloader e revela o conteúdo animado.
 - **Vídeo 3D**: `ScrollTrigger` com `pin`, `end` +3000 (desktop) / +2400 (≤768px). Um loop `requestAnimationFrame` ajusta `video.currentTime` (evita latência de seek). As frases `#texto-engaja-1..3` são um array `{ seletor, entra, sai }` na mesma timeline. O vídeo precisa ser **keyframe-dense** (`_kf`) — ao trocar, re-encodar assim, em `.webm` **e** `.mp4`. No mobile o CSS centraliza as frases com `transform ... !important`, que anula de propósito o `y` inline do GSAP.
 - **Desfoque entre seções** (`desfoqueEntreSecoes`): escreve `filter` + `opacity` inline em **todas** as `<section>` a cada scroll, só acima de 900px. Interfere em qualquer `filter`/`opacity` definido numa `section` via CSS, e um `filter` no ancestral quebra `position: fixed` de filhos — por isso modal e wizard ficam **fora** das sections.
 - **h1 do hero é uma imagem** (logo com `mix-blend-mode: screen` e `clip-path` cortando os 35% de baixo). Propriedades de fonte em `.hero-titulo-gigante` não têm efeito.
