@@ -144,8 +144,8 @@ button {
 .sobre-foto-container,
 .sobre-texto-container,
 .contato-grade,
-.servicos-intro,
-.servicos-lista,
+#secao-servicos .titulo-secao,
+.servicos-grade,
 .faixa-rolante-conteudo {
   position: relative;
   z-index: 1;
@@ -1358,30 +1358,13 @@ button.botao-secundario {
   background: var(--cor-marrom);
   position: relative;
   overflow: hidden;
-  /* clip não cria área de rolagem: sem isso o sticky da coluna do título não funciona */
-  overflow: clip;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 100px;
-  align-items: start;
-}
-
-/* --- Coluna do título: acompanha a rolagem enquanto a lista passa --- */
-.servicos-intro {
-  position: sticky;
-  top: 140px;
-}
-
-#secao-servicos .etiqueta-secao {
-  color: var(--cor-nude-borda);
-  letter-spacing: 0.45em;
 }
 
 #secao-servicos .titulo-secao {
   color: var(--cor-branco);
   font-size: clamp(3.5rem, 7vw, 6.5rem);
   line-height: 0.95;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -1389,43 +1372,42 @@ button.botao-secundario {
   color: var(--cor-branco);
 }
 
-.servicos-apresentacao {
-  max-width: 340px;
-  font-size: 0.92rem;
-  line-height: 1.9;
-  color: var(--cor-branco);
-  opacity: 0.8;
-  margin-bottom: 40px;
-}
-
-/* --- Lista: uma linha por serviço, separadas por fios --- */
-.servicos-lista {
-  list-style: none;
-  border-top: 1px solid rgba(212, 191, 175, 0.25);
-}
-
-/* O hover anima os filhos e o ::after, nunca o próprio item: o <li> já usa
-   transform/transition na entrada (.animar-subindo + atraso inline do JS) */
-.servico-item {
-  position: relative;
+.servicos-grade {
   display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 32px;
-  align-items: start;
-  padding: 44px 0;
-  border-bottom: 1px solid rgba(212, 191, 175, 0.25);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 80px;
 }
 
-/* Fio claro que percorre a base da linha no hover */
+.servico-item {
+  padding: 50px 40px;
+  background: rgba(26, 15, 10, 0.3);
+  /* rgb da cor-escuro para manter a harmonia quente */
+  /* Fundo ligeiramente escurecido para contraste */
+  border: 1px solid rgba(212, 191, 175, 0.2);
+  /* Usa cor-nude-borda transparente */
+  transition:
+    background 0.4s ease,
+    transform 0.4s var(--curva-animacao);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha que aparece na base ao hover */
 .servico-item::after {
   content: "";
   position: absolute;
+  bottom: 0;
   left: 0;
-  bottom: -1px;
   width: 0;
-  height: 1px;
+  height: 2px;
   background: var(--cor-branco);
-  transition: width 0.6s var(--curva-animacao);
+  transition: width 0.5s var(--curva-animacao);
+}
+
+.servico-item:hover {
+  background: rgba(0, 0, 0, 0.22);
+  transform: translateY(-4px);
 }
 
 .servico-item:hover::after {
@@ -1433,43 +1415,40 @@ button.botao-secundario {
 }
 
 .servico-numero {
+  position: absolute;
+  top: 30px;
+  right: 30px;
   font-family: var(--fonte-titulo);
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 300;
-  line-height: 0.9;
   color: var(--cor-nude-borda);
-  opacity: 0.35;
+  opacity: 0.4;
+  line-height: 1;
+  margin-bottom: 0;
   transition: opacity 0.4s ease;
 }
 
 .servico-item:hover .servico-numero {
-  opacity: 1;
-}
-
-.servico-texto {
-  transition: transform 0.5s var(--curva-animacao);
-}
-
-.servico-item:hover .servico-texto {
-  transform: translateX(14px);
+  opacity: 0.8;
 }
 
 .servico-titulo {
   font-family: var(--fonte-titulo);
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 400;
   font-style: italic;
   color: var(--cor-branco);
+  margin-bottom: 20px;
   line-height: 1.1;
-  margin-bottom: 12px;
+  margin-top: 10px;
 }
 
 .servico-descricao {
-  max-width: 520px;
   font-size: 0.88rem;
+  /* Ligeiramente maior para facilitar leitura */
   line-height: 1.9;
   color: var(--cor-branco);
-  opacity: 0.8;
+  opacity: 0.95;
 }
 
 /* ==========================================================================
@@ -2444,7 +2423,6 @@ button.botao-secundario {
 
   #secao-servicos {
     padding: 180px 100px;
-    gap: 140px;
   }
 
   #secao-galeria {
@@ -2530,21 +2508,11 @@ button.botao-secundario {
 
   #secao-servicos {
     padding: 100px 40px;
-    gap: 60px;
   }
 
-  .servicos-intro {
-    top: 120px;
-  }
-
-  .servico-item {
-    grid-template-columns: 70px 1fr;
-    gap: 24px;
-    padding: 36px 0;
-  }
-
-  .servico-numero {
-    font-size: 2.6rem;
+  .servicos-grade {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 50px;
   }
 
   .servico-titulo {
@@ -2663,29 +2631,20 @@ button.botao-secundario {
   }
 
   #secao-servicos {
-    grid-template-columns: 1fr;
     padding: 80px 30px;
-    gap: 48px;
-  }
-
-  .servicos-intro {
-    position: relative;
-    top: auto;
   }
 
   #secao-servicos .titulo-secao {
     font-size: clamp(2.8rem, 8vw, 4rem);
   }
 
-  .servicos-apresentacao {
-    max-width: 100%;
-    margin-bottom: 28px;
+  .servicos-grade {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
   }
 
   .servico-item {
-    grid-template-columns: 56px 1fr;
-    gap: 20px;
-    padding: 30px 0;
+    padding: 36px 28px;
   }
 
   .servico-titulo {
@@ -2965,17 +2924,19 @@ button.botao-secundario {
 
   #secao-servicos {
     padding: 60px 20px;
-    gap: 36px;
   }
 
   #secao-servicos .titulo-secao {
     font-size: clamp(2.5rem, 10vw, 3.5rem);
   }
 
+  .servicos-grade {
+    margin-top: 30px;
+    gap: 1px;
+  }
+
   .servico-item {
-    grid-template-columns: 44px 1fr;
-    gap: 16px;
-    padding: 24px 0;
+    padding: 28px 20px;
   }
 
   .servico-titulo {
@@ -2989,6 +2950,8 @@ button.botao-secundario {
 
   .servico-numero {
     font-size: 1.8rem;
+    top: 20px;
+    right: 20px;
   }
 
   #secao-galeria {
