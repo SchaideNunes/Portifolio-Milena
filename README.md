@@ -166,8 +166,9 @@ Abaixo estão capturas reais de cada seção e módulo interativo construído na
 | **SVG Vetorial** | Desenho arquitetônico escalável e interativo utilizado na tela de carregamento. |
 | **Intersection Observer API** | Gatilho para animações de fade-up, entrada lateral e contadores de estatísticas sob demanda (zero lag de scroll). |
 | **WebP Image Format** | Formato de última geração para todas as fotografias com compressão superior e carregamento instantâneo. |
-| **Google Fonts** | Fontes tipográficas de alta legibilidade e estilo editorial (`Cormorant Garamond`, `Playfair Display`, `Jost`). |
-| **Schema.org / JSON-LD** | Marcação de dados estruturados para SEO profissional (reconhecimento de entidade Arquiteto no Google). |
+| **Google Fonts** | Fontes tipográficas de alta legibilidade e estilo editorial (`Cormorant Garamond`, `Jost`). |
+| **Schema.org / JSON-LD** | Marcação de dados estruturados para SEO profissional (entidade `ProfessionalService` no Google). |
+| **Vercel Web Analytics** | Contagem de visitantes e page views, sem cookies, via script `/_vercel/insights/script.js`. |
 
 ---
 
@@ -193,7 +194,7 @@ A identidade visual foi concebida no estilo **Minimalismo Quente (*Warm Minimali
 
 ### ✍️ Tipografia
 
-- **Títulos e Destaques Editoriais**: `Cormorant Garamond` & `Playfair Display` (Serifas clássicas, proporcionando ritmo e requinte de revista de arquitetura).
+- **Títulos e Destaques Editoriais**: `Cormorant Garamond` (serifa clássica, proporcionando ritmo e requinte de revista de arquitetura).
 - **Corpo, Menus e Botões**: `Jost` (Sans-serif geométrica limpa e funcional inspirada no design Bauhaus).
 
 ---
@@ -202,13 +203,15 @@ A identidade visual foi concebida no estilo **Minimalismo Quente (*Warm Minimali
 
 O código foi construído sob rigorosos padrões para máxima velocidade de carregamento e indexação pelos mecanismos de busca:
 
-- **Dados Estruturados JSON-LD**: Implementação de microdados Schema.org para o tipo `Architect`, contendo nome comercial, localização geográfica em Salvador-BA, telefone e links de redes sociais.
-- **Meta Tags Open Graph & Twitter Cards**: Pré-visualizações ricas e profissionais ao compartilhar o link no WhatsApp, Instagram, LinkedIn e Facebook.
+- **Dados Estruturados JSON-LD**: Implementação de dados Schema.org para o tipo `ProfessionalService`, contendo nome comercial, localização em Salvador-BA, área de atendimento, telefone, e-mail e redes sociais.
+- **Meta Tags Open Graph & Twitter Cards**: Pré-visualizações ricas ao compartilhar o link no WhatsApp, Instagram, LinkedIn e Facebook, com imagem dedicada de 1200×630 (`assets/og/og-image.jpg`).
 - **Estratégia de Carregamento de Recursos**:
-  - Imagem do Hero carregada com prioridade máxima (`loading="eager" fetchpriority="high"`).
+  - Imagem do Hero carregada com prioridade máxima (`preload` + `loading="eager" fetchpriority="high"`).
   - Todas as demais imagens carregadas de forma assíncrona com `loading="lazy"` e `decoding="async"`.
-  - Scripts carregados com atributo `defer` para não bloquear a renderização da página.
-- **Arquivos de Rastreamento**: `sitemap.xml` e `robots.txt` devidamente configurados e incluídos na raiz.
+  - Scripts carregados com atributo `defer` e fontes com `preconnect`, sem bloquear a renderização.
+- **Arquivos de Rastreamento**: `sitemap.xml` e `robots.txt` configurados e incluídos na raiz.
+- **Página 404 personalizada** (`404.html`) e cabeçalhos de cache/segurança em `vercel.json`.
+- **Acessibilidade**: navegação por teclado nos modais (Esc, foco, `inert`), `aria-*` no menu, suporte a `prefers-reduced-motion` e fallback sem JavaScript.
 
 ---
 
@@ -230,17 +233,35 @@ Portifolio-Milena/
 │   │   ├── HomePageMobile.png
 │   │   ├── PreloaderCode.png
 │   │   └── PrintVscode.png
+│   ├── og/                  # Imagem de compartilhamento (Open Graph, 1200×630)
 │   ├── sobre/               # Retratos e fotos de perfil da arquiteta
+│   ├── texturas/            # Textura sutil aplicada no fundo das seções
 │   └── video/               # Renders 3D (.webm e .mp4) para o scroll-scrub
-├── Fotos Milena/            # Acervo fotográfico adicional em formato WebP
-├── fonts.css                # Importação tipográfica externa do Google Fonts
+├── css/
+│   └── style.css            # Folha de estilos completa e responsiva (seções numeradas)
+├── js/
+│   └── script.js            # Orquestração de animações, GSAP e interações
+├── Fotos Milena/            # Fotos reais dos projetos (cards e galeria), em WebP
+├── imagens-novas/           # Entrada de fotos originais (PNG/JPG) a converter — fora do git
+├── scripts/
+│   └── converter-imagens.mjs  # Converte imagens-novas/ para WebP (usa ffmpeg)
+├── 404.html                 # Página de erro personalizada
 ├── index.html               # Estrutura semântica completa e Schema.org
 ├── robots.txt               # Diretrizes para indexadores e crawlers
-├── script.js                # Orquestração de animações, GSAP e interações
 ├── sitemap.xml              # Mapa do site para motores de busca (SEO)
-├── style.css                # Folha de estilos completa e responsiva
+├── vercel.json              # Cabeçalhos de cache e segurança do deploy
 └── README.md                # Documentação técnica do projeto
 ```
+
+### 🖼️ Adicionando novas fotos
+
+Coloque os arquivos originais (PNG/JPG) em `imagens-novas/` e rode:
+
+```bash
+node scripts/converter-imagens.mjs assets/projetos
+```
+
+Os `.webp` saem otimizados (máx. 1920px) e com nomes em `kebab-case`. Detalhes em [`imagens-novas/LEIA-ME.md`](imagens-novas/LEIA-ME.md).
 
 ---
 

@@ -4,49 +4,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Primary -->
-  <title>Milena Reis | Arquitetura e Design de Interiores</title>
+
+  <!-- SEO -->
+  <title>Milena Reis | Arquitetura e Design de Interiores em Salvador, BA</title>
   <meta name="description" content="Milena Reis - Arquiteta e Designer de Interiores em Salvador, BA. Projetos residenciais, comerciais e interiores que unem estética, ética e funcionalidade." />
-  <meta name="keywords" content="arquiteta salvador, design de interiores bahia, reforma residencial, arquitetura comercial, móveis sob medida, iluminação, Milena Reis" />
   <meta name="author" content="Milena Reis" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://milenareis.arq.br/" />
+  <link rel="canonical" href="https://portifolio-milena.vercel.app/" />
 
-  <!-- Open Graph / Facebook / Instagram / WhatsApp -->
+  <!-- Open Graph (WhatsApp, Instagram, Facebook, LinkedIn) -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://milenareis.arq.br/" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Milena Reis Arquitetura" />
+  <meta property="og:url" content="https://portifolio-milena.vercel.app/" />
   <meta property="og:title" content="Milena Reis | Arquitetura e Design de Interiores" />
   <meta property="og:description" content="Transformando ideias em espaços únicos através de excelência, criatividade e ética." />
-  <meta property="og:image" content="https://milenareis.arq.br/assets/sobre/Profile%201.webp" />
+  <meta property="og:image" content="https://portifolio-milena.vercel.app/assets/og/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sala de estar projetada por Milena Reis, arquiteta e designer de interiores" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://milenareis.arq.br/" />
-  <meta property="twitter:title" content="Milena Reis | Arquitetura e Design de Interiores" />
-  <meta property="twitter:description" content="Transformando ideias em espaços únicos através de excelência, criatividade e ética." />
-  <meta property="twitter:image" content="https://milenareis.arq.br/assets/sobre/Profile%201.webp" />
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Milena Reis | Arquitetura e Design de Interiores" />
+  <meta name="twitter:description" content="Transformando ideias em espaços únicos através de excelência, criatividade e ética." />
+  <meta name="twitter:image" content="https://portifolio-milena.vercel.app/assets/og/og-image.jpg" />
 
-  <!-- Favicon & Theme -->
+  <!-- Favicon e tema -->
   <meta name="theme-color" content="#3d291d" />
-  <link rel="icon" type="image/png" href="assets/logo/Logo Milena (Alt) (3).webp" />
+  <link rel="icon" type="image/webp" href="assets/logo/Logo%20Milena%20(Alt)%20(3).webp" />
 
-  <!-- Structured Data (JSON-LD) -->
+  <!-- Dados estruturados (JSON-LD) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Architect",
+      "@type": "ProfessionalService",
       "name": "Milena Reis Arquitetura",
       "description": "Arquiteta e Designer de Interiores especializada em projetos residenciais e comerciais de alto padrão.",
-      "image": "https://milenareis.arq.br/assets/sobre/Profile%201.webp",
-      "url": "https://milenareis.arq.br/",
+      "image": "https://portifolio-milena.vercel.app/assets/og/og-image.jpg",
+      "url": "https://portifolio-milena.vercel.app/",
       "telephone": "+5571986773387",
+      "email": "milenareis.mcr@gmail.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Milena Reis",
+        "jobTitle": "Arquiteta e Designer de Interiores"
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Salvador",
         "addressRegion": "BA",
         "addressCountry": "BR"
       },
+      "areaServed": [
+        { "@type": "City", "name": "Salvador" },
+        { "@type": "City", "name": "Serrinha" },
+        { "@type": "City", "name": "Barrocas" },
+        { "@type": "Country", "name": "Brasil" }
+      ],
       "sameAs": [
         "https://www.instagram.com/milena_reis_arq/",
         "https://www.linkedin.com/in/milena-reis-arquitetura"
@@ -54,13 +69,29 @@
     }
   </script>
 
-  <link rel="stylesheet" href="fonts.css" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Fontes e estilos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" />
+  <link rel="preload" as="image" href="assets/hero/background_hero.webp" fetchpriority="high" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Sem JavaScript: esconde o preloader e mostra o conteúdo que dependeria das animações -->
+  <noscript>
+    <style>
+      #tela-carregamento { display: none; }
+      .animar-subindo, .animar-da-esquerda, .animar-da-direita, .entrada-blur, .texto-merge .palavra {
+        opacity: 1; transform: none; filter: none;
+      }
+    </style>
+  </noscript>
 </head>
 
 <body>
+  <a href="#conteudo" class="pular-conteudo">Pular para o conteúdo</a>
+
   <!-- TELA DE CARREGAMENTO -->
-  <div id="tela-carregamento">
+  <div id="tela-carregamento" aria-hidden="true">
     <div class="preloader-grade"></div>
 
     <svg class="preloader-planta" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
@@ -94,23 +125,17 @@
       <circle class="planta-norte-circulo" cx="535" cy="38" r="18" fill="none" />
       <line class="planta-norte-linha" x1="535" y1="20" x2="535" y2="56" />
       <line class="planta-norte-linha" x1="517" y1="38" x2="553" y2="38" />
-      <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">
-        N
-      </text>
+      <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">N</text>
       <line class="planta-escala-linha" x1="95" y1="375" x2="255" y2="375" />
       <line class="planta-escala-tick" x1="95" y1="369" x2="95" y2="381" />
       <line class="planta-escala-tick" x1="175" y1="369" x2="175" y2="381" />
       <line class="planta-escala-tick" x1="255" y1="369" x2="255" y2="381" />
-      <text class="planta-escala-texto" x="130" y="366" text-anchor="middle">
-        0
-      </text>
-      <text class="planta-escala-texto" x="215" y="366" text-anchor="middle">
-        5m
-      </text>
+      <text class="planta-escala-texto" x="130" y="366" text-anchor="middle">0</text>
+      <text class="planta-escala-texto" x="215" y="366" text-anchor="middle">5m</text>
     </svg>
 
     <!-- Logo final da animação de entrada -->
-    <img class="preloader-logo-img" src="assets/logo/Logo Milena Reis (Comp) (3).webp" alt="Milena Reis" />
+    <img class="preloader-logo-img" src="assets/logo/Logo%20Milena%20Reis%20(Comp)%20(3).webp" alt="" />
 
     <div class="preloader-contador">
       <span id="contador-numero">0</span><span class="contador-simbolo">%</span>
@@ -118,11 +143,11 @@
   </div>
 
   <!-- MENU PRINCIPAL -->
-  <nav id="menu-topo">
-    <!-- Logo: claro e escuro -->
-    <a href="#" class="menu-logo">
-      <img src="assets/logo/Logo Milena (Alt) (2).webp" alt="Milena Reis" class="menu-logo-claro" />
-      <img src="assets/logo/Logo Milena (Alt) (3).webp" alt="Milena Reis" class="menu-logo-escuro" />
+  <nav id="menu-topo" aria-label="Menu principal">
+    <!-- Logo: versão clara (após rolar) e escura (sobre o hero) -->
+    <a href="#secao-hero" class="menu-logo" aria-label="Milena Reis — voltar ao início">
+      <img src="assets/logo/Logo%20Milena%20(Alt)%20(2).webp" alt="" class="menu-logo-claro" />
+      <img src="assets/logo/Logo%20Milena%20(Alt)%20(3).webp" alt="" class="menu-logo-escuro" />
     </a>
     <ul class="menu-links">
       <li><a href="#secao-sobre">Sobre</a></li>
@@ -131,16 +156,16 @@
       <li><a href="#secao-galeria">Galeria</a></li>
       <li><a href="#secao-contato">Contato</a></li>
     </ul>
-    <!-- Hamburger mobile -->
-    <button class="menu-hamburguer" id="btn-hamburguer" aria-label="Menu">
+    <button type="button" class="menu-hamburguer" id="btn-hamburguer" aria-label="Abrir menu" aria-expanded="false"
+      aria-controls="menu-mobile-overlay">
       <span class="hamburguer-linha"></span>
       <span class="hamburguer-linha"></span>
       <span class="hamburguer-linha"></span>
     </button>
   </nav>
 
-  <!-- Menu mobile overlay -->
-  <div class="menu-mobile-overlay" id="menu-mobile-overlay">
+  <!-- Menu mobile -->
+  <div class="menu-mobile-overlay" id="menu-mobile-overlay" inert>
     <a href="#secao-sobre">Sobre</a>
     <a href="#secao-projetos">Projetos</a>
     <a href="#secao-servicos">Serviços</a>
@@ -148,509 +173,443 @@
     <a href="#secao-contato">Contato</a>
   </div>
 
-  <main>
-    <!-- HERO / CAPA PRINCIPAL -->
+  <main id="conteudo">
+    <!-- HERO -->
     <section id="secao-hero">
-    <!-- Imagem de Fundo Completa -->
-    <div class="hero-fundo">
-      <!-- Imagem de alta qualidade simulando a referência -->
-      <img src="assets/hero/background_hero.webp" loading="eager" fetchpriority="high" decoding="async"
-        alt="Arquitetura Residencial Milena" />
-      <div class="hero-overlay-nude"></div>
-    </div>
-
-    <div class="hero-conteudo">
-      <!-- Título Central Gigante (Agora como Imagem) -->
-      <h1 class="hero-titulo-gigante">
-        <div class="hero-logo-wrapper">
-          <img src="assets/logo/Logo Milena (Alt) (3).webp" loading="eager" decoding="async" alt="Milena Reis" class="hero-logo-img">
-        </div>
-      </h1>
-
-      <!-- Informações no rodapé inferior do hero -->
-      <div class="hero-rodape">
-        <div class="hero-rodape-esq">
-          <p class="hero-etiqueta-nova">Arquitetura · Design · Interiores</p>
-          <h2 class="hero-subtitulo-novo">
-            Espaços que <em>inspiram.</em><br />Projetos que duram.
-          </h2>
-          <p class="hero-descricao-nova">
-            Cada projeto nasce de uma escuta cuidadosa e se constrói com precisão técnica e sensibilidade estética — do
-            conceito à entrega final.
-          </p>
-          <div class="hero-botoes">
-            <a href="#secao-projetos" class="botao-primario botao-hero" id="btn-ver-projetos"><span>Ver
-                Projetos</span></a>
-            <button onclick="abrirWizardOrcamento()" class="botao-secundario botao-hero-sec"
-              style="border:none;background:none;" id="btn-iniciar-projeto">Iniciar
-              Projeto</button>
-          </div>
-        </div>
-        <div class="hero-rodape-dir">
-          <div class="scroll-linha"></div>
-          <span class="scroll-texto">Scroll</span>
-        </div>
+      <div class="hero-fundo">
+        <img src="assets/hero/background_hero.webp" loading="eager" fetchpriority="high" decoding="async"
+          alt="Sala de estar ampla com sofá, poltronas de couro e janelas para o jardim" />
+        <div class="hero-overlay-nude"></div>
       </div>
-    </div>
-  </section>
 
-  <!-- MARQUEE (Faixa rotativa de serviços) -->
-  <div class="faixa-rolante">
-    <div class="faixa-rolante-conteudo">
-      <span>Arquitetura Residencial</span><span class="separador">·</span>
-      <span>Design de Interiores</span><span class="separador">·</span>
-      <span>Projeto Corporativo</span><span class="separador">·</span>
-      <span>Reforma & Restauro</span><span class="separador">·</span>
-      <span>Paisagismo</span><span class="separador">·</span>
-      <span>Consultoria de Materiais</span><span class="separador">·</span>
-      <!-- Texto duplicado para loop contínuo -->
-      <span>Arquitetura Residencial</span><span class="separador">·</span>
-      <span>Design de Interiores</span><span class="separador">·</span>
-      <span>Projeto Corporativo</span><span class="separador">·</span>
-      <span>Reforma & Restauro</span><span class="separador">·</span>
-      <span>Paisagismo</span><span class="separador">·</span>
-      <span>Consultoria de Materiais</span><span class="separador">·</span>
-    </div>
-  </div>
+      <div class="hero-conteudo">
+        <h1 class="hero-titulo-gigante">
+          <span class="hero-logo-wrapper">
+            <img src="assets/logo/Logo%20Milena%20(Alt)%20(3).webp" loading="eager" decoding="async"
+              alt="Milena Reis — Arquitetura e Design de Interiores" class="hero-logo-img" />
+          </span>
+        </h1>
 
-  <!-- SEÇÃO SOBRE -->
-  <section id="secao-sobre">
-    <div class="sobre-foto-container animar-da-esquerda">
-      <!-- Foto de perfil principal -->
-      <img class="sobre-foto-principal" src="assets/sobre/Profile 1.webp" loading="lazy" decoding="async" alt="Milena Reis Arquiteta" />
-      <!-- Foto de detalhe sobreposta -->
-      <img class="sobre-foto-destaque" src="assets/sobre/detalhe.webp" loading="lazy" decoding="async"
-        alt="Detalhe de projeto" />
-    </div>
-
-    <div class="sobre-texto-container animar-da-direita">
-      <p class="etiqueta-secao">Sobre mim</p>
-      <h2 class="titulo-secao texto-merge">
-        <span class="palavra">Excelência,</span>
-        <span class="palavra">criatividade</span>
-        <span class="palavra">e</span>
-        <span class="palavra"><em>ética</em></span>
-      </h2>
-
-      <p class="sobre-paragrafo entrada-blur sobre-texto-1">
-        Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores, reformas
-        e construções do zero.
-      </p>
-      <p class="sobre-paragrafo entrada-blur sobre-texto-2">
-        Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja
-        personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
-      </p>
-      <p class="sobre-paragrafo entrada-blur sobre-texto-3">
-        Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e sustentáveis,
-        proporcionando uma experiência memorável que supera expectativas.
-      </p>
-
-      <div class="sobre-estatisticas">
-        <div class="estatistica animar-subindo">
-          <p class="estatistica-numero" data-valor="100" data-sufixo="+">100+</p>
-          <p class="estatistica-label">Projetos Realizados</p>
-        </div>
-        <div class="estatistica animar-subindo">
-          <p class="estatistica-numero">10</p>
-          <p class="estatistica-label">Anos de Carreira</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MÓDULO ANIMAÇÃO 3D -->
-  <section id="secao-modelo-3d">
-    <video id="video-3d" muted playsinline loop preload="metadata">
-      <source src="assets/video/Animation_1080_kf.webm" type="video/webm">
-      <source src="assets/video/Animation_1080_kf.mp4" type="video/mp4">
-    </video>
-
-    <!-- Textos de Engajamento no Scroll -->
-    <div class="engajamento-scroll" id="texto-engaja-1">
-      <h3 class="entrada-blur">Design que respira.</h3>
-    </div>
-    <div class="engajamento-scroll" id="texto-engaja-2">
-      <h3 class="entrada-blur">Visualização Realista.</h3>
-    </div>
-    <div class="engajamento-scroll" id="texto-engaja-3">
-      <h3 class="entrada-blur">Cada detalhe sob controle.</h3>
-    </div>
-
-    <!-- CTA Final -->
-    <div class="cta-scroll-final" id="cta-engaja">
-      <button onclick="abrirWizardOrcamento()" class="botao-primario" style="cursor:none;border:none;"><span>Quero um
-          projeto assim!</span></button>
-    </div>
-  </section>
-
-  <!-- PORTFÓLIO DE PROJETOS -->
-  <section id="secao-projetos">
-    <div class="projetos-cabecalho animar-subindo">
-      <div>
-        <h2 class="titulo-secao">Criações em destaque</h2>
-      </div>
-      <a href="#" class="link-ver-todos">Todos os projetos</a>
-    </div>
-
-    <div class="baralho-container">
-      <div class="baralho-cartas">
-        <!-- Projeto 1: Residência Feira de Santana -->
-        <div class="carta-projeto" data-titulo="Residência Feira de Santana">
-          <img src="Fotos%20Milena/Fachada%20casa.webp" loading="lazy" decoding="async" alt="Residência Feira de Santana" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Feira de Santana, BA</p>
-            <h3 class="carta-titulo">Residência<br />Feira de Santana</h3>
-            <p class="carta-ano">2025</p>
+        <div class="hero-rodape">
+          <div class="hero-rodape-esq">
+            <p class="hero-etiqueta-nova">Arquitetura · Design · Interiores</p>
+            <h2 class="hero-subtitulo-novo">
+              Espaços que <em>inspiram.</em><br />Projetos que duram.
+            </h2>
+            <p class="hero-descricao-nova">
+              Cada projeto nasce de uma escuta cuidadosa e se constrói com precisão técnica e sensibilidade estética —
+              do conceito à entrega final.
+            </p>
+            <div class="hero-botoes">
+              <a href="#secao-projetos" class="botao-primario botao-hero"><span>Ver Projetos</span></a>
+              <button type="button" class="botao-secundario botao-hero-sec" data-abrir-wizard>Iniciar Projeto</button>
+            </div>
           </div>
-        </div>
-
-        <!-- Projeto 2: Villa Serrinha -->
-        <div class="carta-projeto" data-titulo="Villa Serrinha">
-          <img src="Fotos%20Milena/Casa%203%20andares.webp" loading="lazy" decoding="async" alt="Villa Serrinha" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Serrinha, BA</p>
-            <h3 class="carta-titulo">Villa<br />Serrinha</h3>
-            <p class="carta-ano">2024</p>
-          </div>
-        </div>
-
-        <!-- Projeto 3: Casa Barrocas -->
-        <div class="carta-projeto" data-titulo="Casa Barrocas">
-          <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" loading="lazy" decoding="async" alt="Casa Barrocas" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Barrocas, BA</p>
-            <h3 class="carta-titulo">Casa<br />Barrocas</h3>
-            <p class="carta-ano">2023</p>
-          </div>
-        </div>
-
-        <!-- Projeto 4: Refúgio Salvador -->
-        <div class="carta-projeto" data-titulo="Refúgio Salvador">
-          <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" loading="lazy" decoding="async" alt="Refúgio Salvador" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Salvador, BA</p>
-            <h3 class="carta-titulo">Refúgio<br />Salvador</h3>
-            <p class="carta-ano">2022</p>
-          </div>
-        </div>
-
-        <!-- Projeto 5: Residência Sertão -->
-        <div class="carta-projeto" data-titulo="Residência Sertão">
-          <img src="Fotos%20Milena/Quintal%20de%20casa.webp" loading="lazy" decoding="async" alt="Residência Sertão" />
-          <div class="carta-info">
-            <p class="carta-categoria">Residencial · Serrinha, BA</p>
-            <h3 class="carta-titulo">Residência<br />Sertão</h3>
-            <p class="carta-ano">2021</p>
-          </div>
-        </div>
-
-        <!-- Projeto 6: Área de Lazer Bahia -->
-        <div class="carta-projeto" data-titulo="Área de Lazer Bahia">
-          <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" loading="lazy" decoding="async" alt="Área de Lazer Bahia" />
-          <div class="carta-info">
-            <p class="carta-categoria">Lazer · Feira de Santana, BA</p>
-            <h3 class="carta-titulo">Área de<br />Lazer Bahia</h3>
-            <p class="carta-ano">2020</p>
+          <div class="hero-rodape-dir" aria-hidden="true">
+            <div class="scroll-linha"></div>
+            <span class="scroll-texto">Scroll</span>
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- FAIXA ROLANTE (o JS duplica o conteúdo para o loop contínuo) -->
+    <div class="faixa-rolante" aria-hidden="true">
+      <div class="faixa-rolante-conteudo">
+        <span>Arquitetura Residencial</span><span class="separador">·</span>
+        <span>Design de Interiores</span><span class="separador">·</span>
+        <span>Projeto Corporativo</span><span class="separador">·</span>
+        <span>Reforma &amp; Restauro</span><span class="separador">·</span>
+        <span>Paisagismo</span><span class="separador">·</span>
+        <span>Consultoria de Materiais</span><span class="separador">·</span>
+      </div>
     </div>
-  </section>
 
-  <!-- SERVIÇOS -->
-  <section id="secao-servicos">
-    <h2 class="titulo-secao animar-subindo">
-      Meus<br /><em>serviços</em>
-    </h2>
+    <!-- SOBRE -->
+    <section id="secao-sobre">
+      <div class="sobre-foto-container animar-da-esquerda">
+        <img class="sobre-foto-principal" src="assets/sobre/Profile%201.webp" loading="lazy" decoding="async"
+          alt="Retrato da arquiteta Milena Reis" />
+        <img class="sobre-foto-destaque" src="assets/sobre/detalhe.webp" loading="lazy" decoding="async"
+          alt="Detalhe de projeto de interiores" />
+      </div>
 
-    <div class="servicos-grade">
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">01</p>
-        <h3 class="servico-titulo">Projetos de Arquitetura</h3>
-        <p class="servico-descricao">
-          Elaboração de plantas e espaços arquitetônicos completos, incluindo residências, escritórios, lojas e clínicas
-          com identidade própria.
+      <div class="sobre-texto-container animar-da-direita">
+        <p class="etiqueta-secao">Sobre mim</p>
+        <h2 class="titulo-secao texto-merge">
+          <span class="palavra">Excelência,</span>
+          <span class="palavra">criatividade</span>
+          <span class="palavra">e</span>
+          <span class="palavra"><em>ética</em></span>
+        </h2>
+
+        <p class="sobre-paragrafo entrada-blur sobre-texto-1">
+          Com uma abordagem dedicada, transformo ideias em realidade através de projetos completos de interiores,
+          reformas e construções do zero.
         </p>
-      </div>
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">02</p>
-        <h3 class="servico-titulo">Design de Interiores</h3>
-        <p class="servico-descricao">
-          Planejamento detalhado da disposição de móveis, cores, materiais e decoração, garantindo funcionalidade e
-          estética sob medida.
+        <p class="sobre-paragrafo entrada-blur sobre-texto-2">
+          Minha expertise inclui a criação de móveis sob medida, garantindo que cada detalhe do ambiente seja
+          personalizado para atender perfeitamente ao gosto e às necessidades dos meus clientes.
         </p>
-      </div>
-
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">03</p>
-        <h3 class="servico-titulo">Projetos de Iluminação</h3>
-        <p class="servico-descricao">
-          Plano técnico focado no layout de luminárias, temperatura de cor e normas locais para valorizar cada detalhe
-          do ambiente.
+        <p class="sobre-paragrafo entrada-blur sobre-texto-3">
+          Minha missão é entender profundamente os seus desejos para entregar espaços únicos, funcionais e
+          sustentáveis, proporcionando uma experiência memorável que supera expectativas.
         </p>
+
+        <div class="sobre-estatisticas">
+          <div class="estatistica animar-subindo">
+            <p class="estatistica-numero" data-valor="100" data-sufixo="+">100+</p>
+            <p class="estatistica-label">Projetos Realizados</p>
+          </div>
+          <div class="estatistica animar-subindo">
+            <p class="estatistica-numero" data-valor="10">10</p>
+            <p class="estatistica-label">Anos de Carreira</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VÍDEO 3D (avança conforme a rolagem) -->
+    <section id="secao-modelo-3d" aria-label="Visualização 3D de um projeto">
+      <video id="video-3d" muted playsinline loop preload="metadata" aria-hidden="true">
+        <source src="assets/video/Animation_1080_kf.webm" type="video/webm" />
+        <source src="assets/video/Animation_1080_kf.mp4" type="video/mp4" />
+      </video>
+
+      <div class="engajamento-scroll" id="texto-engaja-1">
+        <h3 class="entrada-blur">Design que respira.</h3>
+      </div>
+      <div class="engajamento-scroll" id="texto-engaja-2">
+        <h3 class="entrada-blur">Visualização Realista.</h3>
+      </div>
+      <div class="engajamento-scroll" id="texto-engaja-3">
+        <h3 class="entrada-blur">Cada detalhe sob controle.</h3>
       </div>
 
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">04</p>
-        <h3 class="servico-titulo">Mobiliário Sob Medida</h3>
-        <p class="servico-descricao">
-          Criação de móveis específicos e exclusivos desenhados para que cada detalhe se ajuste perfeitamente à sua
-          necessidade.
-        </p>
+      <div class="cta-scroll-final" id="cta-engaja">
+        <button type="button" class="botao-primario" data-abrir-wizard><span>Quero um projeto assim!</span></button>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="secao-projetos">
+      <div class="projetos-cabecalho animar-subindo">
+        <div>
+          <h2 class="titulo-secao">Criações em destaque</h2>
+        </div>
+        <a href="https://www.instagram.com/milena_reis_arq/" target="_blank" rel="noopener" class="link-ver-todos">Mais
+          projetos no Instagram</a>
       </div>
 
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">05</p>
-        <h3 class="servico-titulo">Aprovações Legais</h3>
-        <p class="servico-descricao">
-          Adequação de projetos visando aprovação garantida e segura, atendendo a todos os critérios e normas de
-          condomínios e prefeituras.
-        </p>
-      </div>
+      <div class="baralho-container">
+        <div class="baralho-cartas">
+          <article class="carta-projeto" data-titulo="Residência Feira de Santana">
+            <img src="Fotos%20Milena/Fachada%20casa.webp" loading="lazy" decoding="async"
+              alt="Fachada da Residência Feira de Santana" />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Feira de Santana, BA</p>
+              <h3 class="carta-titulo">Residência<br />Feira de Santana</h3>
+              <p class="carta-ano">2025</p>
+            </div>
+          </article>
 
-      <div class="servico-item animar-subindo">
-        <p class="servico-numero">06</p>
-        <h3 class="servico-titulo">Relatórios e Cadastros</h3>
-        <p class="servico-descricao">
-          Elaboração de laudos, cadastros de imóveis e verificação de conclusão de obra em conformidade com o
-          planejamento técnico.
-        </p>
-      </div>
-    </div>
-  </section>
+          <article class="carta-projeto" data-titulo="Villa Serrinha">
+            <img src="Fotos%20Milena/Casa%203%20andares.webp" loading="lazy" decoding="async"
+              alt="Villa Serrinha, casa de três andares" />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Serrinha, BA</p>
+              <h3 class="carta-titulo">Villa<br />Serrinha</h3>
+              <p class="carta-ano">2024</p>
+            </div>
+          </article>
 
-  <!-- GALERIA (Carrossel Horizontal) -->
-  <section id="secao-galeria">
-    <div class="galeria-cabecalho">
+          <article class="carta-projeto" data-titulo="Casa Barrocas">
+            <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" loading="lazy" decoding="async"
+              alt="Área externa da Casa Barrocas" />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Barrocas, BA</p>
+              <h3 class="carta-titulo">Casa<br />Barrocas</h3>
+              <p class="carta-ano">2023</p>
+            </div>
+          </article>
+
+          <article class="carta-projeto" data-titulo="Refúgio Salvador">
+            <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" loading="lazy" decoding="async"
+              alt="Área externa do Refúgio Salvador" />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Salvador, BA</p>
+              <h3 class="carta-titulo">Refúgio<br />Salvador</h3>
+              <p class="carta-ano">2022</p>
+            </div>
+          </article>
+
+          <article class="carta-projeto" data-titulo="Residência Sertão">
+            <img src="Fotos%20Milena/Quintal%20de%20casa.webp" loading="lazy" decoding="async"
+              alt="Quintal da Residência Sertão" />
+            <div class="carta-info">
+              <p class="carta-categoria">Residencial · Serrinha, BA</p>
+              <h3 class="carta-titulo">Residência<br />Sertão</h3>
+              <p class="carta-ano">2021</p>
+            </div>
+          </article>
+
+          <article class="carta-projeto" data-titulo="Área de Lazer Bahia">
+            <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" loading="lazy" decoding="async"
+              alt="Área de lazer com piscina" />
+            <div class="carta-info">
+              <p class="carta-categoria">Lazer · Feira de Santana, BA</p>
+              <h3 class="carta-titulo">Área de<br />Lazer Bahia</h3>
+              <p class="carta-ano">2020</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="secao-servicos">
       <h2 class="titulo-secao animar-subindo">
-        Detalhes que importam
+        Meus<br /><em>serviços</em>
       </h2>
-    </div>
 
-    <div class="galeria-marquee-container">
-      <!-- Trilha duplicada para rolagem contínua via JS/CSS -->
-      <div class="galeria-trilha" id="galeria-trilha">
-
-        <!-- Primeiro grupo de imagens para galeria -->
-        <div class="galeria-foto" data-titulo="Integração Sala e Cozinha"
-          data-desc="Um conceito aberto e moderno onde a sala de estar e a cozinha se fundem com harmonia. O uso de marcenaria inteligente e paleta de cores equilibrada cria um ambiente receptivo, funcional e perfeito para o convívio diário.">
-          <!-- Imagem Galeria 1 -->
-          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" loading="lazy" decoding="async" alt="Integração Sala e Cozinha" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Integração Sala e Cozinha</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+      <div class="servicos-grade">
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">01</p>
+          <h3 class="servico-titulo">Projetos de Arquitetura</h3>
+          <p class="servico-descricao">
+            Elaboração de plantas e espaços arquitetônicos completos, incluindo residências, escritórios, lojas e
+            clínicas com identidade própria.
+          </p>
         </div>
 
-        <div class="galeria-foto" data-titulo="Aconchego e Elegância"
-          data-desc="Projeto de dormitório que prioriza o descanso sem abrir mão da sofisticação. A iluminação indireta e os detalhes nos acabamentos e revestimentos trazem uma atmosfera intimista, serena e profundamente relaxante.">
-          <!-- Imagem Galeria 2 -->
-          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" loading="lazy" decoding="async" alt="Aconchego e Elegância" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Aconchego e Elegância</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">02</p>
+          <h3 class="servico-titulo">Design de Interiores</h3>
+          <p class="servico-descricao">
+            Planejamento detalhado da disposição de móveis, cores, materiais e decoração, garantindo funcionalidade e
+            estética sob medida.
+          </p>
         </div>
 
-        <div class="galeria-foto" data-titulo="Sofisticação no Banho"
-          data-desc="Uma proposta limpa e elegante, valorizando cada centímetro através de escolhas de louças, metais refinados e revestimentos que ampliam a sensação de bem-estar. Um verdadeiro refúgio de autocuidado e tranquilidade.">
-          <!-- Imagem Galeria 3 -->
-          <img src="Fotos%20Milena/Banheiro.webp" loading="lazy" decoding="async"
-            alt="Sofisticação no Banho" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Sofisticação no Banho</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">03</p>
+          <h3 class="servico-titulo">Projetos de Iluminação</h3>
+          <p class="servico-descricao">
+            Plano técnico focado no layout de luminárias, temperatura de cor e normas locais para valorizar cada
+            detalhe do ambiente.
+          </p>
         </div>
 
-        <div class="galeria-foto" data-titulo="Detalhes Gourmet"
-          data-desc="A precisão nos detalhes de marcenaria e acabamentos transforma esta cozinha em uma verdadeira obra funcional. Ergonomia e estética caminham lado a lado, facilitando a rotina com muito charme e praticidade.">
-          <!-- Imagem Galeria 4 -->
-          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" loading="lazy" decoding="async" alt="Detalhes Gourmet" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Detalhes Gourmet</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">04</p>
+          <h3 class="servico-titulo">Mobiliário Sob Medida</h3>
+          <p class="servico-descricao">
+            Criação de móveis específicos e exclusivos desenhados para que cada detalhe se ajuste perfeitamente à sua
+            necessidade.
+          </p>
         </div>
 
-        <div class="galeria-foto" data-titulo="Organização e Estilo"
-          data-desc="Cada espaço foi pensado sob medida para otimizar a organização e a acessibilidade do vestuário. Linhas retas, iluminação cenográfica nos nichos e acabamentos de alta qualidade proporcionam uma experiência digna de boutique.">
-          <!-- Imagem Galeria 5 -->
-          <img src="Fotos%20Milena/Closet.webp" loading="lazy" decoding="async"
-            alt="Organização e Estilo" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Organização e Estilo</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">05</p>
+          <h3 class="servico-titulo">Aprovações Legais</h3>
+          <p class="servico-descricao">
+            Adequação de projetos visando aprovação garantida e segura, atendendo a todos os critérios e normas de
+            condomínios e prefeituras.
+          </p>
         </div>
 
-        <div class="galeria-foto" data-titulo="Cozinha Contemporânea"
-          data-desc="Um layout interno limpo e inteligente, focado em aproveitamento de espaço e circulação fluida. A escolha de materiais duráveis e tons atemporais garante uma beleza que se mantém atual ao longo dos anos.">
-          <!-- Imagem Galeria 6 -->
-          <img src="Fotos%20Milena/Interna%20Cozinha.webp" loading="lazy" decoding="async" alt="Cozinha Contemporânea" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Cozinha Contemporânea</p>
-            <div class="galeria-icone-expandir">+</div>
-          </div>
+        <div class="servico-item animar-subindo">
+          <p class="servico-numero" aria-hidden="true">06</p>
+          <h3 class="servico-titulo">Relatórios e Cadastros</h3>
+          <p class="servico-descricao">
+            Elaboração de laudos, cadastros de imóveis e verificação de conclusão de obra em conformidade com o
+            planejamento técnico.
+          </p>
         </div>
+      </div>
+    </section>
 
-        <!-- Segundo grupo de imagens (Cópia exata para loop) -->
-        <div class="galeria-foto" data-titulo="Integração Sala e Cozinha"
-          data-desc="Um conceito aberto e moderno onde a sala de estar e a cozinha se fundem com harmonia. O uso de marcenaria inteligente e paleta de cores equilibrada cria um ambiente receptivo, funcional e perfeito para o convívio diário.">
-          <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" loading="lazy" decoding="async" alt="Integração Sala e Cozinha" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Integração Sala e Cozinha</p>
-            <div class="galeria-icone-expandir">+</div>
+    <!-- GALERIA (o JS duplica as fotos para o loop contínuo — aqui cada foto aparece uma vez só) -->
+    <section id="secao-galeria">
+      <div class="galeria-cabecalho">
+        <h2 class="titulo-secao animar-subindo">Detalhes que importam</h2>
+      </div>
+
+      <div class="galeria-marquee-container">
+        <div class="galeria-trilha" id="galeria-trilha">
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Integração Sala e Cozinha"
+            data-desc="Um conceito aberto e moderno onde a sala de estar e a cozinha se fundem com harmonia. O uso de marcenaria inteligente e paleta de cores equilibrada cria um ambiente receptivo, funcional e perfeito para o convívio diário.">
+            <img src="Fotos%20Milena/Sala%20e%20cozinha.webp" loading="lazy" decoding="async"
+              alt="Sala de estar integrada à cozinha" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Integração Sala e Cozinha</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto" data-titulo="Aconchego e Elegância"
-          data-desc="Projeto de dormitório que prioriza o descanso sem abrir mão da sofisticação. A iluminação indireta e os detalhes nos acabamentos e revestimentos trazem uma atmosfera intimista, serena e profundamente relaxante.">
-          <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" loading="lazy" decoding="async" alt="Aconchego e Elegância" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Aconchego e Elegância</p>
-            <div class="galeria-icone-expandir">+</div>
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Aconchego e Elegância"
+            data-desc="Projeto de dormitório que prioriza o descanso sem abrir mão da sofisticação. A iluminação indireta e os detalhes nos acabamentos e revestimentos trazem uma atmosfera intimista, serena e profundamente relaxante.">
+            <img src="Fotos%20Milena/Quarto%20com%20detalhes.webp" loading="lazy" decoding="async"
+              alt="Quarto com iluminação indireta e acabamentos detalhados" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Aconchego e Elegância</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto" data-titulo="Sofisticação no Banho"
-          data-desc="Uma proposta limpa e elegante, valorizando cada centímetro através de escolhas de louças, metais refinados e revestimentos que ampliam a sensação de bem-estar. Um verdadeiro refúgio de autocuidado e tranquilidade.">
-          <img src="Fotos%20Milena/Banheiro.webp" loading="lazy" decoding="async"
-            alt="Sofisticação no Banho" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Sofisticação no Banho</p>
-            <div class="galeria-icone-expandir">+</div>
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Sofisticação no Banho"
+            data-desc="Uma proposta limpa e elegante, valorizando cada centímetro através de escolhas de louças, metais refinados e revestimentos que ampliam a sensação de bem-estar. Um verdadeiro refúgio de autocuidado e tranquilidade.">
+            <img src="Fotos%20Milena/Banheiro.webp" loading="lazy" decoding="async"
+              alt="Banheiro com louças e metais refinados" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Sofisticação no Banho</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto" data-titulo="Detalhes Gourmet"
-          data-desc="A precisão nos detalhes de marcenaria e acabamentos transforma esta cozinha em uma verdadeira obra funcional. Ergonomia e estética caminham lado a lado, facilitando a rotina com muito charme e praticidade.">
-          <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" loading="lazy" decoding="async" alt="Detalhes Gourmet" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Detalhes Gourmet</p>
-            <div class="galeria-icone-expandir">+</div>
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Detalhes Gourmet"
+            data-desc="A precisão nos detalhes de marcenaria e acabamentos transforma esta cozinha em uma verdadeira obra funcional. Ergonomia e estética caminham lado a lado, facilitando a rotina com muito charme e praticidade.">
+            <img src="Fotos%20Milena/Detalhes%20de%20uma%20cozinha.webp" loading="lazy" decoding="async"
+              alt="Detalhes de marcenaria de uma cozinha" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Detalhes Gourmet</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto" data-titulo="Organização e Estilo"
-          data-desc="Cada espaço foi pensado sob medida para otimizar a organização e a acessibilidade do vestuário. Linhas retas, iluminação cenográfica nos nichos e acabamentos de alta qualidade proporcionam uma experiência digna de boutique.">
-          <img src="Fotos%20Milena/Closet.webp" loading="lazy" decoding="async"
-            alt="Organização e Estilo" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Organização e Estilo</p>
-            <div class="galeria-icone-expandir">+</div>
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Organização e Estilo"
+            data-desc="Cada espaço foi pensado sob medida para otimizar a organização e a acessibilidade do vestuário. Linhas retas, iluminação cenográfica nos nichos e acabamentos de alta qualidade proporcionam uma experiência digna de boutique.">
+            <img src="Fotos%20Milena/Closet.webp" loading="lazy" decoding="async"
+              alt="Closet sob medida com nichos iluminados" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Organização e Estilo</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
-        </div>
 
-        <div class="galeria-foto" data-titulo="Cozinha Contemporânea"
-          data-desc="Um layout interno limpo e inteligente, focado em aproveitamento de espaço e circulação fluida. A escolha de materiais duráveis e tons atemporais garante uma beleza que se mantém atual ao longo dos anos.">
-          <img src="Fotos%20Milena/Interna%20Cozinha.webp" loading="lazy" decoding="async" alt="Cozinha Contemporânea" />
-          <div class="galeria-legenda-wrap">
-            <p class="galeria-legenda">Cozinha Contemporânea</p>
-            <div class="galeria-icone-expandir">+</div>
+          <div class="galeria-foto" role="button" tabindex="0" data-titulo="Cozinha Contemporânea"
+            data-desc="Um layout interno limpo e inteligente, focado em aproveitamento de espaço e circulação fluida. A escolha de materiais duráveis e tons atemporais garante uma beleza que se mantém atual ao longo dos anos.">
+            <img src="Fotos%20Milena/Interna%20Cozinha.webp" loading="lazy" decoding="async"
+              alt="Interior de cozinha contemporânea" />
+            <div class="galeria-legenda-wrap">
+              <p class="galeria-legenda">Cozinha Contemporânea</p>
+              <div class="galeria-icone-expandir" aria-hidden="true">+</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Modal da Galeria -->
-  <div id="modal-galeria">
+    <!-- CONTATO -->
+    <section id="secao-contato">
+      <div class="contato-grade">
+        <div class="contato-coluna-info animar-da-esquerda">
+          <p class="etiqueta-secao">Vamos Conversar</p>
+          <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
+          <p class="contato-apresentacao">
+            Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
+            espaço, seus sonhos e vamos construir juntos.
+          </p>
+
+          <div class="contato-item">
+            <div class="contato-icone" aria-hidden="true">✉</div>
+            <div class="contato-texto">
+              <strong>Email</strong>
+              <a href="mailto:milenareis.mcr@gmail.com">milenareis.mcr@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-icone" aria-hidden="true">✆</div>
+            <div class="contato-texto">
+              <strong>Telefone</strong>
+              <a href="tel:+5571986773387">+55 (71) 9 8677-3387</a>
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-icone" aria-hidden="true">◈</div>
+            <div class="contato-texto">
+              <strong>Atelier</strong>
+              Salvador, Serrinha, Barrocas, Bahia — Brasil
+            </div>
+          </div>
+
+          <div class="contato-destaque-atendimento">
+            <span class="destaque-icone" aria-hidden="true">◉</span>
+            <p>Faço atendimento <strong>presencial</strong> (Região de Salvador) e <strong>a distância</strong> para
+              todo o Brasil.</p>
+          </div>
+        </div>
+
+        <!-- Ao enviar, abre o WhatsApp com a mensagem pronta -->
+        <form class="contato-formulario animar-da-direita" id="form-contato">
+          <div class="campo-grupo">
+            <input type="text" id="campo-nome" name="nome" autocomplete="name" placeholder=" " required />
+            <label for="campo-nome">Seu nome</label>
+          </div>
+          <div class="campo-grupo">
+            <input type="email" id="campo-email" name="email" autocomplete="email" placeholder=" " />
+            <label for="campo-email">Email</label>
+          </div>
+          <div class="campo-grupo">
+            <input type="text" id="campo-assunto" name="assunto" placeholder=" " />
+            <label for="campo-assunto">Tipo de projeto</label>
+          </div>
+          <div class="campo-grupo">
+            <textarea id="campo-mensagem" name="mensagem" placeholder=" " required></textarea>
+            <label for="campo-mensagem">Sua mensagem</label>
+          </div>
+          <div class="contato-botoes">
+            <button type="submit" class="botao-primario">
+              <span>Enviar Mensagem</span>
+            </button>
+            <button type="button" class="botao-outline-marrom" data-abrir-wizard>
+              <span>Iniciar Projeto</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer id="rodape">
+    <img class="rodape-logo" src="assets/logo/Logo%20Milena%20Reis%20(Comp)%20(3).webp" loading="lazy"
+      decoding="async" alt="Milena Reis — Arquiteta e Designer de Interiores" />
+    <div class="rodape-links">
+      <a href="https://www.instagram.com/milena_reis_arq/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/in/milena-reis-arquitetura" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="rodape-copy">
+      © 2026 Milena Reis Arquitetura. Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <!-- MODAL DA GALERIA -->
+  <div id="modal-galeria" role="dialog" aria-modal="true" aria-labelledby="modal-galeria-titulo" inert>
     <div class="modal-overlay"></div>
     <div class="modal-conteudo">
-      <button class="modal-fechar">&times;</button>
+      <button type="button" class="modal-fechar" aria-label="Fechar">&times;</button>
       <div class="modal-imagem">
-        <img src="" alt="Imagem do Projeto" />
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
       </div>
       <div class="modal-info">
         <p class="modal-etiqueta">Análise de Detalhe</p>
-        <h3 class="modal-titulo">Título</h3>
-        <p class="modal-descricao">Descrição do projeto...</p>
-        <button onclick="abrirWizardOrcamento()" class="botao-secundario" style="border:none;background:none;"
-          id="btn-modal-contato">Quero um espaço assim</button>
+        <h3 class="modal-titulo" id="modal-galeria-titulo"></h3>
+        <p class="modal-descricao"></p>
+        <button type="button" class="botao-secundario" data-abrir-wizard>Quero um espaço assim</button>
       </div>
     </div>
   </div>
 
-  <!-- CONTATO -->
-  <section id="secao-contato">
-    <div class="contato-grade">
-      <div class="contato-coluna-info animar-da-esquerda">
-        <p class="etiqueta-secao">Vamos Conversar</p>
-        <h2 class="titulo-secao">Inicie seu <em>projeto</em></h2>
-        <p class="contato-apresentacao">
-          Cada grande projeto começa com uma conversa. Conte-nos sobre o seu
-          espaço, seus sonhos e vamos construir juntos.
-        </p>
+  <!-- WIZARD DE ORÇAMENTO (3 passos; ao final abre o WhatsApp) -->
+  <div id="wizard-orcamento" role="dialog" aria-modal="true" aria-label="Solicitar orçamento" inert>
+    <div class="wizard-overlay" data-fechar-wizard></div>
+    <form class="wizard-conteudo" id="form-orcamento" novalidate>
+      <button type="button" class="wizard-fechar" aria-label="Fechar" data-fechar-wizard>&times;</button>
 
-        <div class="contato-item">
-          <div class="contato-icone">✉</div>
-          <div class="contato-texto">
-            <strong>Email</strong>
-            milenareis.mcr@gmail.com
-          </div>
-        </div>
-
-        <div class="contato-item">
-          <div class="contato-icone">✆</div>
-          <div class="contato-texto">
-            <strong>Telefone</strong>
-            +55 (71) 9 8677-3387
-          </div>
-        </div>
-
-        <div class="contato-item">
-          <div class="contato-icone">◈</div>
-          <div class="contato-texto">
-            <strong>Atelier</strong>
-            Salvador, Serrinha, Barrocas, Bahia — Brasil
-          </div>
-        </div>
-
-        <div class="contato-destaque-atendimento">
-          <span class="destaque-icone">◉</span>
-          <p>Faço atendimento <strong>presencial</strong> (Região de Salvador) e <strong>a distância</strong> para todo
-            o Brasil.</p>
-        </div>
-      </div>
-
-      <div class="contato-formulario animar-da-direita">
-        <div class="campo-grupo">
-          <input type="text" id="campo-nome" placeholder=" " />
-          <label for="campo-nome">Seu nome</label>
-        </div>
-        <div class="campo-grupo">
-          <input type="email" id="campo-email" placeholder=" " />
-          <label for="campo-email">Email</label>
-        </div>
-        <div class="campo-grupo">
-          <input type="text" id="campo-assunto" placeholder=" " />
-          <label for="campo-assunto">Tipo de projeto</label>
-        </div>
-        <div class="campo-grupo">
-          <textarea id="campo-mensagem" placeholder=" "></textarea>
-          <label for="campo-mensagem">Sua mensagem</label>
-        </div>
-        <div class="contato-botoes">
-          <button type="button" onclick="enviarFormularioContato()" class="botao-primario">
-            <span>Enviar Mensagem</span>
-          </button>
-          <button type="button" onclick="abrirWizardOrcamento()" class="botao-outline-marrom">
-            <span>Iniciar Projeto</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- POPUP WIZARD ORÇAMENTO -->
-  <div id="wizard-orcamento">
-    <div class="wizard-overlay" onclick="fecharWizardOrcamento()"></div>
-    <div class="wizard-conteudo">
-      <button class="wizard-fechar" onclick="fecharWizardOrcamento()">&times;</button>
-
-      <!-- Cabeçalho (Barra de Progresso) -->
+      <!-- Barra de progresso -->
       <div class="wizard-cabecalho">
         <div class="wizard-passos-trilha">
           <div class="passo-trilha ativo" id="trilha-1"></div>
@@ -664,24 +623,24 @@
         </div>
       </div>
 
-      <!-- Passo 1: Res/Comercial -->
+      <!-- Passo 1: tipo de projeto (escolher já avança) -->
       <div class="wizard-passo ativo" id="passo-1">
         <h2 class="wizard-titulo">O que vamos <em>criar</em>?</h2>
         <p class="wizard-subtitulo">Selecione o tipo de ambiente</p>
 
         <div class="wizard-opcoes-cards">
           <label class="wizard-card-label">
-            <input type="radio" name="tipoProjeto" value="Residencial" onclick="irParaPasso(2)" />
+            <input type="radio" name="tipoProjeto" value="Residencial" />
             <div class="wizard-card">
-              <span class="wizard-icone">⌂</span>
+              <span class="wizard-icone" aria-hidden="true">⌂</span>
               <h3>Residencial</h3>
               <p>Casas, aptos ou interiores</p>
             </div>
           </label>
           <label class="wizard-card-label">
-            <input type="radio" name="tipoProjeto" value="Comercial" onclick="irParaPasso(2)" />
+            <input type="radio" name="tipoProjeto" value="Comercial" />
             <div class="wizard-card">
-              <span class="wizard-icone">🏢</span>
+              <span class="wizard-icone" aria-hidden="true">🏢</span>
               <h3>Comercial</h3>
               <p>Lojas, clínicas e escritórios</p>
             </div>
@@ -689,53 +648,61 @@
         </div>
       </div>
 
-      <!-- Passo 2: Local e Espaço -->
+      <!-- Passo 2: local e escopo -->
       <div class="wizard-passo" id="passo-2">
         <h2 class="wizard-titulo">Onde será o <em>projeto</em>?</h2>
         <p class="wizard-subtitulo">Conte um pouco sobre o local.</p>
 
         <div class="wizard-form-grupo mt-4">
-          <label class="wizard-label"><span class="icone">📍</span> Cidade / Estado</label>
-          <input type="text" id="orcamento-local" class="wizard-input" placeholder="Ex: Salvador, BA" />
+          <label class="wizard-label" for="orcamento-local"><span class="icone" aria-hidden="true">📍</span> Cidade /
+            Estado</label>
+          <input type="text" id="orcamento-local" name="local" class="wizard-input" placeholder="Ex: Salvador, BA" />
         </div>
 
         <div class="wizard-form-grupo mt-3">
-          <label class="wizard-label"><span class="icone">✎</span> O que pretende fazer?</label>
-          <input type="text" id="orcamento-ambientes" class="wizard-input"
+          <label class="wizard-label" for="orcamento-ambientes"><span class="icone" aria-hidden="true">✎</span> O que
+            pretende fazer?</label>
+          <input type="text" id="orcamento-ambientes" name="ambientes" class="wizard-input"
             placeholder="Ex: Reforma da cozinha / Casa nova" />
         </div>
 
         <div class="wizard-botoes-rodape">
-          <button type="button" class="wizard-voltar" onclick="irParaPasso(1)">&#8592; Voltar</button>
-          <button type="button" class="wizard-avancar botao-primario" style="cursor:none;border:none;"
-            onclick="irParaPasso(3)"><span>Próximo &rarr;</span></button>
+          <button type="button" class="wizard-voltar" data-ir-passo="1">&#8592; Voltar</button>
+          <button type="button" class="wizard-avancar botao-primario" data-ir-passo="3"><span>Próximo
+              &rarr;</span></button>
         </div>
       </div>
 
-      <!-- Passo 3: Contato -->
+      <!-- Passo 3: contato -->
       <div class="wizard-passo" id="passo-3">
         <h2 class="wizard-titulo">Quase lá!</h2>
         <p class="wizard-subtitulo">Como podemos te encontrar?</p>
 
         <div class="wizard-form-grupo mt-4">
-          <label class="wizard-label"><span class="icone">👤</span> Seu Nome</label>
-          <input type="text" id="orcamento-nome" class="wizard-input" placeholder="Como deseja ser chamado" />
+          <label class="wizard-label" for="orcamento-nome"><span class="icone" aria-hidden="true">👤</span> Seu
+            Nome</label>
+          <input type="text" id="orcamento-nome" name="nome" autocomplete="name" class="wizard-input"
+            placeholder="Como deseja ser chamado" required />
         </div>
 
         <div class="wizard-form-grupo mt-3">
-          <label class="wizard-label"><span class="icone">✉</span> Melhor Email</label>
-          <input type="email" id="orcamento-email" class="wizard-input" placeholder="seu@email.com" />
+          <label class="wizard-label" for="orcamento-email"><span class="icone" aria-hidden="true">✉</span> Melhor
+            Email</label>
+          <input type="email" id="orcamento-email" name="email" autocomplete="email" class="wizard-input"
+            placeholder="seu@email.com" />
         </div>
 
         <div class="wizard-form-grupo mt-3">
-          <label class="wizard-label"><span class="icone">💬</span> WhatsApp</label>
-          <input type="tel" id="orcamento-telefone" class="wizard-input" placeholder="(00) 00000-0000" />
+          <label class="wizard-label" for="orcamento-telefone"><span class="icone" aria-hidden="true">💬</span>
+            WhatsApp</label>
+          <input type="tel" id="orcamento-telefone" name="telefone" autocomplete="tel" class="wizard-input"
+            placeholder="(00) 00000-0000" />
         </div>
 
         <div class="wizard-botoes-rodape">
-          <button type="button" class="wizard-voltar" onclick="irParaPasso(2)">&#8592; Voltar</button>
-          <button type="button" class="wizard-avancar botao-wpp" onclick="enviarOrcamentoWpp()">
-            <svg class="icone-wpp" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <button type="button" class="wizard-voltar" data-ir-passo="2">&#8592; Voltar</button>
+          <button type="submit" class="wizard-avancar botao-wpp">
+            <svg class="icone-wpp" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
               <path
                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.662-2.062-.173-.298-.018-.461.13-.611.134-.135.298-.348.446-.521.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.571-.012c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
             </svg>
@@ -743,28 +710,17 @@
           </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
-  </main>
-
-  <!-- RODAPÉ (Footer) -->
-  <footer id="rodape">
-    <!-- Topo/Logo principal repetido -->
-    <img class="rodape-logo" src="assets/logo/Logo Milena Reis (Comp) (3).webp" loading="lazy" decoding="async" alt="Milena Reis" />
-    <div class="rodape-links">
-      <a href="https://www.instagram.com/milena_reis_arq/">Instagram</a>
-      <a href="#">Behance</a>
-      <a href="#">LinkedIn</a>
-    </div>
-    <p class="rodape-copy">
-      © 2026 Milena Reis Arquitetura. Todos os direitos reservados.
-    </p>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="script.js" defer></script>
+  <!-- Scripts: GSAP (CDN), site e Vercel Web Analytics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/script.js" defer></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script src="/_vercel/insights/script.js" defer></script>
 </body>
 
 </html>

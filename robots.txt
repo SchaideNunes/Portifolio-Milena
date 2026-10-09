@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://milenareis.arq.br/sitemap.xml
+Sitemap: https://portifolio-milena.vercel.app/sitemap.xml

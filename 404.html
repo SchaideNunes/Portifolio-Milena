@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página não encontrada | Milena Reis Arquitetura</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#1a0f0a" />
+  <link rel="icon" type="image/webp" href="/assets/logo/Logo%20Milena%20(Alt)%20(3).webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Jost:wght@300;400&display=swap" />
+
+  <!-- Página independente do css/style.css: os caminhos são absolutos porque o 404 pode ser servido em qualquer URL -->
+  <style>
+    :root {
+      --cor-escuro: #1a0f0a;
+      --cor-nude-borda: #d4bfaf;
+      --cor-branco: #f0e9e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--cor-branco);
+      font-family: "Jost", sans-serif;
+      font-weight: 300;
+      /* mesma grade de prancheta do preloader */
+      background:
+        linear-gradient(rgba(154, 125, 106, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(154, 125, 106, 0.07) 1px, transparent 1px),
+        var(--cor-escuro);
+      background-size: 40px 40px, 40px 40px, auto;
+    }
+
+    .logo {
+      width: min(60vw, 260px);
+      height: auto;
+    }
+
+    .codigo {
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--cor-nude-borda);
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    h1 em {
+      color: var(--cor-nude-borda);
+    }
+
+    p.texto {
+      max-width: 420px;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      opacity: 0.8;
+    }
+
+    .botao {
+      margin-top: 8px;
+      padding: 16px 40px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--cor-escuro);
+      background: var(--cor-branco);
+      transition: background 0.3s ease;
+    }
+
+    .botao:hover,
+    .botao:focus-visible {
+      background: var(--cor-nude-borda);
+    }
+  </style>
+</head>
+
+<body>
+  <img class="logo" src="/assets/logo/Logo%20Milena%20Reis%20(Comp)%20(3).webp" alt="Milena Reis — Arquiteta e Designer de Interiores" />
+  <p class="codigo">Erro 404</p>
+  <h1>Este espaço ainda não foi <em>projetado.</em></h1>
+  <p class="texto">A página que você procura não existe ou mudou de endereço. Que tal voltar para o início e conhecer os projetos?</p>
+  <a class="botao" href="/">Voltar ao início</a>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script src="/_vercel/insights/script.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+# Originais aguardando conversão para WebP (ver imagens-novas/LEIA-ME.md)
+imagens-novas/*
+!imagens-novas/LEIA-ME.md
+
+# Vercel
+.vercel
+
+# Sistema
+.DS_Store
+Thumbs.db
