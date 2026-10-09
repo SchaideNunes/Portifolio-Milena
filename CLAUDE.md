@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Portfólio one-page da arquiteta **Milena Reis** (Salvador, BA). Site estático em Vanilla Web — sem build, sem package manager, sem testes. Idioma do conteúdo, classes CSS, funções JS e comentários: **português (pt-BR)**. Mantenha esse padrão.
+Portfólio da arquiteta **Milena Reis** (Salvador, BA). Site estático em Vanilla Web — sem build, sem package manager, sem testes. Idioma do conteúdo, classes CSS, funções JS e comentários: **português (pt-BR)**. Mantenha esse padrão.
 
 Autor/dev: Schaide Nunes. Deploy: **Vercel**, em `https://portifolio-milena.vercel.app/` (integração com o GitHub: push na `main` publica).
 
@@ -12,13 +12,17 @@ Servir a pasta raiz com qualquer servidor estático (Live Server, `npx serve`, e
 
 | Arquivo | Papel |
 | :--- | :--- |
-| `index.html` | Página única. SEO (meta, OG, JSON-LD `ProfessionalService`), seções, modal, wizard. |
-| `css/style.css` | Tudo em um arquivo, com 18 seções numeradas (índice no topo). Tokens em `:root`. |
-| `js/script.js` | IIFE única, 10 seções numeradas; tudo inicia no `load` (fim do arquivo). |
+| `index.html` | Home. SEO (meta, OG, JSON-LD `ProfessionalService`), seções, modal, wizard. |
+| `projetos.html` | Página com todos os projetos (grade + filtros + modal de detalhe), montada a partir do JSON. |
+| `dados/projetos.json` | **Fonte dos projetos** da página de projetos. Ver "Página de projetos". |
+| `css/style.css` | Estilos globais, com 18 seções numeradas (índice no topo). Tokens em `:root`. Carregado nas duas páginas. |
+| `css/projetos.css` | Só o que é exclusivo de `projetos.html` (inclui os próprios breakpoints). |
+| `js/script.js` | IIFE única, 10 seções numeradas; inicia no `load`. Carregado nas duas páginas (cada função sai cedo se o elemento não existe). Expõe `window.MilenaSite`. |
+| `js/projetos.js` | Lê o JSON e monta filtros, grade e modal. Depende de `window.MilenaSite`. |
 | `404.html` | Página de erro independente (CSS inline, **caminhos absolutos** — é servida em qualquer URL). |
 | `vercel.json` | Cabeçalhos de segurança + cache de 7 dias em `/assets/`. |
 | `.vercelignore` | Tira do deploy: README, CLAUDE.md, screenshots, `imagens-novas/`, `scripts/`. |
-| `assets/` | `hero/`, `logo/`, `sobre/`, `video/`, `og/` (imagem de compartilhamento), `texturas/`, `screenshots/` (só README). |
+| `assets/` | `hero/`, `logo/`, `sobre/`, `video/`, `og/` (imagem de compartilhamento), `icones/` (favicon = foto de perfil recortada em círculo), `texturas/`, `screenshots/` (só README). |
 | `Fotos Milena/` | Fotos reais dos projetos — **são estas que o site usa** nos cards e na galeria. |
 | `imagens-novas/` | Entrada de originais PNG/JPG (gitignored). Ver "Imagens novas". |
 | `scripts/converter-imagens.mjs` | PNG/JPG → WebP via ffmpeg. |
@@ -36,7 +40,17 @@ O usuário joga os originais em `imagens-novas/` e pede para usar no site. Entã
 
 Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **não** está instalado.
 
-## Seções (ordem no HTML)
+## Página de projetos
+
+- `dados/projetos.json` → `{ "projetos": [ { id, titulo, categoria, local?, ano?, area?, descricao, imagens: [{ src, alt }] } ] }`. A ordem do array é a ordem na grade; a primeira imagem é a capa. `id` é kebab-case e único (vira o `#hash` da URL). Projeto sem `id`, `titulo` ou imagem é ignorado.
+- **Adicionar/retirar projeto = editar só o JSON.** Filtros (categorias) e contagem saem dos dados. O plano do usuário é, no futuro, a própria Milena gerenciar isso (um CMS que edite esse JSON, ex. Decap CMS, encaixa sem mudar o front).
+- `projetos.html#id` abre o detalhe direto: clicar num cartão só muda o hash; `sincronizarComHash()` abre/fecha o modal. Fechar remove o hash com `history.replaceState`.
+- As 6 cartas "em destaque" da home são **HTML estático** (não leem o JSON) e apontam para `projetos.html#id`. Se mudar um `id` no JSON ou trocar os destaques, atualizar os `href` no `index.html`.
+- O CTA do modal abre o WhatsApp com o nome do projeto (o wizard de orçamento só existe na home).
+- A lista usa `<section data-sem-desfoque>` para ficar fora do `desfoqueEntreSecoes`.
+- `fetch` do JSON não funciona abrindo o arquivo direto (`file://`): precisa de servidor local.
+
+## Seções da home (ordem no HTML)
 
 `#tela-carregamento` (preloader) → `#menu-topo` + `#menu-mobile-overlay` → `<main id="conteudo">`: `#secao-hero` → `.faixa-rolante` → `#secao-sobre` → `#secao-modelo-3d` (vídeo scroll-scrub, pinned) → `#secao-projetos` (`.baralho-cartas`, sanfona por hover em CSS) → `#secao-servicos` → `#secao-galeria` → `#secao-contato` → `#rodape` → `#modal-galeria` → `#wizard-orcamento`.
 
@@ -44,7 +58,7 @@ Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **n
 
 - **Sem `onclick` inline.** Ações são ligadas no JS por atributos: `data-abrir-wizard` (qualquer botão, em qualquer lugar), `data-fechar-wizard`, `data-ir-passo="N"`. Formulários (`#form-contato`, `#form-orcamento`) usam o evento `submit`.
 - **WhatsApp**: número único em `CONFIG.whatsapp` no topo do `js/script.js` (também aparece no HTML: JSON-LD e link `tel:`). Wizard e formulário de contato só abrem `wa.me` com texto pronto — não há backend nem envio de e-mail.
-- **Sobreposições** (menu mobile, modal da galeria, wizard): abrir/fechar sempre por `abrirSobreposicao()` / `fecharSobreposicao()`. Elas cuidam de `.ativo`, `inert`, devolução do foco e da trava de scroll (`.no-scroll` em `body` e `html`, só sai quando nenhuma está aberta). Sobreposição nova: adicionar o id em `SELETOR_ABERTAS` e no handler de `Escape`, e começar com `inert` no HTML.
+- **Sobreposições** (menu mobile, modais, wizard): abrir/fechar sempre por `abrirSobreposicao(el, { focarEm, aoFechar })` / `fecharSobreposicao(el)`. Elas cuidam de `.ativo`, `inert`, devolução do foco, trava de scroll (`.no-scroll`, só sai quando nenhuma está aberta) e Esc (fecha a do topo da pilha chamando `aoFechar`). Sobreposição nova: começar com `inert` no HTML e passar a própria função de fechar em `aoFechar`. Fora do `script.js`, usar `window.MilenaSite`.
 - **Duplicação para loop é feita no JS**: galeria e faixa rolante têm o conteúdo **uma vez** no HTML; `iniciarGaleria()` e `duplicarFaixaRolante()` clonam os itens (clones com `aria-hidden`). Para adicionar foto na galeria, basta um `.galeria-foto` com `data-titulo`/`data-desc`.
 - **Galeria**: auto-scroll por `requestAnimationFrame` mexendo em `scrollLeft`; pausa durante arrasto e com o modal aberto. Um arrasto (>5px) não conta como clique.
 - **Animações de entrada**: `.animar-subindo`, `.animar-da-esquerda`, `.animar-da-direita`, `.entrada-blur` ganham `.visivel` via IntersectionObserver; o CSS faz a transição. `.texto-merge` alterna `.visivel` ao entrar/sair. `.servico-item` tem observador próprio (cascata de 100ms).
@@ -59,9 +73,9 @@ Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **n
 
 1. **Domínio**: `milenareis.arq.br` (que estava no canonical/OG/sitemap) **não existe no DNS**; tudo aponta agora para `portifolio-milena.vercel.app`. Quando houver domínio próprio, trocar em: `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `robots.txt`, `sitemap.xml` e aqui.
 2. **LinkedIn** do rodapé/JSON-LD (`linkedin.com/in/milena-reis-arquitetura`) veio do código original e não foi confirmado. Behance foi removido por não ter URL.
-3. **Assets não referenciados** (mantidos a pedido do usuário): `assets/Pattern (1-4).webp`, `assets/galeria/*`, `assets/projetos/*`, `assets/sobre/Profile 2/3.webp`, logos `Alt (1)`, `Comp (1)`, `Comp (2)`, e em `Fotos Milena/`: `Banheiro 2`, `Banheiro 3`, `Garagem casa externa`, `Quarto apartamento`, `Varanda`.
-4. **Nomes de arquivo com espaços/parênteses** (`Fotos Milena/`, `assets/logo/`): funcionam com `%20` no HTML, mas o ideal seria kebab-case. Não renomeado para não mexer nos assets.
-5. **Favicon** é a logo horizontal em WebP; falta um ícone quadrado (PNG/SVG) e `apple-touch-icon`.
+3. **Textos dos projetos**: as descrições das 6 casas em `dados/projetos.json` foram escritas a partir das fotos (rascunho, aguardando revisão da Milena); títulos, locais e anos vieram da home. Os 6 de "Interiores" reaproveitam os textos da galeria e não têm local/ano.
+4. **Assets não referenciados** (mantidos a pedido do usuário): `assets/Pattern (1-4).webp`, `assets/galeria/*`, `assets/projetos/*`, `assets/sobre/Profile 1/2/3.webp`, logos `Alt (1)`, `Comp (1)`, `Comp (2)`, e em `Fotos Milena/`: `Banheiro 2`, `Banheiro 3`, `Garagem casa externa`, `Quarto apartamento`, `Varanda`.
+5. **Nomes de arquivo com espaços/parênteses** (`Fotos Milena/`, `assets/logo/`): funcionam com `%20` no HTML, mas o ideal seria kebab-case. Não renomeado para não mexer nos assets.
 6. **Peso do vídeo**: 5,2MB (mp4) + 8,8MB (webm), e o script força `load()` logo no início.
 7. **Cores fora dos tokens**: ainda há hex soltos no CSS (traços do preloader, `#c8b4a4`, `#b89e8c`, `rgba(42,31,26,…)` etc.).
 8. `.menu-mobile-overlay` usa `var(--header-height)`, que só é definida dentro de `#menu-topo` (não herda) — cai sempre no fallback de 74px.

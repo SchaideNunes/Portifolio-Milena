@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>Projetos | Milena Reis Arquitetura e Design de Interiores</title>
+  <meta name="description" content="Conheça os projetos de arquitetura residencial, interiores e áreas de lazer assinados por Milena Reis em Salvador e no interior da Bahia." />
+  <meta name="author" content="Milena Reis" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://portifolio-milena.vercel.app/projetos.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Milena Reis Arquitetura" />
+  <meta property="og:url" content="https://portifolio-milena.vercel.app/projetos.html" />
+  <meta property="og:title" content="Projetos | Milena Reis Arquitetura" />
+  <meta property="og:description" content="Arquitetura residencial, interiores e áreas de lazer assinados por Milena Reis." />
+  <meta property="og:image" content="https://portifolio-milena.vercel.app/assets/og/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon e tema -->
+  <meta name="theme-color" content="#3d291d" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icones/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icones/favicon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icones/apple-touch-icon.png" />
+
+  <!-- Fontes e estilos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/projetos.css" />
+</head>
+
+<body class="pagina-projetos">
+  <a href="#conteudo" class="pular-conteudo">Pular para o conteúdo</a>
+
+  <!-- MENU PRINCIPAL (mesmo do index; os links voltam para as seções da home) -->
+  <nav id="menu-topo" aria-label="Menu principal">
+    <a href="index.html" class="menu-logo" aria-label="Milena Reis — página inicial">
+      <img src="assets/logo/Logo%20Milena%20(Alt)%20(2).webp" alt="" class="menu-logo-claro" />
+      <img src="assets/logo/Logo%20Milena%20(Alt)%20(3).webp" alt="" class="menu-logo-escuro" />
+    </a>
+    <ul class="menu-links">
+      <li><a href="index.html#secao-sobre">Sobre</a></li>
+      <li><a href="projetos.html" aria-current="page">Projetos</a></li>
+      <li><a href="index.html#secao-servicos">Serviços</a></li>
+      <li><a href="index.html#secao-galeria">Galeria</a></li>
+      <li><a href="index.html#secao-contato">Contato</a></li>
+    </ul>
+    <button type="button" class="menu-hamburguer" id="btn-hamburguer" aria-label="Abrir menu" aria-expanded="false"
+      aria-controls="menu-mobile-overlay">
+      <span class="hamburguer-linha"></span>
+      <span class="hamburguer-linha"></span>
+      <span class="hamburguer-linha"></span>
+    </button>
+  </nav>
+
+  <div class="menu-mobile-overlay" id="menu-mobile-overlay" inert>
+    <a href="index.html#secao-sobre">Sobre</a>
+    <a href="projetos.html" aria-current="page">Projetos</a>
+    <a href="index.html#secao-servicos">Serviços</a>
+    <a href="index.html#secao-galeria">Galeria</a>
+    <a href="index.html#secao-contato">Contato</a>
+  </div>
+
+  <main id="conteudo">
+    <!-- CABEÇALHO DA PÁGINA -->
+    <header class="projetos-topo">
+      <div class="projetos-topo-conteudo">
+        <p class="etiqueta-secao">Portfólio</p>
+        <h1 class="titulo-secao">Todos os <em>projetos</em></h1>
+        <p class="projetos-topo-texto">
+          Arquitetura residencial, interiores e áreas de lazer. Selecione um projeto para ver os detalhes.
+        </p>
+      </div>
+    </header>
+
+    <!-- LISTA DE PROJETOS (montada por js/projetos.js a partir de dados/projetos.json) -->
+    <section class="projetos-lista" data-sem-desfoque aria-label="Lista de projetos">
+      <div class="projetos-barra">
+        <div class="projetos-filtros" id="projetos-filtros" role="group" aria-label="Filtrar por categoria"></div>
+        <p class="projetos-contagem" id="projetos-contagem" aria-live="polite"></p>
+      </div>
+
+      <div class="grade-projetos" id="grade-projetos"></div>
+
+      <p class="projetos-aviso" id="projetos-aviso" hidden></p>
+      <noscript>
+        <p class="projetos-aviso">
+          Ative o JavaScript para ver os projetos, ou acompanhe pelo
+          <a href="https://www.instagram.com/milena_reis_arq/">Instagram</a>.
+        </p>
+      </noscript>
+    </section>
+
+    <!-- CHAMADA FINAL -->
+    <section class="projetos-chamada" data-sem-desfoque>
+      <h2 class="titulo-secao">Vamos criar o <em>seu</em>?</h2>
+      <p>Cada projeto começa com uma conversa. Conte sobre o seu espaço.</p>
+      <a href="index.html#secao-contato" class="botao-primario"><span>Iniciar Projeto</span></a>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer id="rodape">
+    <img class="rodape-logo" src="assets/logo/Logo%20Milena%20Reis%20(Comp)%20(3).webp" loading="lazy"
+      decoding="async" alt="Milena Reis — Arquiteta e Designer de Interiores" />
+    <div class="rodape-links">
+      <a href="https://www.instagram.com/milena_reis_arq/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/in/milena-reis-arquitetura" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="rodape-copy">
+      © 2026 Milena Reis Arquitetura. Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <!-- MODAL DE DETALHE DO PROJETO (preenchido por js/projetos.js) -->
+  <div id="modal-projeto" role="dialog" aria-modal="true" aria-labelledby="modal-projeto-titulo" inert>
+    <div class="modal-overlay"></div>
+    <div class="modal-conteudo">
+      <button type="button" class="modal-fechar" aria-label="Fechar">&times;</button>
+
+      <div class="modal-imagem">
+        <img id="modal-projeto-imagem" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+        <!-- Navegação entre fotos: só aparece quando o projeto tem mais de uma -->
+        <div class="modal-projeto-navegacao" id="modal-projeto-navegacao" hidden>
+          <button type="button" class="modal-projeto-seta" id="modal-projeto-anterior" aria-label="Foto anterior">&#8592;</button>
+          <span class="modal-projeto-contador" id="modal-projeto-contador" aria-live="polite"></span>
+          <button type="button" class="modal-projeto-seta" id="modal-projeto-proxima" aria-label="Próxima foto">&#8594;</button>
+        </div>
+      </div>
+
+      <div class="modal-info">
+        <p class="modal-etiqueta" id="modal-projeto-categoria"></p>
+        <h2 class="modal-titulo" id="modal-projeto-titulo"></h2>
+        <dl class="modal-projeto-ficha" id="modal-projeto-ficha"></dl>
+        <p class="modal-descricao" id="modal-projeto-descricao"></p>
+        <button type="button" class="botao-primario" id="modal-projeto-cta"><span>Quero um projeto assim</span></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js" defer></script>
+  <script src="js/projetos.js" defer></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script src="/_vercel/insights/script.js" defer></script>
+</body>
+
+</html>

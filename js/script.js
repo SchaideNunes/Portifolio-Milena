@@ -1,6 +1,8 @@
 /* ==========================================================================
    MILENA REIS ARQUITETURA — INTERAÇÕES
 
+   Carregado em todas as páginas; cada função sai cedo se o elemento não existir.
+
    1. Configuração          6. Vídeo 3D (scroll-scrub)
    2. Sobreposições         7. Galeria + modal
    3. Preloader             8. Wizard de orçamento
@@ -23,22 +25,22 @@
     window.open(url, "_blank", "noopener");
   }
 
-  /* --- 2. SOBREPOSIÇÕES (menu mobile, modal da galeria e wizard) ---
-     As três compartilham a trava de scroll: a página só volta a rolar
-     quando nenhuma estiver aberta. Fechadas, ficam com `inert` para não
-     receberem foco pelo teclado. */
-  const SELETOR_ABERTAS = "#menu-mobile-overlay.ativo, #modal-galeria.ativo, #wizard-orcamento.ativo";
-  const focoAnterior = new WeakMap();
+  /* --- 2. SOBREPOSIÇÕES (menu mobile, modais e wizard) ---
+     Todas compartilham a trava de scroll: a página só volta a rolar quando
+     nenhuma estiver aberta. Fechadas, ficam com `inert` para não receberem
+     foco pelo teclado. A pilha guarda a ordem de abertura: Esc fecha a do topo. */
+  const abertas = []; // { el, aoFechar, focoAnterior }
 
   function atualizarTravaDeScroll() {
-    const travar = document.querySelector(SELETOR_ABERTAS) !== null;
+    const travar = abertas.length > 0;
     document.body.classList.toggle("no-scroll", travar);
     document.documentElement.classList.toggle("no-scroll", travar);
   }
 
-  function abrirSobreposicao(el, focarEm) {
+  // `aoFechar` é a função de fechar daquela sobreposição (usada pelo Esc)
+  function abrirSobreposicao(el, { focarEm, aoFechar } = {}) {
     if (!el || el.classList.contains("ativo")) return;
-    focoAnterior.set(el, document.activeElement);
+    abertas.push({ el, aoFechar, focoAnterior: document.activeElement });
     el.inert = false;
     el.classList.add("ativo");
     atualizarTravaDeScroll();
@@ -46,13 +48,24 @@
   }
 
   function fecharSobreposicao(el) {
-    if (!el || !el.classList.contains("ativo")) return;
+    const indice = abertas.findIndex((item) => item.el === el);
+    if (indice === -1) return;
+    const [{ focoAnterior }] = abertas.splice(indice, 1);
     el.classList.remove("ativo");
     el.inert = true;
     atualizarTravaDeScroll();
-    const anterior = focoAnterior.get(el);
-    if (anterior && document.contains(anterior)) anterior.focus({ preventScroll: true });
+    if (focoAnterior && document.contains(focoAnterior)) focoAnterior.focus({ preventScroll: true });
   }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || abertas.length === 0) return;
+    const topo = abertas[abertas.length - 1];
+    if (topo.aoFechar) topo.aoFechar();
+    else fecharSobreposicao(topo.el);
+  });
+
+  // Usado pelas outras páginas (ex.: js/projetos.js)
+  window.MilenaSite = { abrirSobreposicao, fecharSobreposicao, abrirWhatsApp, menosMovimento };
 
   /* --- 3. PRELOADER (planta baixa desenhada com GSAP) --- */
   function animarPreloader() {
@@ -133,7 +146,7 @@
     if (!btn || !overlay) return;
 
     function abrirMenu() {
-      abrirSobreposicao(overlay);
+      abrirSobreposicao(overlay, { aoFechar: fecharMenu });
       btn.classList.add("ativo");
       btn.setAttribute("aria-expanded", "true");
       btn.setAttribute("aria-label", "Fechar menu");
@@ -155,8 +168,6 @@
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay || e.target.closest("a")) fecharMenu();
     });
-
-    return fecharMenu;
   }
 
   function scrollSuaveDosLinks() {
@@ -274,10 +285,12 @@
   }
 
   // Profundidade de campo: seções longe do centro da tela ficam levemente desfocadas.
-  // Só no desktop (>900px). Atenção: escreve filter/opacity inline em toda <section>.
+  // Só no desktop (>900px). Atenção: escreve filter/opacity inline em toda <section>
+  // (exceto as marcadas com data-sem-desfoque, para seções muito altas).
   function desfoqueEntreSecoes() {
     if (menosMovimento) return;
-    const secoes = document.querySelectorAll("section");
+    const secoes = document.querySelectorAll("section:not([data-sem-desfoque])");
+    if (secoes.length === 0) return;
 
     function aplicarDesfoque() {
       if (window.innerWidth <= 900) {
@@ -468,7 +481,7 @@
       tituloModal.textContent = foto.getAttribute("data-titulo");
       descModal.textContent = foto.getAttribute("data-desc");
       pausado = true;
-      abrirSobreposicao(modal, btnFechar);
+      abrirSobreposicao(modal, { focarEm: btnFechar, aoFechar: fecharModal });
     }
 
     function fecharModal() {
@@ -521,10 +534,12 @@
       if (fecharModalGaleria) fecharModalGaleria(); // "Quero um espaço assim" abre o wizard a partir do modal
       form.reset();
       irParaPasso(1);
-      abrirSobreposicao(wizard, wizard.querySelector(".wizard-fechar"));
+      abrirSobreposicao(wizard, { focarEm: wizard.querySelector(".wizard-fechar"), aoFechar: fecharWizard });
     }
 
-    const fecharWizard = () => fecharSobreposicao(wizard);
+    function fecharWizard() {
+      fecharSobreposicao(wizard);
+    }
 
     function enviarOrcamento() {
       const campoNome = document.getElementById("orcamento-nome");
@@ -569,8 +584,6 @@
     });
 
     aplicarMascaraTelefone(document.getElementById("orcamento-telefone"));
-
-    return fecharWizard;
   }
 
   // Formata enquanto digita: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
@@ -623,7 +636,7 @@
   window.addEventListener("load", () => {
     animarPreloader();
     menuAoRolar();
-    const fecharMenu = menuHamburguer();
+    menuHamburguer();
     scrollSuaveDosLinks();
     duplicarFaixaRolante();
 
@@ -636,15 +649,7 @@
     animarVideoModuloScroll();
 
     const fecharModalGaleria = iniciarGaleria();
-    const fecharWizard = iniciarWizard(fecharModalGaleria);
+    iniciarWizard(fecharModalGaleria);
     iniciarFormularioContato();
-
-    // Esc fecha o que estiver aberto (o que está por cima primeiro)
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== "Escape") return;
-      if (document.querySelector("#wizard-orcamento.ativo")) fecharWizard && fecharWizard();
-      else if (document.querySelector("#modal-galeria.ativo")) fecharModalGaleria && fecharModalGaleria();
-      else if (document.querySelector("#menu-mobile-overlay.ativo")) fecharMenu && fecharMenu();
-    });
   });
 })();

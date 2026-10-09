@@ -222,6 +222,7 @@ Portifolio-Milena/
 ├── assets/
 │   ├── galeria/             # Imagens dos ambientes em alta resolução (WebP)
 │   ├── hero/                # Background principal da seção de entrada
+│   ├── icones/              # Favicon e apple-touch-icon
 │   ├── logo/                # Variações clara e escura da marca vetorial
 │   ├── projetos/            # Imagens dos projetos arquitetônicos
 │   ├── screenshots/         # Capturas de tela utilizadas na documentação
@@ -238,20 +239,45 @@ Portifolio-Milena/
 │   ├── texturas/            # Textura sutil aplicada no fundo das seções
 │   └── video/               # Renders 3D (.webm e .mp4) para o scroll-scrub
 ├── css/
-│   └── style.css            # Folha de estilos completa e responsiva (seções numeradas)
+│   ├── style.css            # Folha de estilos global e responsiva (seções numeradas)
+│   └── projetos.css         # Estilos exclusivos da página de projetos
+├── dados/
+│   └── projetos.json        # Lista de projetos exibida em projetos.html
 ├── js/
-│   └── script.js            # Orquestração de animações, GSAP e interações
+│   ├── script.js            # Orquestração de animações, GSAP e interações
+│   └── projetos.js          # Monta a grade, os filtros e o modal a partir do JSON
 ├── Fotos Milena/            # Fotos reais dos projetos (cards e galeria), em WebP
 ├── imagens-novas/           # Entrada de fotos originais (PNG/JPG) a converter — fora do git
 ├── scripts/
 │   └── converter-imagens.mjs  # Converte imagens-novas/ para WebP (usa ffmpeg)
 ├── 404.html                 # Página de erro personalizada
-├── index.html               # Estrutura semântica completa e Schema.org
+├── index.html               # Home: estrutura semântica completa e Schema.org
+├── projetos.html            # Página com todos os projetos e seus detalhes
 ├── robots.txt               # Diretrizes para indexadores e crawlers
 ├── sitemap.xml              # Mapa do site para motores de busca (SEO)
 ├── vercel.json              # Cabeçalhos de cache e segurança do deploy
 └── README.md                # Documentação técnica do projeto
 ```
+
+### 🏠 Adicionando ou retirando projetos
+
+A página `projetos.html` é montada a partir de `dados/projetos.json`. Para incluir um projeto, adicione um item ao array (a ordem do arquivo é a ordem na tela):
+
+```json
+{
+  "id": "casa-exemplo",
+  "titulo": "Casa Exemplo",
+  "categoria": "Residencial",
+  "local": "Salvador, BA",
+  "ano": 2026,
+  "descricao": "Texto que aparece no detalhe do projeto.",
+  "imagens": [
+    { "src": "assets/projetos/casa-exemplo-fachada.webp", "alt": "Fachada da Casa Exemplo" }
+  ]
+}
+```
+
+`local`, `ano` e `area` são opcionais; a primeira imagem é a capa e as categorias viram filtros automaticamente. Cada projeto tem link próprio: `projetos.html#casa-exemplo`.
 
 ### 🖼️ Adicionando novas fotos
 

@@ -1226,8 +1226,11 @@ button.botao-secundario {
   align-items: stretch;
 }
 
+/* Cada carta é um link para o detalhe em projetos.html#id */
 .carta-projeto {
   position: relative;
+  display: block;
+  text-decoration: none;
   flex: 1;
   min-width: 0;
   border-radius: 4px;

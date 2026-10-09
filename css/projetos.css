@@ -1,0 +1,493 @@
+/* ==========================================================================
+   MILENA REIS ARQUITETURA — PÁGINA DE PROJETOS (projetos.html)
+   Complementa o css/style.css: usa os mesmos tokens, botões, títulos e o
+   visual do modal (.modal-*).
+
+   1. Cabeçalho da página     4. Modal de detalhe
+   2. Filtros                 5. Chamada final
+   3. Grade e cartões         6. Responsividade
+   ========================================================================== */
+
+.pagina-projetos [hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   1. CABEÇALHO DA PÁGINA (faixa escura, no lugar do hero)
+   ========================================================================== */
+
+.projetos-topo {
+  position: relative;
+  padding: 220px 60px 100px;
+  background: var(--cor-marrom);
+  overflow: hidden;
+}
+
+.projetos-topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--textura);
+  background-size: 300px;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.projetos-topo-conteudo {
+  position: relative;
+  max-width: 720px;
+  animation: subir-aparecer 1s ease 0.1s both;
+}
+
+.projetos-topo .etiqueta-secao {
+  color: var(--cor-nude-borda);
+  letter-spacing: 0.45em;
+}
+
+.projetos-topo .titulo-secao {
+  color: var(--cor-branco);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  margin-bottom: 28px;
+}
+
+.projetos-topo .titulo-secao em {
+  color: var(--cor-branco);
+}
+
+.projetos-topo-texto {
+  max-width: 480px;
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: var(--cor-branco);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   2. FILTROS
+   ========================================================================== */
+
+.projetos-lista {
+  padding: 70px 60px 120px;
+  background: var(--cor-fundo-claro);
+}
+
+.projetos-barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 44px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cor-nude-medio);
+}
+
+.projetos-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 36px;
+}
+
+.filtro-projeto {
+  position: relative;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  font-family: var(--fonte-corpo);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-nude-texto);
+  transition: color 0.3s ease;
+}
+
+/* Mesma linha deslizante dos links do menu */
+.filtro-projeto::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--cor-marrom);
+  transition: width 0.4s var(--curva-animacao);
+}
+
+.filtro-projeto:hover,
+.filtro-projeto[aria-pressed="true"] {
+  color: var(--cor-marrom);
+}
+
+.filtro-projeto[aria-pressed="true"] {
+  font-weight: 500;
+}
+
+.filtro-projeto:hover::after,
+.filtro-projeto[aria-pressed="true"]::after {
+  width: 100%;
+}
+
+.projetos-contagem {
+  flex-shrink: 0;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--cor-nude-texto);
+}
+
+.projetos-aviso {
+  padding: 60px 0;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: var(--cor-marrom-texto);
+}
+
+.projetos-aviso a {
+  color: var(--cor-marrom);
+}
+
+/* ==========================================================================
+   3. GRADE E CARTÕES (mesmo tratamento de imagem das cartas da home)
+   ========================================================================== */
+
+.grade-projetos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.cartao-projeto {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+  text-decoration: none;
+  background: var(--cor-nude-suave);
+  box-shadow: 0 8px 40px rgba(42, 31, 26, 0.12);
+  /* entrada: js/projetos.js adiciona .visivel quando o cartão aparece na tela */
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s var(--curva-animacao),
+    transform 0.8s var(--curva-animacao),
+    box-shadow 0.5s ease;
+}
+
+.cartao-projeto.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cartao-projeto:hover,
+.cartao-projeto:focus-visible {
+  box-shadow: 0 30px 80px rgba(42, 31, 26, 0.35);
+}
+
+.cartao-projeto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.75) brightness(0.92);
+  transition:
+    transform 0.7s var(--curva-animacao),
+    filter 0.5s ease;
+}
+
+.cartao-projeto:hover img,
+.cartao-projeto:focus-visible img {
+  transform: scale(1.06);
+  filter: saturate(1) brightness(0.95);
+}
+
+/* Degradê para o texto ficar legível sobre a foto */
+.cartao-projeto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 15, 10, 0.88) 0%, rgba(26, 15, 10, 0.25) 45%, rgba(26, 15, 10, 0) 70%);
+  z-index: 1;
+}
+
+.cartao-projeto-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 28px;
+}
+
+.cartao-projeto .carta-titulo {
+  font-size: 1.7rem;
+}
+
+.cartao-projeto .galeria-icone-expandir {
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cartao-projeto:hover .galeria-icone-expandir,
+.cartao-projeto:focus-visible .galeria-icone-expandir {
+  background: var(--cor-branco);
+  color: var(--cor-escuro);
+}
+
+/* ==========================================================================
+   4. MODAL DE DETALHE (estrutura .modal-* herdada do style.css)
+   ========================================================================== */
+
+#modal-projeto {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#modal-projeto.ativo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#modal-projeto.ativo .modal-conteudo {
+  transform: translateY(0) scale(1);
+}
+
+#modal-projeto .modal-imagem {
+  position: relative;
+}
+
+#modal-projeto .modal-info {
+  overflow-y: auto;
+  justify-content: flex-start;
+}
+
+/* Com margin auto o conteúdo fica centralizado quando cabe e rola quando não cabe */
+#modal-projeto .modal-etiqueta {
+  margin-top: auto;
+}
+
+#modal-projeto .botao-primario {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-bottom: auto;
+}
+
+/* Setas e contador sobre a foto */
+.modal-projeto-navegacao {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+  border-radius: 40px;
+  background: rgba(26, 15, 10, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-projeto-seta {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cor-branco);
+  font-size: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.modal-projeto-seta:hover {
+  background: var(--cor-branco);
+  color: var(--cor-escuro);
+}
+
+.modal-projeto-contador {
+  min-width: 44px;
+  text-align: center;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--cor-branco);
+}
+
+/* Ficha técnica: Local, Ano... */
+.modal-projeto-ficha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin-bottom: 28px;
+  padding: 20px 0;
+  border-top: 1px solid var(--cor-nude-medio);
+  border-bottom: 1px solid var(--cor-nude-medio);
+}
+
+.modal-projeto-ficha dt {
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cor-nude-texto);
+  margin-bottom: 4px;
+}
+
+.modal-projeto-ficha dd {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  color: var(--cor-escuro);
+}
+
+/* ==========================================================================
+   5. CHAMADA FINAL
+   ========================================================================== */
+
+.projetos-chamada {
+  padding: 120px 60px;
+  background: var(--cor-fundo-creme);
+  text-align: center;
+}
+
+.projetos-chamada .titulo-secao {
+  margin-bottom: 16px;
+}
+
+.projetos-chamada p {
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: var(--cor-marrom-texto);
+  margin-bottom: 36px;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDADE (mesmos breakpoints do style.css)
+   ========================================================================== */
+
+@media (min-width: 1441px) {
+  .projetos-topo {
+    padding: 260px 100px 120px;
+  }
+
+  .projetos-lista {
+    padding: 80px 100px 160px;
+  }
+
+  .grade-projetos {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .projetos-topo {
+    padding: 190px 40px 80px;
+  }
+
+  .projetos-lista {
+    padding: 60px 40px 100px;
+  }
+
+  .grade-projetos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projetos-chamada {
+    padding: 100px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .projetos-topo {
+    padding: 160px 30px 70px;
+  }
+
+  .projetos-topo .titulo-secao {
+    font-size: clamp(2.8rem, 10vw, 4rem);
+  }
+
+  .projetos-lista {
+    padding: 44px 30px 80px;
+  }
+
+  .projetos-barra {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .grade-projetos {
+    gap: 16px;
+  }
+
+  .cartao-projeto-info {
+    padding: 20px;
+  }
+
+  .cartao-projeto .carta-titulo {
+    font-size: 1.3rem;
+  }
+
+  /* No modal empilhado quem rola é o .modal-conteudo (regra do style.css) */
+  #modal-projeto .modal-info {
+    overflow-y: visible;
+  }
+
+  .modal-projeto-navegacao {
+    bottom: 14px;
+  }
+
+  .projetos-chamada {
+    padding: 80px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projetos-topo {
+    padding: 130px 20px 56px;
+  }
+
+  .projetos-lista {
+    padding: 36px 20px 60px;
+  }
+
+  .projetos-filtros {
+    gap: 4px 24px;
+  }
+
+  .grade-projetos {
+    grid-template-columns: 1fr;
+  }
+
+  .cartao-projeto {
+    aspect-ratio: 4 / 3;
+  }
+
+  .projetos-chamada {
+    padding: 60px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projetos-topo-conteudo {
+    animation: none;
+  }
+
+  .cartao-projeto {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

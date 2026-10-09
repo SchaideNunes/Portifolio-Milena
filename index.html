@@ -32,7 +32,9 @@
 
   <!-- Favicon e tema -->
   <meta name="theme-color" content="#3d291d" />
-  <link rel="icon" type="image/webp" href="assets/logo/Logo%20Milena%20(Alt)%20(3).webp" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icones/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icones/favicon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icones/apple-touch-icon.png" />
 
   <!-- Dados estruturados (JSON-LD) -->
   <script type="application/ld+json">
@@ -151,7 +153,7 @@
     </a>
     <ul class="menu-links">
       <li><a href="#secao-sobre">Sobre</a></li>
-      <li><a href="#secao-projetos">Projetos</a></li>
+      <li><a href="projetos.html">Projetos</a></li>
       <li><a href="#secao-servicos">Serviços</a></li>
       <li><a href="#secao-galeria">Galeria</a></li>
       <li><a href="#secao-contato">Contato</a></li>
@@ -167,7 +169,7 @@
   <!-- Menu mobile -->
   <div class="menu-mobile-overlay" id="menu-mobile-overlay" inert>
     <a href="#secao-sobre">Sobre</a>
-    <a href="#secao-projetos">Projetos</a>
+    <a href="projetos.html">Projetos</a>
     <a href="#secao-servicos">Serviços</a>
     <a href="#secao-galeria">Galeria</a>
     <a href="#secao-contato">Contato</a>
@@ -228,8 +230,8 @@
     <!-- SOBRE -->
     <section id="secao-sobre">
       <div class="sobre-foto-container animar-da-esquerda">
-        <img class="sobre-foto-principal" src="assets/sobre/Profile%201.webp" loading="lazy" decoding="async"
-          alt="Retrato da arquiteta Milena Reis" />
+        <img class="sobre-foto-principal" src="assets/sobre/apresentacao.webp" loading="lazy" decoding="async"
+          alt="Milena Reis sorrindo em frente a uma parede de painéis azuis e cor de ferrugem" />
         <img class="sobre-foto-destaque" src="assets/sobre/detalhe.webp" loading="lazy" decoding="async"
           alt="Detalhe de projeto de interiores" />
       </div>
@@ -291,19 +293,18 @@
       </div>
     </section>
 
-    <!-- PROJETOS -->
+    <!-- PROJETOS EM DESTAQUE (a lista completa fica em projetos.html, alimentada por dados/projetos.json) -->
     <section id="secao-projetos">
       <div class="projetos-cabecalho animar-subindo">
         <div>
           <h2 class="titulo-secao">Criações em destaque</h2>
         </div>
-        <a href="https://www.instagram.com/milena_reis_arq/" target="_blank" rel="noopener" class="link-ver-todos">Mais
-          projetos no Instagram</a>
+        <a href="projetos.html" class="link-ver-todos">Todos os projetos</a>
       </div>
 
       <div class="baralho-container">
         <div class="baralho-cartas">
-          <article class="carta-projeto" data-titulo="Residência Feira de Santana">
+          <a class="carta-projeto" href="projetos.html#residencia-feira-de-santana" data-titulo="Residência Feira de Santana">
             <img src="Fotos%20Milena/Fachada%20casa.webp" loading="lazy" decoding="async"
               alt="Fachada da Residência Feira de Santana" />
             <div class="carta-info">
@@ -311,9 +312,9 @@
               <h3 class="carta-titulo">Residência<br />Feira de Santana</h3>
               <p class="carta-ano">2025</p>
             </div>
-          </article>
+          </a>
 
-          <article class="carta-projeto" data-titulo="Villa Serrinha">
+          <a class="carta-projeto" href="projetos.html#villa-serrinha" data-titulo="Villa Serrinha">
             <img src="Fotos%20Milena/Casa%203%20andares.webp" loading="lazy" decoding="async"
               alt="Villa Serrinha, casa de três andares" />
             <div class="carta-info">
@@ -321,9 +322,9 @@
               <h3 class="carta-titulo">Villa<br />Serrinha</h3>
               <p class="carta-ano">2024</p>
             </div>
-          </article>
+          </a>
 
-          <article class="carta-projeto" data-titulo="Casa Barrocas">
+          <a class="carta-projeto" href="projetos.html#casa-barrocas" data-titulo="Casa Barrocas">
             <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" loading="lazy" decoding="async"
               alt="Área externa da Casa Barrocas" />
             <div class="carta-info">
@@ -331,9 +332,9 @@
               <h3 class="carta-titulo">Casa<br />Barrocas</h3>
               <p class="carta-ano">2023</p>
             </div>
-          </article>
+          </a>
 
-          <article class="carta-projeto" data-titulo="Refúgio Salvador">
+          <a class="carta-projeto" href="projetos.html#refugio-salvador" data-titulo="Refúgio Salvador">
             <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" loading="lazy" decoding="async"
               alt="Área externa do Refúgio Salvador" />
             <div class="carta-info">
@@ -341,9 +342,9 @@
               <h3 class="carta-titulo">Refúgio<br />Salvador</h3>
               <p class="carta-ano">2022</p>
             </div>
-          </article>
+          </a>
 
-          <article class="carta-projeto" data-titulo="Residência Sertão">
+          <a class="carta-projeto" href="projetos.html#residencia-sertao" data-titulo="Residência Sertão">
             <img src="Fotos%20Milena/Quintal%20de%20casa.webp" loading="lazy" decoding="async"
               alt="Quintal da Residência Sertão" />
             <div class="carta-info">
@@ -351,9 +352,9 @@
               <h3 class="carta-titulo">Residência<br />Sertão</h3>
               <p class="carta-ano">2021</p>
             </div>
-          </article>
+          </a>
 
-          <article class="carta-projeto" data-titulo="Área de Lazer Bahia">
+          <a class="carta-projeto" href="projetos.html#area-de-lazer-bahia" data-titulo="Área de Lazer Bahia">
             <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" loading="lazy" decoding="async"
               alt="Área de lazer com piscina" />
             <div class="carta-info">
@@ -361,7 +362,7 @@
               <h3 class="carta-titulo">Área de<br />Lazer Bahia</h3>
               <p class="carta-ano">2020</p>
             </div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
