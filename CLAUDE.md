@@ -47,7 +47,7 @@ Requer ffmpeg no PATH (instalado na máquina do usuário via winget). Python **n
 - `dados/projetos.json` → `{ "projetos": [ { id, titulo, categoria, local?, ano?, area?, descricao, imagens: [{ src, alt }] } ] }`. A ordem do array é a ordem na grade; a primeira imagem é a capa. `id` é kebab-case e único (vira o `#hash` da URL). Projeto sem `id`, `titulo` ou imagem é ignorado.
 - **Adicionar/retirar projeto = editar só o JSON.** Filtros (categorias) e contagem saem dos dados. O plano do usuário é, no futuro, a própria Milena gerenciar isso (um CMS que edite esse JSON, ex. Decap CMS, encaixa sem mudar o front).
 - `projetos.html#id` abre o detalhe direto: clicar num cartão só muda o hash; `sincronizarComHash()` abre/fecha o modal. Fechar remove o hash com `history.replaceState`.
-- As 6 cartas "em destaque" da home são **HTML estático** (não leem o JSON) e apontam para `projetos.html#id`. Se mudar um `id` no JSON ou trocar os destaques, atualizar os `href` no `index.html`.
+- As 6 cartas "em destaque" da home são **HTML estático** (não leem o JSON) e **não são clicáveis** (pedido do usuário): quem leva a `projetos.html` é o botão "Ver todos os projetos" ao lado do título. Até 768px a sanfona (que depende de hover) vira uma grade com as informações sempre visíveis.
 - O CTA do modal abre o WhatsApp com o nome do projeto (o wizard de orçamento só existe na home).
 - A lista usa `<section data-sem-desfoque>` para ficar fora do `desfoqueEntreSecoes`.
 - `fetch` do JSON não funciona abrindo o arquivo direto (`file://`): precisa de servidor local.
@@ -63,7 +63,7 @@ Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publ
 - **Validação no servidor** (`api/_lib/validar.js`): só grava campos conhecidos; `src` de foto só em `assets/projetos/*.webp|jpg` ou `Fotos Milena/*.webp`; toda foto citada precisa já existir ou estar no envio. Qualquer campo novo no JSON precisa entrar em `validar.js`, `admin.js` (editor) e `projetos.js` (exibição).
 - **Variáveis na Vercel**: `ADMIN_SENHA` e `GITHUB_TOKEN` (fine-grained, só este repositório, permissão *Contents: Read and write*). Opcionais: `GITHUB_REPO` (`dono/repo`) e `GITHUB_BRANCH`; sem elas usa as variáveis de sistema da Vercel, então **um deploy de preview grava na própria branch**, não na `main`.
 - **Local**: `/api` não existe em servidor estático — o painel abre mas avisa que só funciona na Vercel (`vercel dev` roda as funções, se a CLI estiver instalada).
-- O `id` do projeto nasce do título na criação e nunca muda (é o link `projetos.html#id`). Excluir um projeto que está nos destaques da home deixa a carta da home apontando para um id que não existe mais.
+- O `id` do projeto nasce do título na criação e nunca muda (é o link `projetos.html#id`). Os destaques da home são independentes do painel: excluir um projeto lá não mexe nas cartas da home.
 - `api/` é CommonJS de propósito (não há `package.json`); arquivos em `api/_lib/` não viram rotas.
 
 ## Seções da home (ordem no HTML)
@@ -79,11 +79,12 @@ Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publ
 - **Galeria**: auto-scroll por `requestAnimationFrame` mexendo em `scrollLeft`; pausa durante arrasto e com o modal aberto. Um arrasto (>5px) não conta como clique.
 - **Animações de entrada**: `.animar-subindo`, `.animar-da-esquerda`, `.animar-da-direita`, `.entrada-blur` ganham `.visivel` via IntersectionObserver; o CSS faz a transição. `.texto-merge` alterna `.visivel` ao entrar/sair. `.servico-item` tem observador próprio (cascata de 100ms).
 - **Preloader**: SVG de planta baixa com `strokeDashoffset` via GSAP. Toca **uma vez por sessão**: um script inline no `<head>` lê `sessionStorage.preloaderVisto` e põe `.sem-preloader` no `<html>` antes de pintar (voltar de `projetos.html` não repete a animação). Sem GSAP ou com `prefers-reduced-motion`, é removido na hora. Há `<noscript>` que esconde o preloader e revela o conteúdo animado.
-- **Vídeo 3D**: `ScrollTrigger` com `pin`, `end` +3000 (desktop) / +2400 (≤768px). Um loop `requestAnimationFrame` ajusta `video.currentTime` (evita latência de seek). As frases `#texto-engaja-1..3` são um array `{ seletor, entra, sai }` na mesma timeline. O vídeo precisa ser **keyframe-dense** (`_kf`) — ao trocar, re-encodar assim, em `.webm` **e** `.mp4`. No mobile o CSS centraliza as frases com `transform ... !important`, que anula de propósito o `y` inline do GSAP.
+- **Vídeo 3D**: `ScrollTrigger` com `pin`, `end` +3000 (desktop) / +2400 (≤768px). Um loop `requestAnimationFrame` ajusta `video.currentTime` (evita latência de seek). As frases `#texto-engaja-1..3` são um array `{ seletor, entra, sai }` na mesma timeline. O vídeo precisa ser **keyframe-dense** (`_kf`) — ao trocar, re-encodar assim, em `.webm` **e** `.mp4`.
+- **Vídeo 3D no celular (≤768px)**: o JS troca a fonte para `data-src-mobile` (`Animation_mobile_kf.mp4`: recorte 4:3 de 1440×1080 a partir de x=350 do original, 800×600, keyframe a cada 6 quadros, ~1,6 MB), porque o 16:9 em `cover` numa tela em pé mostrava só uma fatia sem a casa. O layout vira um palco empilhado: frase na faixa de cima, vídeo no meio, botão embaixo. A seção usa `100lvh` (não muda quando a barra do navegador some) e o conteúdo é posicionado com `100svh`; `ScrollTrigger.config({ ignoreMobileResize: true })` evita saltos do pin. Ao trocar o vídeo principal, gerar de novo a versão mobile com o mesmo recorte.
 - **Desfoque entre seções** (`desfoqueEntreSecoes`): escreve `filter` + `opacity` inline em **todas** as `<section>` a cada scroll, só acima de 900px. Interfere em qualquer `filter`/`opacity` definido numa `section` via CSS, e um `filter` no ancestral quebra `position: fixed` de filhos — por isso modal e wizard ficam **fora** das sections.
 - **h1 do hero é uma imagem** (logo com `mix-blend-mode: screen` e `clip-path` cortando os 35% de baixo). Propriedades de fonte em `.hero-titulo-gigante` não têm efeito.
 - **Textura de fundo**: `--textura` (arquivo local `assets/texturas/cubes.png`) aplicada via `::before` em sobre, contato, serviços e faixa.
-- **Responsividade**: tudo na seção 17 do CSS — ≥1441px, ≤1024px, ≤768px, ≤480px. Seção 18 trata `prefers-reduced-motion`.
+- **Responsividade**: tudo na seção 17 do CSS — ≥1441px, ≤1024px, ≤768px, ≤480px e um bloco para tela baixa (celular deitado, `max-height: 560px`). Até 768px o hero usa `min-height: 100svh` e cresce com o conteúdo. Botões têm `white-space: nowrap`: quem quebra é a linha de botões (`flex-wrap`), nunca o rótulo. Seção 18 trata `prefers-reduced-motion`.
 
 ## Pendências conhecidas
 
@@ -103,7 +104,7 @@ Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publ
 - CSS novo entra na seção numerada correspondente; ajustes por breakpoint vão na seção 17, não espalhados.
 - Cores sempre via tokens `:root`. `--cor-branco` é `#f0e9e0` (nude), **não** branco puro.
 - Imagens novas em **WebP**; abaixo da dobra: `loading="lazy" decoding="async"` e `alt` descritivo. Só o hero é `eager` + `fetchpriority="high"`. Caminhos com espaço usam `%20`.
-- Toda mudança visual deve ser conferida nos 4 breakpoints e com o preloader ativo (o site só "revela" após ele).
+- Toda mudança visual deve ser conferida nos 4 breakpoints (e com o celular deitado) e com o preloader ativo (o site só "revela" após ele).
 - Não adicionar framework/build sem pedir: o projeto é deliberadamente Vanilla.
 - Se mudar seções, assets ou stack, atualizar o `README.md`.
 - Commits seguem Conventional Commits em inglês (`feat:`, `fix:`, `style:`, `docs:`, `chore:`), como no histórico.

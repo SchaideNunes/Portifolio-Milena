@@ -279,7 +279,8 @@
 
     <!-- VÍDEO 3D (avança conforme a rolagem) -->
     <section id="secao-modelo-3d" aria-label="Visualização 3D de um projeto">
-      <video id="video-3d" muted playsinline loop preload="metadata" aria-hidden="true">
+      <video id="video-3d" muted playsinline preload="none" aria-hidden="true"
+        data-src-mobile="assets/video/Animation_mobile_kf.mp4">
         <source src="assets/video/Animation_1080_kf.webm" type="video/webm" />
         <source src="assets/video/Animation_1080_kf.mp4" type="video/mp4" />
       </video>
@@ -295,22 +296,22 @@
       </div>
 
       <div class="cta-scroll-final" id="cta-engaja">
-        <button type="button" class="botao-primario" data-abrir-wizard><span>Quero um projeto assim!</span></button>
+        <button type="button" class="botao-primario botao-hero" data-abrir-wizard><span>Quero um projeto assim!</span></button>
       </div>
     </section>
 
-    <!-- PROJETOS EM DESTAQUE (a lista completa fica em projetos.html, alimentada por dados/projetos.json) -->
+    <!-- PROJETOS EM DESTAQUE (vitrine fixa; a lista completa fica em projetos.html, alimentada por dados/projetos.json) -->
     <section id="secao-projetos">
       <div class="projetos-cabecalho animar-subindo">
         <div>
           <h2 class="titulo-secao">Criações em destaque</h2>
         </div>
-        <a href="projetos.html" class="link-ver-todos">Todos os projetos</a>
+        <a href="projetos.html" class="botao-primario"><span>Ver todos os projetos</span></a>
       </div>
 
       <div class="baralho-container">
         <div class="baralho-cartas">
-          <a class="carta-projeto" href="projetos.html#residencia-feira-de-santana" data-titulo="Residência Feira de Santana">
+          <article class="carta-projeto" data-titulo="Residência Feira de Santana">
             <img src="Fotos%20Milena/Fachada%20casa.webp" loading="lazy" decoding="async"
               alt="Fachada da Residência Feira de Santana" />
             <div class="carta-info">
@@ -318,9 +319,9 @@
               <h3 class="carta-titulo">Residência<br />Feira de Santana</h3>
               <p class="carta-ano">2025</p>
             </div>
-          </a>
+          </article>
 
-          <a class="carta-projeto" href="projetos.html#villa-serrinha" data-titulo="Villa Serrinha">
+          <article class="carta-projeto" data-titulo="Villa Serrinha">
             <img src="Fotos%20Milena/Casa%203%20andares.webp" loading="lazy" decoding="async"
               alt="Villa Serrinha, casa de três andares" />
             <div class="carta-info">
@@ -328,9 +329,9 @@
               <h3 class="carta-titulo">Villa<br />Serrinha</h3>
               <p class="carta-ano">2024</p>
             </div>
-          </a>
+          </article>
 
-          <a class="carta-projeto" href="projetos.html#casa-barrocas" data-titulo="Casa Barrocas">
+          <article class="carta-projeto" data-titulo="Casa Barrocas">
             <img src="Fotos%20Milena/Parte%20externa%20Casa.webp" loading="lazy" decoding="async"
               alt="Área externa da Casa Barrocas" />
             <div class="carta-info">
@@ -338,9 +339,9 @@
               <h3 class="carta-titulo">Casa<br />Barrocas</h3>
               <p class="carta-ano">2023</p>
             </div>
-          </a>
+          </article>
 
-          <a class="carta-projeto" href="projetos.html#refugio-salvador" data-titulo="Refúgio Salvador">
+          <article class="carta-projeto" data-titulo="Refúgio Salvador">
             <img src="Fotos%20Milena/Parte%20externa%20casa%20menor.webp" loading="lazy" decoding="async"
               alt="Área externa do Refúgio Salvador" />
             <div class="carta-info">
@@ -348,9 +349,9 @@
               <h3 class="carta-titulo">Refúgio<br />Salvador</h3>
               <p class="carta-ano">2022</p>
             </div>
-          </a>
+          </article>
 
-          <a class="carta-projeto" href="projetos.html#residencia-sertao" data-titulo="Residência Sertão">
+          <article class="carta-projeto" data-titulo="Residência Sertão">
             <img src="Fotos%20Milena/Quintal%20de%20casa.webp" loading="lazy" decoding="async"
               alt="Quintal da Residência Sertão" />
             <div class="carta-info">
@@ -358,9 +359,9 @@
               <h3 class="carta-titulo">Residência<br />Sertão</h3>
               <p class="carta-ano">2021</p>
             </div>
-          </a>
+          </article>
 
-          <a class="carta-projeto" href="projetos.html#area-de-lazer-bahia" data-titulo="Área de Lazer Bahia">
+          <article class="carta-projeto" data-titulo="Área de Lazer Bahia">
             <img src="Fotos%20Milena/Quintal%20com%20piscina.webp" loading="lazy" decoding="async"
               alt="Área de lazer com piscina" />
             <div class="carta-info">
@@ -368,7 +369,7 @@
               <h3 class="carta-titulo">Área de<br />Lazer Bahia</h3>
               <p class="carta-ano">2020</p>
             </div>
-          </a>
+          </article>
         </div>
       </div>
     </section>

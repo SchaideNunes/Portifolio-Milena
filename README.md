@@ -131,6 +131,7 @@ Abaixo estão capturas reais de cada seção e módulo interativo construído na
 ### 2. 3D Architectural Video Scroll-Scrub
 - **GSAP ScrollTrigger Pinned Section**: Fixa a seção na tela enquanto o usuário rola, mapeando o progresso do scroll diretamente no `currentTime` do vídeo em HTML5 (`Animation_1080_kf.webm` / `.mp4`).
 - **Loop Suave de Renderização**: Implementado com `requestAnimationFrame` para contornar gargalos de decodificação de vídeo (*seeking latency*), garantindo suavidade absoluta em desktops e mobile.
+- **Versão para celular**: em telas em pé o site carrega um vídeo próprio, recortado em 4:3 na maquete e mais leve, exibido entre a frase e o botão em vez de cobrir a tela.
 - **Tratamento Mobile/iOS Safari**: Configuração explícita de `muted`, `playsinline` e pré-carregamento assíncrono para garantir suporte nativo sem travamento do navegador.
 - **Narrativa Tipográfica**: Frases conceituais surgem e desaparecem com desfoque gaussiano dinâmico conforme o avanço do render 3D.
 

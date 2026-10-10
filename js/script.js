@@ -333,6 +333,16 @@
     if (!secao || !video) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    // No celular a barra de endereço some/volta ao rolar e muda a altura da tela:
+    // sem isto o ScrollTrigger recalcula o pin a cada vez e a seção dá saltos
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    // Celular em pé: vídeo próprio, recortado em 4:3 na casa (o 16:9 cortaria a maquete) e mais leve
+    const ehMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (ehMobile && video.dataset.srcMobile) {
+      video.querySelectorAll("source").forEach((fonte) => fonte.remove());
+      video.src = video.dataset.srcMobile;
+    }
 
     // iOS Safari só libera o seek depois de um play(): toca e pausa em seguida
     video.muted = true;
@@ -344,7 +354,6 @@
     }
 
     function iniciarScrub() {
-      const ehMobile = window.innerWidth <= 768;
       let tempoAlvo = 0;
 
       // Pré-carrega o vídeo 2 telas antes de chegar na seção
