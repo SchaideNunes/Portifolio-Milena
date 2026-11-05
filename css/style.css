@@ -63,6 +63,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Os links do menu param a seção logo abaixo do menu fixo, sem esconder o topo dela */
+main section[id] {
+  scroll-margin-top: 84px;
+}
+
 .no-scroll {
   overflow: hidden !important;
 }
@@ -1177,44 +1182,70 @@ button.botao-secundario {
 }
 
 #secao-sobre {
-  padding: 100px 60px;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 100px;
-  align-items: center;
+  grid-template-columns: 46% 1fr;
+  min-height: 860px;
   background: var(--cor-fundo-creme);
   position: relative;
   overflow: hidden;
 }
 
-/* --- Bloco de fotos --- */
+/* --- Foto: metade esquerda de ponta a ponta, dissolvendo no fundo à direita --- */
 .sobre-foto-container {
   position: relative;
+  overflow: hidden;
 }
 
+/* 116% de altura: sobra para a paralaxe (js) mover a foto sem abrir vão nas bordas */
 .sobre-foto-principal {
+  position: absolute;
+  left: 0;
+  top: -4%;
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 116%;
   object-fit: cover;
-  object-position: center 20%;
-  filter: saturate(0.75) brightness(0.95);
-  display: block;
-  max-height: 600px;
+  object-position: center 0%;
+  filter: saturate(0.85);
 }
 
-.sobre-foto-destaque {
+.sobre-foto-container::after {
+  content: "";
   position: absolute;
-  bottom: -40px;
-  right: -40px;
-  width: 55%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border: 8px solid var(--cor-fundo-claro);
-  filter: saturate(0.7);
+  inset: 0;
+  background: linear-gradient(90deg, transparent 68%, var(--cor-fundo-creme));
+  pointer-events: none;
+}
+
+/* --- Texto --- */
+.sobre-texto-container {
+  align-self: center;
+  padding: 140px 110px 140px 48px;
+}
+
+.sobre-titulo {
+  font-size: clamp(2.6rem, 3.6vw, 3.8rem);
+  line-height: 1.08;
+  margin: 18px 0 36px;
+}
+
+.sobre-titulo .palavra:nth-child(7) {
+  transition-delay: 0.48s;
+}
+
+/* Frase de abertura: maior, para quem só lê a primeira linha */
+.sobre-abertura {
+  max-width: 34em;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--cor-marrom);
+  margin-bottom: 20px;
 }
 
 .sobre-paragrafo {
-  font-size: 0.92rem;
+  max-width: 34em;
+  font-size: 0.95rem;
   line-height: 1.9;
   color: var(--cor-marrom-texto);
   margin-bottom: 16px;
@@ -2545,10 +2576,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    padding: 180px 100px;
-    gap: 120px;
-    max-width: 1800px;
-    margin: 0 auto;
+    min-height: 960px;
+  }
+
+  .sobre-texto-container {
+    padding: 180px 140px 180px 64px;
   }
 
   #secao-projetos {
@@ -2633,8 +2665,12 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    padding: 100px 40px;
-    gap: 60px;
+    grid-template-columns: 44% 1fr;
+    min-height: 760px;
+  }
+
+  .sobre-texto-container {
+    padding: 110px 40px 110px 24px;
   }
 
   #secao-projetos {
@@ -2740,19 +2776,21 @@ button.botao-secundario {
 
   #secao-sobre {
     grid-template-columns: 1fr;
-    padding: 80px 30px;
-    gap: 50px;
+    min-height: 0;
   }
 
-  .sobre-foto-destaque {
-    display: none;
+  .sobre-foto-container {
+    height: 70vh;
+    min-height: 420px;
+    max-height: 640px;
   }
 
-  .sobre-foto-principal {
-    max-height: 500px;
-    width: 70%;
-    margin: 0 auto;
-    object-position: center 15%;
+  .sobre-foto-container::after {
+    background: linear-gradient(180deg, transparent 65%, var(--cor-fundo-creme));
+  }
+
+  .sobre-texto-container {
+    padding: 8px 30px 80px;
   }
 
   .sobre-estatisticas {
@@ -3053,17 +3091,17 @@ button.botao-secundario {
     padding: 0 16px;
   }
 
-  #secao-sobre {
-    padding: 60px 20px;
-    gap: 40px;
+  .sobre-foto-container {
+    height: 62vh;
+    min-height: 380px;
   }
 
-  .sobre-foto-principal {
-    aspect-ratio: 3/4;
-    max-height: 450px;
-    width: 80%;
-    margin: 0 auto;
-    object-position: center 15%;
+  .sobre-texto-container {
+    padding: 0 20px 60px;
+  }
+
+  .sobre-abertura {
+    font-size: 1.2rem;
   }
 
   .titulo-secao {

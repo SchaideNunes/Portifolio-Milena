@@ -64,7 +64,7 @@ Abaixo estão capturas reais de cada seção e módulo interativo construído na
 <br/>
 
 ### 2. Sobre Mim & Métricas de Autoridade
-*Composição assimétrica com retrato autoral, detalhe sobreposto, tipografia animada palavra por palavra e contadores numéricos dinâmicos.*
+*Retrato em página inteira que se dissolve no fundo, citação em destaque, texto animado palavra por palavra e contadores numéricos dinâmicos.*
 
 <div align="center">
   <img src="assets/screenshots/About.png" alt="Seção Sobre Mim e Métricas" width="95%" />
