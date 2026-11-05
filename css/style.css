@@ -1184,7 +1184,7 @@ button.botao-secundario {
 #secao-sobre {
   display: grid;
   grid-template-columns: 46% 1fr;
-  min-height: 860px;
+  min-height: 680px;
   background: var(--cor-fundo-creme);
   position: relative;
   overflow: hidden;
@@ -1219,13 +1219,13 @@ button.botao-secundario {
 /* --- Texto --- */
 .sobre-texto-container {
   align-self: center;
-  padding: 140px 110px 140px 48px;
+  padding: 90px 110px 90px 48px;
 }
 
 .sobre-titulo {
   font-size: clamp(2.6rem, 3.6vw, 3.8rem);
   line-height: 1.08;
-  margin: 18px 0 36px;
+  margin: 16px 0 28px;
 }
 
 .sobre-titulo .palavra:nth-child(7) {
@@ -1269,8 +1269,8 @@ button.botao-secundario {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  margin-top: 48px;
-  padding-top: 40px;
+  margin-top: 36px;
+  padding-top: 30px;
   border-top: 1px solid var(--cor-nude-medio);
 }
 
@@ -2576,11 +2576,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    min-height: 960px;
+    min-height: 760px;
   }
 
   .sobre-texto-container {
-    padding: 180px 140px 180px 64px;
+    padding: 110px 140px 110px 64px;
   }
 
   #secao-projetos {
@@ -2666,11 +2666,11 @@ button.botao-secundario {
 
   #secao-sobre {
     grid-template-columns: 44% 1fr;
-    min-height: 760px;
+    min-height: 620px;
   }
 
   .sobre-texto-container {
-    padding: 110px 40px 110px 24px;
+    padding: 80px 40px 80px 24px;
   }
 
   #secao-projetos {
