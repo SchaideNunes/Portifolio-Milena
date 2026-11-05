@@ -411,6 +411,8 @@
           scrub: ehMobile ? 0.6 : 1.2,
           pin: true,
           pinSpacing: true,
+          // prepara o pin um pouco antes de chegar: evita o salto ao travar a seção na rolagem rápida
+          anticipatePin: 1,
           onUpdate: (self) => {
             if (!isNaN(video.duration) && video.duration > 0) {
               tempoAlvo = self.progress * video.duration;

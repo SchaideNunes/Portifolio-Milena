@@ -50,8 +50,9 @@
   box-sizing: border-box;
 }
 
+/* Sem scroll-behavior: smooth aqui: ele briga com o pin do ScrollTrigger e causa saltos.
+   A rolagem suave dos links do menu é feita no JS (scrollSuaveDosLinks). */
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
@@ -1184,9 +1185,10 @@ button.botao-secundario {
 /* A coluna da foto tem a mesma proporção da foto (2:3), calculada a partir da altura
    da seção: assim ela aparece inteira, sem cortar a cabeça nem os pés */
 #secao-sobre {
-  --altura-sobre: 820px;
+  /* nunca mais alta que a tela (descontando o menu), para a foto caber inteira à vista */
+  --altura-sobre: clamp(560px, calc(100vh - 84px), 820px);
   display: grid;
-  grid-template-columns: calc(var(--altura-sobre) * 2 / 3) 1fr;
+  grid-template-columns: auto 1fr;
   min-height: var(--altura-sobre);
   background: var(--cor-fundo-creme);
   position: relative;
@@ -1197,6 +1199,10 @@ button.botao-secundario {
 .sobre-foto-container {
   position: relative;
   overflow: hidden;
+  /* altura fixa + proporção da foto: a largura sai exata e a foto nunca é cortada,
+     mesmo que o texto ao lado precise de mais altura */
+  height: var(--altura-sobre);
+  aspect-ratio: 2 / 3;
 }
 
 .sobre-foto-principal {
@@ -1213,14 +1219,14 @@ button.botao-secundario {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 80%, var(--cor-fundo-creme));
+  background: linear-gradient(90deg, transparent 86%, var(--cor-fundo-creme));
   pointer-events: none;
 }
 
 /* --- Texto --- */
 .sobre-texto-container {
   align-self: center;
-  padding: 90px 110px 90px 72px;
+  padding: 56px 110px 56px 72px;
 }
 
 .sobre-titulo {
@@ -2577,11 +2583,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    --altura-sobre: 900px;
+    --altura-sobre: clamp(560px, calc(100vh - 84px), 900px);
   }
 
   .sobre-texto-container {
-    padding: 110px 140px 110px 96px;
+    padding: 64px 140px 64px 96px;
   }
 
   #secao-projetos {
@@ -2666,11 +2672,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    --altura-sobre: 700px;
+    --altura-sobre: clamp(520px, calc(100vh - 84px), 700px);
   }
 
   .sobre-texto-container {
-    padding: 70px 40px 70px 40px;
+    padding: 48px 40px;
   }
 
   #secao-projetos {
@@ -2780,6 +2786,7 @@ button.botao-secundario {
   }
 
   .sobre-foto-container {
+    height: auto;
     width: min(100%, 440px);
     aspect-ratio: 2 / 3;
     margin: 40px auto 0;
