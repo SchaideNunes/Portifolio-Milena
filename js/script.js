@@ -84,56 +84,59 @@
     } catch (e) { /* sem sessionStorage o preloader toca de novo na próxima visita */ }
 
     // Cada traço começa "apagado": o dashoffset igual ao comprimento esconde a linha
-    const todasLinhas = [
-      ".planta-parede-externa", ".planta-parede-interna", ".planta-linha-porta",
-      ".planta-arco-porta", ".planta-janela-a", ".planta-janela-b",
-      ".planta-degrau", ".planta-borda-escada", ".planta-cota-linha",
-      ".planta-cota-tick", ".planta-norte-circulo", ".planta-norte-linha",
+    const tracos = [
+      ".planta-parede-externa", ".planta-parede-face", ".planta-parede-interna", ".planta-linha-porta",
+      ".planta-arco-porta", ".planta-janela-a", ".planta-janela-b", ".planta-degrau", ".planta-borda-escada",
+      ".planta-movel", ".planta-cota-linha", ".planta-cota-tick", ".planta-norte-circulo", ".planta-norte-linha",
       ".planta-escala-linha", ".planta-escala-tick",
     ];
-    document.querySelectorAll(todasLinhas.join(", ")).forEach((el) => {
+    document.querySelectorAll(tracos.join(", ")).forEach((el) => {
       const comprimento = el.getTotalLength ? el.getTotalLength() : 200;
       el.style.strokeDasharray = comprimento;
       el.style.strokeDashoffset = comprimento;
     });
 
-    // Contador de porcentagem
     const contadorEl = document.getElementById("contador-numero");
-    const contador = { valor: 0 };
-    gsap.to(contador, {
-      valor: 100,
-      duration: 1.8,
-      ease: "power2.inOut",
+    const desenhar = (extra = {}) => ({ strokeDashoffset: 0, ease: "power1.out", ...extra });
+
+    // A porcentagem acompanha o desenho de verdade (progresso da timeline)
+    const tl = gsap.timeline({
       onStart: () => gsap.to(".preloader-contador", { opacity: 1, duration: 0.4 }),
       onUpdate: () => {
-        if (contadorEl) contadorEl.textContent = Math.round(contador.valor);
+        if (contadorEl) contadorEl.textContent = Math.round(tl.progress() * 100);
       },
+      onComplete: sairDoPreloader,
     });
+    tl.timeScale(2.2);
 
+    // Ordem de uma prancha: paredes, preenchimento, divisórias, aberturas, escada,
+    // móveis, cotas, nomes dos cômodos, norte e por fim a logo
+    tl.to(".planta-parede-externa", desenhar({ duration: 1.2, ease: "power2.inOut" }))
+      .to(".planta-parede-face", desenhar({ duration: 0.9, ease: "power2.inOut" }), "-=0.7")
+      .to(".planta-poche", { opacity: 0.55, duration: 0.6, ease: "power1.out" }, "-=0.2")
+      .to(".planta-parede-interna", desenhar({ duration: 0.7, ease: "power2.out", stagger: 0.15 }), "-=0.3")
+      .to(".planta-linha-porta", desenhar({ duration: 0.3, stagger: 0.1 }), "-=0.2")
+      .to(".planta-arco-porta", desenhar({ duration: 0.45, stagger: 0.12, ease: "power1.inOut" }), "-=0.2")
+      .to(".planta-janela-a, .planta-janela-b", desenhar({ duration: 0.35, stagger: 0.06 }), "-=0.1")
+      .to(".planta-borda-escada", desenhar({ duration: 0.3 }), "-=0.1")
+      .to(".planta-degrau", desenhar({ duration: 0.12, ease: "none", stagger: 0.06 }), "-=0.2")
+      .to(".planta-movel", desenhar({ duration: 0.35, stagger: 0.05 }), "-=0.1")
+      .to(".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick", desenhar({ duration: 0.4, stagger: 0.04 }), "-=0.4")
+      .to(".planta-cota-texto, .planta-norte-texto, .planta-escala-texto", { opacity: 0.8, duration: 0.4, stagger: 0.08 }, "-=0.2")
+      .fromTo(".planta-rotulo", { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: "power2.out" }, "-=0.4")
+      .to(".planta-norte-circulo, .planta-norte-linha", desenhar({ duration: 0.4, stagger: 0.08 }), "-=0.5")
+      .fromTo(".preloader-logo-img", { opacity: 0, filter: "blur(12px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.9, ease: "power2.out" }, "-=0.1")
+      .to({}, { duration: 0.5 });
+
+    // Saída: a planta se apaga, a logo fica um instante e a tela sobe como uma cortina
     function sairDoPreloader() {
-      gsap.to(tela, {
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.inOut",
-        onComplete: () => tela.remove(),
-      });
+      gsap.timeline({ onComplete: () => tela.remove() })
+        .to(".preloader-planta, .preloader-contador", { opacity: 0, duration: 0.4, ease: "power1.in" })
+        .to(tela, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.9, ease: "power3.inOut" }, "+=0.15");
     }
 
-    // Ordem do desenho: paredes, portas, janelas, escada, cotas, norte e por fim a logo
-    const tl = gsap.timeline({ onComplete: sairDoPreloader });
-    tl.timeScale(2.5);
-    tl.to(".planta-parede-externa", { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" })
-      .to(".planta-parede-interna", { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.15 }, "-=0.3")
-      .to(".planta-linha-porta", { strokeDashoffset: 0, duration: 0.3, stagger: 0.1, ease: "power1.out" }, "-=0.2")
-      .to(".planta-arco-porta", { strokeDashoffset: 0, duration: 0.45, stagger: 0.12, ease: "power1.inOut" }, "-=0.2")
-      .to(".planta-janela-a, .planta-janela-b", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out", stagger: 0.06 }, "-=0.1")
-      .to(".planta-borda-escada", { strokeDashoffset: 0, duration: 0.3, ease: "power1.out" }, "-=0.1")
-      .to(".planta-degrau", { strokeDashoffset: 0, duration: 0.12, ease: "none", stagger: 0.06 }, "-=0.2")
-      .to(".planta-cota-linha, .planta-cota-tick, .planta-escala-linha, .planta-escala-tick", { strokeDashoffset: 0, duration: 0.4, ease: "power1.out", stagger: 0.04 }, "-=0.1")
-      .to(".planta-norte-circulo, .planta-norte-linha", { strokeDashoffset: 0, duration: 0.4, ease: "power1.out", stagger: 0.08 }, "-=0.3")
-      .to(".planta-norte-texto, .planta-escala-texto", { opacity: 0.7, duration: 0.4, stagger: 0.1 }, "-=0.1")
-      .fromTo(".preloader-logo-img", { opacity: 0, filter: "blur(12px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.9, ease: "power2.out" }, "-=0.1")
-      .to({}, { duration: 0.6 });
+    // Quem não quiser esperar clica e o desenho acelera até o fim
+    tela.addEventListener("click", () => tl.timeScale(10), { once: true });
   }
 
   /* --- 4. MENU E NAVEGAÇÃO --- */

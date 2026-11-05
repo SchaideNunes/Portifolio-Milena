@@ -103,34 +103,74 @@
     <div class="preloader-grade"></div>
 
     <svg class="preloader-planta" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
-      <rect class="planta-parede-externa" x="80" y="80" width="400" height="260" fill="none" />
-      <line class="planta-parede-interna" x1="280" y1="80" x2="280" y2="290" />
-      <line class="planta-parede-interna" x1="280" y1="195" x2="480" y2="195" />
-      <line class="planta-parede-interna" x1="80" y1="195" x2="200" y2="195" />
-      <line class="planta-linha-porta" x1="80" y1="215" x2="80" y2="255" />
-      <path class="planta-arco-porta" d="M 80 215 Q 120 215 120 255" fill="none" />
+      <!-- Preenchimento das paredes externas (aparece depois do traço) -->
+      <path class="planta-poche" d="M80 80H480V340H80Z M88 88V332H472V88Z" fill-rule="evenodd" />
+
+      <!-- Paredes: face externa e interna da parede, e divisórias -->
+      <rect class="planta-parede-externa" x="80" y="80" width="400" height="260" />
+      <rect class="planta-parede-face" x="88" y="88" width="384" height="244" />
+      <line class="planta-parede-interna" x1="280" y1="88" x2="280" y2="290" />
+      <line class="planta-parede-interna" x1="280" y1="195" x2="472" y2="195" />
+      <line class="planta-parede-interna" x1="88" y1="195" x2="200" y2="195" />
+
+      <!-- Portas (folha + arco de abertura) -->
+      <line class="planta-linha-porta" x1="84" y1="215" x2="84" y2="255" />
+      <path class="planta-arco-porta" d="M 84 215 Q 124 215 124 255" />
       <line class="planta-linha-porta" x1="280" y1="235" x2="280" y2="270" />
-      <path class="planta-arco-porta" d="M 280 235 Q 315 235 315 270" fill="none" />
+      <path class="planta-arco-porta" d="M 280 235 Q 315 235 315 270" />
+
+      <!-- Janelas -->
       <line class="planta-janela-a" x1="130" y1="80" x2="210" y2="80" />
       <line class="planta-janela-b" x1="130" y1="73" x2="210" y2="73" />
       <line class="planta-janela-a" x1="330" y1="80" x2="430" y2="80" />
       <line class="planta-janela-b" x1="330" y1="73" x2="430" y2="73" />
       <line class="planta-janela-a" x1="480" y1="100" x2="480" y2="170" />
       <line class="planta-janela-b" x1="487" y1="100" x2="487" y2="170" />
-      <line class="planta-degrau" x1="95" y1="120" x2="160" y2="120" />
-      <line class="planta-degrau" x1="95" y1="132" x2="160" y2="132" />
-      <line class="planta-degrau" x1="95" y1="144" x2="160" y2="144" />
-      <line class="planta-degrau" x1="95" y1="156" x2="160" y2="156" />
-      <line class="planta-degrau" x1="95" y1="168" x2="160" y2="168" />
-      <line class="planta-borda-escada" x1="95" y1="116" x2="95" y2="180" />
+
+      <!-- Escada -->
+      <line class="planta-degrau" x1="100" y1="120" x2="160" y2="120" />
+      <line class="planta-degrau" x1="100" y1="132" x2="160" y2="132" />
+      <line class="planta-degrau" x1="100" y1="144" x2="160" y2="144" />
+      <line class="planta-degrau" x1="100" y1="156" x2="160" y2="156" />
+      <line class="planta-degrau" x1="100" y1="168" x2="160" y2="168" />
+      <line class="planta-borda-escada" x1="100" y1="116" x2="100" y2="180" />
       <line class="planta-borda-escada" x1="160" y1="116" x2="160" y2="180" />
+
+      <!-- Mobiliário (traço fino) -->
+      <rect class="planta-movel" x="390" y="100" width="70" height="80" rx="2" />
+      <rect class="planta-movel" x="396" y="105" width="27" height="14" rx="3" />
+      <rect class="planta-movel" x="427" y="105" width="27" height="14" rx="3" />
+      <line class="planta-movel" x1="390" y1="132" x2="460" y2="132" />
+      <rect class="planta-movel" x="371" y="100" width="14" height="14" />
+      <rect class="planta-movel" x="108" y="292" width="112" height="30" rx="3" />
+      <line class="planta-movel" x1="114" y1="314" x2="214" y2="314" />
+      <rect class="planta-movel" x="138" y="252" width="56" height="24" rx="2" />
+      <rect class="planta-movel" x="438" y="205" width="32" height="118" />
+      <circle class="planta-movel" cx="454" cy="236" r="8" />
+      <circle class="planta-movel" cx="362" cy="270" r="22" />
+      <rect class="planta-movel" x="355" y="238" width="14" height="8" rx="2" />
+      <rect class="planta-movel" x="355" y="294" width="14" height="8" rx="2" />
+      <rect class="planta-movel" x="330" y="263" width="8" height="14" rx="2" />
+      <rect class="planta-movel" x="386" y="263" width="8" height="14" rx="2" />
+
+      <!-- Nomes dos cômodos -->
+      <text class="planta-rotulo" x="226" y="146" text-anchor="middle">escada</text>
+      <text class="planta-rotulo" x="328" y="146" text-anchor="middle">quarto</text>
+      <text class="planta-rotulo" x="240" y="236" text-anchor="middle">sala</text>
+      <text class="planta-rotulo" x="372" y="322" text-anchor="middle">cozinha</text>
+
+      <!-- Cotas -->
       <line class="planta-cota-linha" x1="80" y1="48" x2="480" y2="48" />
       <line class="planta-cota-tick" x1="80" y1="42" x2="80" y2="54" />
       <line class="planta-cota-tick" x1="480" y1="42" x2="480" y2="54" />
       <line class="planta-cota-linha" x1="516" y1="80" x2="516" y2="340" />
       <line class="planta-cota-tick" x1="510" y1="80" x2="522" y2="80" />
       <line class="planta-cota-tick" x1="510" y1="340" x2="522" y2="340" />
-      <circle class="planta-norte-circulo" cx="535" cy="38" r="18" fill="none" />
+      <text class="planta-cota-texto" x="280" y="42" text-anchor="middle">12,00</text>
+      <text class="planta-cota-texto" x="530" y="210" text-anchor="middle" transform="rotate(90 530 210)">7,80</text>
+
+      <!-- Norte e escala -->
+      <circle class="planta-norte-circulo" cx="535" cy="38" r="18" />
       <line class="planta-norte-linha" x1="535" y1="20" x2="535" y2="56" />
       <line class="planta-norte-linha" x1="517" y1="38" x2="553" y2="38" />
       <text class="planta-norte-texto" x="535" y="35" text-anchor="middle">N</text>
