@@ -67,6 +67,41 @@
   // Usado pelas outras páginas (ex.: js/projetos.js)
   window.MilenaSite = { abrirSobreposicao, fecharSobreposicao, abrirWhatsApp, menosMovimento };
 
+  /* --- Botões pílula: seta animada + efeito ímã ---
+     Roda assim que o script carrega (não espera o load), para o ícone não "aparecer depois". */
+  function iniciarBotoesPilula() {
+    const seta = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+    const botoes = document.querySelectorAll(".botao-pilula");
+
+    botoes.forEach((botao) => {
+      if (botao.querySelector(".botao-pilula-icone")) return;
+      const icone = document.createElement("span");
+      icone.className = "botao-pilula-icone";
+      icone.setAttribute("aria-hidden", "true");
+      icone.innerHTML = seta + seta;
+      botao.appendChild(icone);
+    });
+
+    // Ímã só com mouse de verdade: no toque o botão "pularia" sob o dedo
+    const temMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!temMouse || menosMovimento) return;
+
+    const FORCA = 0.25; // fração da distância até o centro que o botão acompanha
+    botoes.forEach((botao) => {
+      botao.addEventListener("pointermove", (e) => {
+        const r = botao.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * FORCA;
+        const y = (e.clientY - r.top - r.height / 2) * FORCA;
+        botao.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      botao.addEventListener("pointerleave", () => {
+        botao.style.transform = "";
+      });
+    });
+  }
+
+  iniciarBotoesPilula();
+
   /* --- 3. PRELOADER (planta baixa desenhada com GSAP) --- */
   function animarPreloader() {
     const tela = document.getElementById("tela-carregamento");

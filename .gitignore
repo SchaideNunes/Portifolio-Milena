@@ -8,3 +8,6 @@ imagens-novas/*
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Sites de referência baixados para consulta (não fazem parte do site)
+referencias/

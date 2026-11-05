@@ -30,6 +30,7 @@ Servir a pasta raiz com qualquer servidor estático (Live Server, `npx serve`, e
 | `Fotos Milena/` | Fotos reais dos projetos — **são estas que o site usa** nos cards e na galeria. |
 | `imagens-novas/` | Entrada de originais PNG/JPG (gitignored). Ver "Imagens novas". |
 | `scripts/converter-imagens.mjs` | PNG/JPG → WebP via ffmpeg. |
+| `referencias/` | Sites de referência baixados para consulta (ex.: `hanrry/`, de onde veio o botão pílula). **Só local**: fora do git e do deploy. |
 
 GSAP 3.12.5 + ScrollTrigger vêm de CDN (cdnjs), com `defer`. Fontes (Cormorant Garamond, Jost) via `<link>` no `<head>`.
 
@@ -74,6 +75,7 @@ Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publ
 
 ## Como as coisas funcionam (não óbvio)
 
+- **Botão pílula** (`.botao-pilula`, e `.botao-pilula--claro` sobre fundo escuro): os CTAs principais. O ícone de seta é inserido pelo JS (`iniciarBotoesPilula`, roda sem esperar o `load`), e o efeito ímã (segue o cursor 25% e volta com quique via `transition`) só liga com mouse de verdade e sem `prefers-reduced-motion`. Não depende de GSAP, então funciona também em `projetos.html`.
 - **Sem `onclick` inline.** Ações são ligadas no JS por atributos: `data-abrir-wizard` (qualquer botão, em qualquer lugar), `data-fechar-wizard`, `data-ir-passo="N"`. Formulários (`#form-contato`, `#form-orcamento`) usam o evento `submit`.
 - **WhatsApp**: número único em `CONFIG.whatsapp` no topo do `js/script.js` (também aparece no HTML: JSON-LD e link `tel:`). Wizard e formulário de contato só abrem `wa.me` com texto pronto — não há backend nem envio de e-mail.
 - **Sobreposições** (menu mobile, modais, wizard): abrir/fechar sempre por `abrirSobreposicao(el, { focarEm, aoFechar })` / `fecharSobreposicao(el)`. Elas cuidam de `.ativo`, `inert`, devolução do foco, trava de scroll (`.no-scroll`, só sai quando nenhuma está aberta) e Esc (fecha a do topo da pilha chamando `aoFechar`). Sobreposição nova: começar com `inert` no HTML e passar a própria função de fechar em `aoFechar`. Fora do `script.js`, usar `window.MilenaSite`.

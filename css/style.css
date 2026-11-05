@@ -1028,6 +1028,81 @@ button {
   content: "→";
 }
 
+/* --- Botão pílula: texto + círculo com seta; segue o cursor (ímã) --- */
+.botao-pilula {
+  --pilula-fundo: var(--cor-marrom);
+  --pilula-texto: var(--cor-branco);
+  --pilula-icone-fundo: var(--cor-branco);
+  --pilula-icone: var(--cor-marrom);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 7px 7px 26px;
+  border: none;
+  border-radius: 999px;
+  background: var(--pilula-fundo);
+  color: var(--pilula-texto);
+  font-family: var(--fonte-corpo);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(26, 15, 10, 0.18);
+  /* a curva com "passada" dá o quique ao voltar para o lugar */
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+
+.botao-pilula:hover {
+  box-shadow: 0 14px 32px rgba(26, 15, 10, 0.28);
+}
+
+/* Versão clara, para fundos escuros (hero, vídeo) */
+.botao-pilula--claro {
+  --pilula-fundo: var(--cor-branco);
+  --pilula-texto: var(--cor-escuro);
+  --pilula-icone-fundo: var(--cor-marrom);
+  --pilula-icone: var(--cor-branco);
+}
+
+/* O ícone é inserido pelo JS: duas setas empilhadas, uma sai e a outra entra no hover */
+.botao-pilula-icone {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--pilula-icone-fundo);
+  color: var(--pilula-icone);
+}
+
+.botao-pilula-icone svg {
+  grid-area: 1 / 1;
+  width: 44%;
+  height: 44%;
+  transition: transform 0.4s var(--curva-animacao);
+}
+
+.botao-pilula-icone svg + svg {
+  transform: translate(-170%, 170%);
+}
+
+.botao-pilula:hover .botao-pilula-icone svg:first-child,
+.botao-pilula:focus-visible .botao-pilula-icone svg:first-child {
+  transform: translate(170%, -170%);
+}
+
+.botao-pilula:hover .botao-pilula-icone svg + svg,
+.botao-pilula:focus-visible .botao-pilula-icone svg + svg {
+  transform: translate(0, 0);
+}
+
 button.botao-secundario {
   border: none;
   background: none;
@@ -1280,7 +1355,7 @@ button.botao-secundario {
   font-weight: 500;
 }
 
-.projetos-cabecalho .botao-primario {
+.projetos-cabecalho .botao-pilula {
   flex-shrink: 0;
 }
 
