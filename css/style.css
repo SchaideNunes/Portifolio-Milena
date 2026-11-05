@@ -1181,10 +1181,13 @@ button.botao-secundario {
   }
 }
 
+/* A coluna da foto tem a mesma proporção da foto (2:3), calculada a partir da altura
+   da seção: assim ela aparece inteira, sem cortar a cabeça nem os pés */
 #secao-sobre {
+  --altura-sobre: 820px;
   display: grid;
-  grid-template-columns: 46% 1fr;
-  min-height: 680px;
+  grid-template-columns: calc(var(--altura-sobre) * 2 / 3) 1fr;
+  min-height: var(--altura-sobre);
   background: var(--cor-fundo-creme);
   position: relative;
   overflow: hidden;
@@ -1196,15 +1199,13 @@ button.botao-secundario {
   overflow: hidden;
 }
 
-/* 116% de altura: sobra para a paralaxe (js) mover a foto sem abrir vão nas bordas */
 .sobre-foto-principal {
   position: absolute;
-  left: 0;
-  top: -4%;
+  inset: 0;
   width: 100%;
-  height: 116%;
+  height: 100%;
   object-fit: cover;
-  object-position: center 0%;
+  object-position: center top;
   filter: saturate(0.85);
 }
 
@@ -1212,14 +1213,14 @@ button.botao-secundario {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 68%, var(--cor-fundo-creme));
+  background: linear-gradient(90deg, transparent 80%, var(--cor-fundo-creme));
   pointer-events: none;
 }
 
 /* --- Texto --- */
 .sobre-texto-container {
   align-self: center;
-  padding: 90px 110px 90px 48px;
+  padding: 90px 110px 90px 72px;
 }
 
 .sobre-titulo {
@@ -2576,11 +2577,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    min-height: 760px;
+    --altura-sobre: 900px;
   }
 
   .sobre-texto-container {
-    padding: 110px 140px 110px 64px;
+    padding: 110px 140px 110px 96px;
   }
 
   #secao-projetos {
@@ -2665,12 +2666,11 @@ button.botao-secundario {
   }
 
   #secao-sobre {
-    grid-template-columns: 44% 1fr;
-    min-height: 620px;
+    --altura-sobre: 700px;
   }
 
   .sobre-texto-container {
-    padding: 80px 40px 80px 24px;
+    padding: 70px 40px 70px 40px;
   }
 
   #secao-projetos {
@@ -2780,9 +2780,9 @@ button.botao-secundario {
   }
 
   .sobre-foto-container {
-    height: 70vh;
-    min-height: 420px;
-    max-height: 640px;
+    width: min(100%, 440px);
+    aspect-ratio: 2 / 3;
+    margin: 40px auto 0;
   }
 
   .sobre-foto-container::after {
@@ -3092,8 +3092,8 @@ button.botao-secundario {
   }
 
   .sobre-foto-container {
-    height: 62vh;
-    min-height: 380px;
+    width: 100%;
+    margin-top: 0;
   }
 
   .sobre-texto-container {

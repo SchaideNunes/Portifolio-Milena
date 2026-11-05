@@ -278,18 +278,6 @@
     itens.forEach((item) => observador.observe(item));
   }
 
-  // Foto do "Sobre" se desloca levemente em relação à rolagem
-  function paralaxeDaFotoSobre() {
-    const secao = document.getElementById("secao-sobre");
-    const foto = document.querySelector(".sobre-foto-principal");
-    if (!secao || !foto || menosMovimento) return;
-
-    window.addEventListener("scroll", () => {
-      const deslocamento = -secao.getBoundingClientRect().top * 0.08;
-      foto.style.transform = `translateY(${deslocamento}px)`;
-    }, { passive: true });
-  }
-
   // Contadores das estatísticas: sobem de 0 até data-valor uma única vez
   function contarNumeros() {
     const bloco = document.querySelector(".sobre-estatisticas");
@@ -695,7 +683,6 @@
     animarAoEntrarNaTela();
     animarTextoPalavras();
     animarServicosEmCascata();
-    paralaxeDaFotoSobre();
     contarNumeros();
     desfoqueEntreSecoes();
     animarVideoModuloScroll();
