@@ -2,7 +2,9 @@
 
 Portfólio da arquiteta **Milena Reis** (Salvador, BA). Site estático em Vanilla Web — sem build, sem package manager, sem testes — mais três funções serverless da Vercel (`api/`) que servem só ao painel de projetos. Idioma do conteúdo, classes CSS, funções JS e comentários: **português (pt-BR)**. Mantenha esse padrão.
 
-Autor/dev: Schaide Nunes. Deploy: **Vercel**, em `https://portifolio-milena.vercel.app/` (integração com o GitHub: push na `main` publica).
+Autor/dev: Schaide Nunes. Deploy: **Vercel**, em `https://milena-reis-arquiteta.vercel.app/` (projeto da Vercel `milena-reis-arquiteta`; domínio próprio ainda não comprado).
+
+**Branches**: `producao` é a branch de produção da Vercel (push nela publica o site). `main` é a de desenvolvimento (gera só preview). Para publicar: mesclar `main` em `producao`. O painel grava na branch do deploy em que roda, ou seja, os projetos que a Milena publica entram na `producao`: antes de trabalhar, trazer de volta com `git pull origin producao` estando na `main`.
 
 ## Executar
 
@@ -88,7 +90,7 @@ Escolha do usuário: **o GitHub é o armazenamento** (sem banco, sem Blob). Publ
 
 ## Pendências conhecidas
 
-1. **Domínio**: `milenareis.arq.br` (que estava no canonical/OG/sitemap) **não existe no DNS**; tudo aponta agora para `portifolio-milena.vercel.app`. Quando houver domínio próprio, trocar em: `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `robots.txt`, `sitemap.xml` e aqui.
+1. **Domínio**: `milenareis.arq.br` (que estava no canonical/OG/sitemap) **não existe no DNS**; tudo aponta agora para `milena-reis-arquiteta.vercel.app`. Quando houver domínio próprio, trocar em: `index.html` (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD), `robots.txt`, `sitemap.xml` e aqui.
 2. **LinkedIn** do rodapé/JSON-LD (`linkedin.com/in/milena-reis-arquitetura`) veio do código original e não foi confirmado. Behance foi removido por não ter URL.
 3. **Textos dos projetos**: as descrições das 6 casas em `dados/projetos.json` foram escritas a partir das fotos (rascunho, aguardando revisão da Milena); títulos, locais e anos vieram da home. Os 6 de "Interiores" reaproveitam os textos da galeria e não têm local/ano.
 4. **Assets não referenciados** (mantidos a pedido do usuário): `assets/Pattern (1-4).webp`, `assets/galeria/*`, `assets/projetos/*`, `assets/sobre/Profile 1/2/3.webp`, logos `Alt (1)`, `Comp (1)`, `Comp (2)`, e em `Fotos Milena/`: `Banheiro 2`, `Banheiro 3`, `Garagem casa externa`, `Quarto apartamento`, `Varanda`.

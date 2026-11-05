@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /api/
 
-Sitemap: https://portifolio-milena.vercel.app/sitemap.xml
+Sitemap: https://milena-reis-arquiteta.vercel.app/sitemap.xml
